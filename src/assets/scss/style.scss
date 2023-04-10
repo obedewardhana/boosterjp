@@ -1,9 +1,19 @@
 @import "~vuetify/src/components/VStepper/_variables.scss";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap");
 
 /*Colors*/
 
 /*General*/
+
+@font-face {
+  font-family: "Rajdhani Bold";
+  src: url("./../fonts/Rajdhani-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Rajdhani";
+  src: url("./../fonts/Rajdhani-Medium.ttf");
+}
 
 .v-application {
   .title {
@@ -25,7 +35,7 @@
   h5,
   h6,
   p {
-    font-family: "Poppins", sans-serif !important;
+    font-family: "Radjhani Regular", sans-serif !important;
     letter-spacing: normal;
     word-break: break-word;
     line-height: 1.5 !important;
@@ -37,14 +47,40 @@
     font-weight: 500;
   }
   .text-small {
-    font-size: 13px;
+    font-size: 11px!important;
   }
   .v-btn {
-    font-family: "Poppins", sans-serif !important;
+    font-family: "Rajdhani", sans-serif !important;
+    font-size: 16px;
     letter-spacing: 0;
-  }
-  .container {
-    max-width: 1024px;
+    min-width: 0;
+    &.no-padding {
+      min-width: 0 !important;
+      padding: 0 !important;
+    }
+    &:before {
+      display: none;
+    }
+    .nav-menu {
+      padding: 0 7px !important;
+      opacity: 0.8;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    .router-link-exact-active {
+      .nav-menu {
+        opacity: 1;
+      }
+    }
+    .v-ripple__container {
+      display: none !important;
+    }
+    .text-small {
+      .v-btn__content {
+        font-size: 12px;
+      }
+    }
   }
   .btn-default {
     font-size: 1.5rem;
@@ -61,25 +97,33 @@
     padding: 12px;
   }
   .nav-link {
+    color: var(--v-white-base);
+    font-weight: 500;
     letter-spacing: 0;
     text-decoration: none;
     transition: 0.2s ease-in-out;
     -moz-transition: 0.2s ease-in-out;
     -webkit-transition: 0.2s ease-in-out;
+    &:hover {
+      opacity: 1;
+    }
   }
   .v-list {
     .v-list-item {
-      font-family: "Poppins", sans-serif;
+      font-family: "Rajdhani", sans-serif;
       .v-list-item__title {
-        font-family: "Poppins", sans-serif;
+        font-family: "Rajdhani", sans-serif;
+        &.menu-title {
+          text-transform: uppercase;
+        }
       }
       .v-list-item__subtitle {
-        font-family: "Poppins", sans-serif;
+        font-family: "Rajdhani", sans-serif;
       }
     }
   }
   .hover-text:hover {
-    color: var(--v-bluelighter-base) !important;
+    color: var(--v-white-base) !important;
     transition: 0.2s ease-in-out;
     -moz-transition: 0.2s ease-in-out;
     -webkit-transition: 0.2s ease-in-out;
@@ -91,7 +135,7 @@
     padding: 15px 20px;
     li {
       a {
-        font-family: "Poppins", sans-serif;
+        font-family: "Rajdhani", sans-serif;
         font-size: 14px;
         font-weight: 600;
       }
@@ -323,7 +367,7 @@
             }
           }
           .feed-category {
-            font-family: "Poppins", sans-serif;
+            font-family: "Rajdhani", sans-serif;
             background-color: transparent;
             border: 1px solid var(--v-white-base);
             padding: 5px 20px;
@@ -401,7 +445,7 @@
         .feed-category {
           width: auto;
           height: auto;
-          font-family: "Poppins", sans-serif;
+          font-family: "Rajdhani", sans-serif;
           background-color: transparent;
           border: 1px solid var(--v-primary-base);
           color: var(--v-primary-base);
@@ -510,7 +554,7 @@
         flex-direction: row;
         padding-bottom: 20px;
         span {
-          font-family: "Poppins", sans-serif;
+          font-family: "Rajdhani", sans-serif;
         }
         h4 {
           padding: 0 10px;
@@ -519,7 +563,7 @@
           font-size: 16px;
           text-transform: uppercase;
           font-weight: bold;
-          font-family: "Poppins", sans-serif;
+          font-family: "Rajdhani", sans-serif;
           .v-select__selection {
             color: var(--v-bluesea-base);
           }
@@ -576,7 +620,7 @@
       }
     }
     .v-date-picker-header__value button {
-      font-family: "Poppins", sans-serif;
+      font-family: "Rajdhani", sans-serif;
     }
     .bg--bluelighter {
       background-color: var(--v-bluelighter-base);
@@ -599,12 +643,12 @@
       }
       input,
       textarea {
-        font-family: "Poppins", sans-serif;
+        font-family: "Rajdhani", sans-serif;
         padding: 0 5px;
       }
       input::placeholder,
       textarea::placeholder {
-        font-family: "Poppins", sans-serif;
+        font-family: "Rajdhani", sans-serif;
         padding: 0 5px;
         text-transform: capitalize;
       }
@@ -613,7 +657,7 @@
       }
       .error-message {
         color: red;
-        font-family: "Poppins", sans-serif;
+        font-family: "Rajdhani", sans-serif;
       }
     }
 
@@ -703,7 +747,7 @@
       .feed-detail {
         .feed-detail-category {
           font-size: 13px;
-          font-family: "Poppins", sans-serif;
+          font-family: "Rajdhani", sans-serif;
           color: var(--v-primary-base);
           text-transform: capitalize;
           border: 1px solid var(--v-primary-base);
@@ -716,7 +760,7 @@
           justify-content: space-between;
           width: 100%;
           font-size: 14px;
-          font-family: "Poppins", sans-serif;
+          font-family: "Rajdhani", sans-serif;
           color: var(--v-primary-base);
           flex-wrap: wrap;
           flex-direction: row;
@@ -770,10 +814,12 @@
     }
   }
   .white--text.router-link-exact-active {
-    color: var(--v-bluelighter-base) !important;
+    color: var(--v-orange-base) !important;
+    font-weight: 600;
   }
   .primary--text.router-link-exact-active {
-    color: var(--v-bluelighter-base) !important;
+    color: var(--v-orange-base) !important;
+    font-weight: 600;
   }
   .brand-logo {
     .v-avatar {
@@ -795,17 +841,48 @@
       }
     }
   }
+  .v-text-field {
+    .v-label {
+      font-family: "Rajdhani", sans-serif;
+      font-style: italic;
+      font-size: 14px;
+      padding-left: 7px;
+      width: 130px;
+    }
+    &.v-text-field--solo {
+      .v-input__control {
+        display: block;
+        height: 28px;
+        padding-left: 7px;
+        font-size: 14px;
+        min-height: unset;
+        font-weight: 600;
+        width: 130px;
+        .v-input__slot {
+          padding: 0;
+          input {
+            padding: 0;
+            line-height: 1.15;
+            height: 28px;
+            width: 130px;
+            font-size: 14px;
+            padding-left: 7px;
+          }
+        }
+      }
+    }
+  }
 }
 
 .v-dialog {
   .v-list-item {
     padding: 0;
-    font-family: "Poppins", sans-serif;
+    font-family: "Rajdhani", sans-serif;
     .v-list-item__title {
-      font-family: "Poppins", sans-serif;
+      font-family: "Rajdhani", sans-serif;
     }
     .v-list-item__subtitle {
-      font-family: "Poppins", sans-serif;
+      font-family: "Rajdhani", sans-serif;
     }
   }
 }

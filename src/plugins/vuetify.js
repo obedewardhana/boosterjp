@@ -15,15 +15,16 @@ export default new Vuetify({
                 bluesea: "#036280",
                 bluelighter:"#82BECF",
                 accent: "#458CA4",
-                gray: "#eef5f7",
-                graylight: "#ecf1ee",
-                grayrefuge:"#617D82",
+                dark: "#262626",
+                dark2:"#474747",
                 white: "#ffffff",
                 socialfacebook:"#3b5998",
                 socialinstagram:"#833AB4",
                 socialgmail:"#c71610",
                 socialtwitter:"#00acee",
-                socialpinterest:"#E60023"
+                socialpinterest:"#E60023",
+                graylight: "#262626",
+                orange: "#ff9100"
             }
         }
     }

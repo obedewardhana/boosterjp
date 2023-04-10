@@ -2,6 +2,31 @@
 Responsive
 */
 
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 750px;
+  }
+}
+
+@media screen and (min-width: 920px) {
+  .container {
+    max-width: 870px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 1150px;
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  .container {
+    max-width: 1440px;
+  }
+}
+
+
 @media screen and (max-width: 768px) {
   .v-application {
     .action-box {
@@ -107,7 +132,7 @@ Responsive
       }
       .faith-item {
         p {
-          font-size:14px;
+          font-size: 14px;
         }
       }
     }

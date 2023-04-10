@@ -25,16 +25,6 @@ const routes = [
       hideNavbar: false,
       hideFooter: false
     }
-  },
-  {
-    path: "/church",
-    name: "Church",
-    component: ChurchPage,
-    meta: {
-      requiresAuth: false,
-      hideNavbar: false,
-      hideFooter: false
-    }
   }
 ];
 
