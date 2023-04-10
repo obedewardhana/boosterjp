@@ -67,7 +67,7 @@
                   @click.stop="drawer = !drawer"
                   v-if="isXs"
                 />
-                <div v-else class="d-flex flex-row justify-start">
+                <div v-else class="d-flex flex-row align-center justify-start">
                   <v-btn class="no-hover no-padding" text depressed>
                     <router-link
                       class="nav-link white--text hover-text"
