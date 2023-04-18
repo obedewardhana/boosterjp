@@ -12,21 +12,6 @@
         <router-view />
       </transition>
     </v-main>
-    <v-main class="pt-0">
-      <transition name="fade" mode="out-in">
-        <router-view />
-      </transition>
-    </v-main>
-    <v-main class="pt-0">
-      <transition name="fade" mode="out-in">
-        <router-view />
-      </transition>
-    </v-main>
-    <v-main class="pt-0">
-      <transition name="fade" mode="out-in">
-        <router-view />
-      </transition>
-    </v-main>
     <FooterComp color="black"></FooterComp>
     <v-scale-transition>
       <v-btn

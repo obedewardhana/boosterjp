@@ -1,15 +1,15 @@
 <template>
     <div>
-        <HomeSectionComp />
+        <HomeSliderComp />
     </div>
 </template>
   
 <script>
-import HomeSectionComp from "@/components/Home/HomeSection.vue";
+import HomeSliderComp from "@/components/Home/HomeSlider.vue";
 export default {
     name: "HomeView",
     components: {
-        HomeSectionComp
+        HomeSliderComp
     },
     data: () => ({
         

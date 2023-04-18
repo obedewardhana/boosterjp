@@ -133,7 +133,10 @@
             </v-row>
           </v-col>
           <v-col cols="12">
-            <div class="footer-description">
+            <div
+              class="footer-description"
+              :class="[visible ? 'show' : 'hide']"
+            >
               <p class="white--text text-p">
                 Boosterjp adalah SITUS MESIN SLOTGAMES 4D MANIA JACKPOT PAUS WD
                 PASTI BAYAR 2022 100% Tanpa Ribet Hoki Jp Untung Manjur Anti
@@ -152,19 +155,32 @@
                 merupakan situs judi bola berlisensi di Asia dimana Sbobet sudah
                 mempunyai ijin resmi di Eropa yang diberikan oleh Isle of Man,
                 yang berstatus pemberi ijin resmi dalam bermain judi bola secara
-                online. <br><br> Boosterjp Juga Menjadi Salah Satu Situs Terbesar Di asia
-                Yang Menerima Deposit Melalui Pulsa Ewalet yang 24jam nonstop .
-                Bonus Promo Nya Pun Sangat Menarik Dan Bonus Bonus Yang Di
-                Sediakan Paling Dicari Oleh Slotter Mania Tanah Air Karena
-                Turnovernya Kecil Dan Claim Tanpa Ribet . Buat anda pecinta
-                games online selain slot machine auto cuan winrate rtp nya yang
-                tinggi . Anda Bisa coba bermain kasino blackjack rolet bakarat
-                dragon tiger yang tidak kalah seru dan anda bermain secara live
-                tanpa settingan.
+                online. <br /><br />
+                Boosterjp Juga Menjadi Salah Satu Situs Terbesar Di asia Yang
+                Menerima Deposit Melalui Pulsa Ewalet yang 24jam nonstop . Bonus
+                Promo Nya Pun Sangat Menarik Dan Bonus Bonus Yang Di Sediakan
+                Paling Dicari Oleh Slotter Mania Tanah Air Karena Turnovernya
+                Kecil Dan Claim Tanpa Ribet . Buat anda pecinta games online
+                selain slot machine auto cuan winrate rtp nya yang tinggi . Anda
+                Bisa coba bermain kasino blackjack rolet bakarat dragon tiger
+                yang tidak kalah seru dan anda bermain secara live tanpa
+                settingan.
               </p>
             </div>
-            <div>
-              <v-button>Sembunyikan</v-button>
+            <div class="text-center">
+              <v-btn
+                outlined
+                rounded
+                color="orange"
+                class="hover-transparent"
+                @click="showDescription()"
+                ><div v-if="!visible">
+                  Tampilkan <v-icon class="ml-1">mdi-chevron-down</v-icon>
+                </div>
+                <div v-else>
+                  Sembunyikan <v-icon class="ml-1">mdi-chevron-up</v-icon>
+                </div>
+              </v-btn>
             </div>
           </v-col>
           <p class="grey--text mx-auto">{{ version }}</p>
@@ -279,6 +295,7 @@ export default {
         link: "#",
       },
     ],
+    visible: false,
     version: "2.20.5",
   }),
   props: {
@@ -291,6 +308,9 @@ export default {
   methods: {
     goTo(id) {
       window.open(id, "_blank");
+    },
+    showDescription() {
+      this.visible = !this.visible;
     },
   },
 };

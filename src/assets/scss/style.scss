@@ -951,6 +951,24 @@
       }
     }
 
+    .footer-description {
+      overflow: hidden;
+      &.show{
+        opacity:1;
+        max-height: 100%;
+        transition: .4s;
+        -webkit-transition:.4s;
+        -moz-transition:.4s;
+      }
+      &.hide{
+        opacity:0;
+        max-height: 0;
+        transition: .4s;
+        -webkit-transition:.4s;
+        -moz-transition:.4s;
+      }
+    }
+
   }
 }
 
