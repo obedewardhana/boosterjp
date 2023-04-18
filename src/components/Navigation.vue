@@ -57,7 +57,7 @@
                   <v-img
                     src="@/assets/img/logo.png"
                     width="auto"
-                    height="40"
+                    height="100"
                     contain
                     class="my-auto mr-3"
                   />
