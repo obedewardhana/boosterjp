@@ -16,7 +16,6 @@
         </v-list-item>
       </v-list>
 
-      <v-divider />
       <template>
         <v-list dense>
           <v-list-item
@@ -47,7 +46,7 @@
     >
       <v-container class="px-0 py-0">
         <v-row>
-          <v-col cols="12">
+          <v-col cols="12" class="px-0">
             <div class="d-flex align-center justify-space-between">
               <div class="d-flex flex-row justify-start">
                 <v-toolbar-title
@@ -117,13 +116,19 @@
                     </router-link>
                   </v-btn>
                   <v-btn class="no-hover no-padding" text depressed>
-                    <router-link class="nav-link hover-text" to="/mobile">
-                      <span class="white--text nav-menu">Mobile</span>
+                    <router-link
+                      class="nav-link white--text hover-text"
+                      to="/mobile"
+                    >
+                      <span class="nav-menu">Mobile</span>
                     </router-link>
                   </v-btn>
                 </div>
               </div>
-              <div class="d-flex flex-row justify-end" style="margin-top:-16px;">
+              <div
+                class="d-flex flex-row justify-end"
+                style="margin-top: -16px"
+              >
                 <v-form @submit.prevent class="d-flex">
                   <v-text-field
                     v-model="username"
@@ -137,14 +142,29 @@
                   <v-text-field
                     v-model="password"
                     :rules="passwordrule"
+                    :append-inner-icon="showeye ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="showeye ? 'text' : 'password'"
                     label="Kata Sandi"
                     solo
                     light
                     flat
                     class="mr-4"
+                    @click:append="showeye = !showeye"
                   ></v-text-field>
-                  <v-btn type="submit" small color="dark2" class="mr-1 text-small">Submit</v-btn>
-                  <v-btn type="button" small color="orange" class="mr-2 text-small">Daftar</v-btn>
+                  <v-btn
+                    type="submit"
+                    small
+                    color="greylighter"
+                    class="mr-1 text-small text-shadow hover-transparent"
+                    >Masuk</v-btn
+                  >
+                  <v-btn
+                    type="button"
+                    small
+                    color="orange"
+                    class="mr-2 text-small text-shadow hover-transparent"
+                    >Daftar</v-btn
+                  >
                 </v-form>
               </div>
             </div>
@@ -157,18 +177,21 @@
   
 <style scoped>
 .v-toolbar {
-  /* transition: 0.6s; */
   transform: translateY(0);
-  transition: transform 300ms linear;
+  /* transition: transform 0.2s linear; */
 }
 
 .is-hidden .v-toolbar {
   transform: translateY(-100%) !important;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
 }
 </style>
   
-  <script>
+<script>
 export default {
+  name: "Navigation",
   data: () => ({
     drawer: null,
     isXs: false,
@@ -182,6 +205,7 @@ export default {
     ],
     username: "",
     password: "",
+    showeye: true,
     usernamerule: [
       (value) => {
         if (value) return true;

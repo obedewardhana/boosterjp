@@ -6,6 +6,7 @@
       :flat="flat"
       :class="{ 'is-hidden': !showHeader }"
     />
+    <MarqueeNavComp :speed="speed" :content="content" color="dark" :class="{ 'is-top': !moveTop }"></MarqueeNavComp>
     <v-main class="pt-0">
       <transition name="fade" mode="out-in">
         <router-view />
@@ -26,6 +27,7 @@
         <router-view />
       </transition>
     </v-main>
+    <FooterComp color="black"></FooterComp>
     <v-scale-transition>
       <v-btn
         fab
@@ -35,7 +37,8 @@
         fixed
         bottom
         right
-        color="secondary"
+        small
+        color="dark"
         @click="toTop"
       >
         <v-icon>mdi-arrow-up</v-icon>
@@ -49,12 +52,16 @@ import "@/assets/scss/style.scss";
 import "@/assets/scss/responsive.scss";
 import Vue from "vue";
 import NavigationComp from "./components/Navigation";
+import MarqueeNavComp from "./components/MarqueeNav";
+import FooterComp from "./components/Footer";
 import LoadingComp from "@/components/Loading";
 export default Vue.extend({
   name: "App",
   components: {
     NavigationComp,
     LoadingComp,
+    MarqueeNavComp,
+    FooterComp
   },
 
   data: () => ({
@@ -63,7 +70,10 @@ export default Vue.extend({
     flat: null,
     isLoading: true,
     showHeader: true,
+    moveTop: true,
     lastScrollPosition: 0,
+    speed:70,
+    content: "Selamat Datang di BoosterJP Situs Judi Online Terpercaya Menang Berapapun PASTI di BAYAR. Info Penting : Pastikan Check Nomor Tujuan Deposit yang Sesuai. UNTUK INFO LEBIH LANJUT BISA HUBUNGI KAMI DI LIVE CHAT / WHATS APP +855 - 97 856 - 7577",
     scrollOffset: 40,
   }),
 
@@ -92,6 +102,7 @@ export default Vue.extend({
         return;
       }
       this.showHeader = window.pageYOffset < this.lastScrollPosition;
+      this.moveTop = window.pageYOffset < this.lastScrollPosition;
       this.lastScrollPosition = window.pageYOffset;
       if (typeof window === "undefined") return;
       const top = window.pageYOffset || e.target.scrollTop || 0;

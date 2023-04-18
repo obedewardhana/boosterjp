@@ -23,6 +23,7 @@
         "vue-social-sharing": "^3.0.9",
         "vue-sticky-js": "0.0.4",
         "vue-svg-map": "^1.2.0",
+        "vue-text-marquee": "^1.1.0",
         "vuetify": "^2.4.2"
     },
     "devDependencies": {

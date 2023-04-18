@@ -18,12 +18,14 @@ export default new Vuetify({
                 dark: "#262626",
                 dark2:"#474747",
                 white: "#ffffff",
+                black:"#000000",
                 socialfacebook:"#3b5998",
                 socialinstagram:"#833AB4",
                 socialgmail:"#c71610",
                 socialtwitter:"#00acee",
                 socialpinterest:"#E60023",
                 graylight: "#262626",
+                greylighter: "#a1a1a1",
                 orange: "#ff9100"
             }
         }
