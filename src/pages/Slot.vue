@@ -1,23 +1,16 @@
 <template>
-  <div>
-    <HomeSliderComp />
-    <JackpotSectionComp />
-    <ProductGalleryComp />
-    <BottomSliderComp :slides="slot"/>
+  <div style="margin-top: 103px">
+    <BannerComp :image="banner" />
+    <BottomSliderComp :slides="slot" />
   </div>
 </template>
-  
-<script>
-import HomeSliderComp from "@/components/Home/HomeSlider.vue";
-import JackpotSectionComp from "@/components/Home/JackpotSection.vue";
-import ProductGalleryComp from "@/components/Home/ProductGallery.vue";
+  <script>
+import BannerComp from "@/components/Banner.vue";
 import BottomSliderComp from "@/components/BottomSlider.vue";
 export default {
-  name: "HomeView",
+  name: "SlotView",
   components: {
-    HomeSliderComp,
-    JackpotSectionComp,
-    ProductGalleryComp,
+    BannerComp,
     BottomSliderComp,
   },
   data: () => ({
@@ -128,10 +121,10 @@ export default {
         opt: ["Slot"],
       },
     ],
+    banner: "https://dummyimage.com/3198x1200/eb9150/ffffff.png",
   }),
   methods: {},
   mounted() {},
 };
 </script>
   
-

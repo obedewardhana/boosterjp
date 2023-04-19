@@ -1,6 +1,11 @@
 import Vue from "vue";
 import Router from "vue-router";
 import HomePage from "../pages/Home.vue";
+import TogelPage from "../pages/Togel.vue";
+import SlotPage from "../pages/Slot.vue";
+import CasinoPage from "../pages/Casino.vue";
+import GamesPage from "../pages/Games.vue";
+import SportsPage from "../pages/Sports.vue";
 
 
 Vue.use(Router);
@@ -12,8 +17,6 @@ const routes = [
     component: HomePage,
     meta: {
       requiresAuth: false,
-      hideNavbar: false,
-      hideFooter: false
     }
   },
   {
@@ -22,8 +25,46 @@ const routes = [
     component: HomePage,
     meta: {
       requiresAuth: false,
-      hideNavbar: false,
-      hideFooter: false
+    }
+  },
+  {
+    path: "/togel",
+    name: "Togel",
+    component: TogelPage,
+    meta: {
+      requiresAuth: false,
+    }
+  },
+  {
+    path: "/slot",
+    name: "Slot",
+    component: SlotPage,
+    meta: {
+      requiresAuth: false,
+    }
+  },
+  {
+    path: "/casino",
+    name: "Casino",
+    component: CasinoPage,
+    meta: {
+      requiresAuth: false,
+    }
+  },
+  {
+    path: "/games",
+    name: "Games",
+    component: GamesPage,
+    meta: {
+      requiresAuth: false,
+    }
+  },
+  {
+    path: "/sports",
+    name: "Sports",
+    component: SportsPage,
+    meta: {
+      requiresAuth: false,
     }
   }
 ];

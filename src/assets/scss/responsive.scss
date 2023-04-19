@@ -175,6 +175,19 @@ Responsive
         }
       }
     }
+    .slick-slider {
+      .slick-list {
+        .slick-track {
+        }
+      }
+      .slick-prev {
+        left: -40px;
+      }
+  
+      .slick-next {
+        right: -40px;
+      }
+    }
   }
   .v-dialog {
     .v-list-item {

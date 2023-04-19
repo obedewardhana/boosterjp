@@ -26,7 +26,8 @@ export default new Vuetify({
                 socialpinterest:"#E60023",
                 graylight: "#262626",
                 greylighter: "#a1a1a1",
-                orange: "#ff9100"
+                orange: "#ff9100",
+                lightblue: "#c6cdde"
             }
         }
     }

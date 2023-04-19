@@ -1,24 +1,20 @@
 <template>
-  <div>
-    <HomeSliderComp />
-    <JackpotSectionComp />
-    <ProductGalleryComp />
-    <BottomSliderComp :slides="slot"/>
+  <div style="margin-top:103px">
+    <BannerComp :image="banner"/>
+    <RegionComp :rows="region"/>
+    <BottomSliderComp :slides="slot" />
   </div>
 </template>
-  
 <script>
-import HomeSliderComp from "@/components/Home/HomeSlider.vue";
-import JackpotSectionComp from "@/components/Home/JackpotSection.vue";
-import ProductGalleryComp from "@/components/Home/ProductGallery.vue";
+import BannerComp from "@/components/Banner.vue";
+import RegionComp from "@/components/Togel/Region.vue";
 import BottomSliderComp from "@/components/BottomSlider.vue";
 export default {
-  name: "HomeView",
+  name: "TogelView",
   components: {
-    HomeSliderComp,
-    JackpotSectionComp,
-    ProductGalleryComp,
+    BannerComp,
     BottomSliderComp,
+    RegionComp,
   },
   data: () => ({
     slot: [
@@ -128,10 +124,17 @@ export default {
         opt: ["Slot"],
       },
     ],
+    banner:'https://dummyimage.com/3198x1200/eb9150/ffffff.png',
+    region: [
+      {id:'1',brand:'test',amount:'2000', date:'Rabu,19/04/2023'},
+      {id:'2',brand:'test',amount:'2000', date:'Rabu,19/04/2023'},
+      {id:'3',brand:'test',amount:'2000', date:'Rabu,19/04/2023'},
+      {id:'4',brand:'test',amount:'2000', date:'Rabu,19/04/2023'},
+      {id:'5',brand:'test',amount:'2000', date:'Rabu,19/04/2023'},
+      {id:'6',brand:'test',amount:'2000', date:'Rabu,19/04/2023'}
+    ]
   }),
   methods: {},
   mounted() {},
 };
 </script>
-  
-

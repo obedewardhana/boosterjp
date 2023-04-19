@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" app temporary color="dark">
+    <v-navigation-drawer v-model="drawer" app temporary :color="color">
       <v-list>
         <v-list-item
           @click.stop="$router.push('/home').catch(() => {})"
