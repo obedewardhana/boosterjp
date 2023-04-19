@@ -154,6 +154,14 @@
       text-shadow: 2px 1px 3px #000;
       z-index: 5;
     }
+    &.no-shadow {
+      .v-btn__content {
+        text-shadow: unset !important;
+      }
+    }
+    .hide{
+      display: none!important;
+    }
   }
   .btn-default {
     font-size: 1.5rem;
@@ -1129,12 +1137,38 @@
       }
     }
   }
+  .slick-slider {
+    position: relative;
+    .slick-list {
+      overflow: hidden;
+      .slick-track {
+        display: flex;
+      }
+    }
+    .slick-prev {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: -60px;
+      z-index: 2;
+      transform: translateY(-50%);
+    }
+
+    .slick-next {
+      display: block;
+      position: absolute;
+      right: -60px;
+      z-index: 2;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
   .v-item-group {
     .v-icon {
       font-size: 45px !important;
       color: var(--v-white-base);
-      &.v-icon--disabled{
-        opacity:.2
+      &.v-icon--disabled {
+        opacity: 0.2;
       }
     }
   }

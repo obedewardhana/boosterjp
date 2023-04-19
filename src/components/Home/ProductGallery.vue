@@ -62,7 +62,7 @@
                   </template>
                 </v-img>
               </v-hover>
-              <v-hover v-slot="{ hova }">
+              <v-hover v-slot="{ hover }">
                 <v-img
                   v-if="box.type == 'button'"
                   elevation="4"
@@ -70,7 +70,7 @@
                   :src="box.src"
                   :lazy-src="box.src"
                   style="cursor: pointer"
-                  :class="{ 'on-hover': hova }"
+                  :class="{ 'on-hover': hover }"
                 >
                   <template v-slot:placeholder>
                     <v-row
