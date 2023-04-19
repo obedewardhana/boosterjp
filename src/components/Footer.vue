@@ -295,7 +295,7 @@ export default {
         link: "#",
       },
     ],
-    visible: false,
+    visible: true,
     version: "2.20.5",
   }),
   props: {

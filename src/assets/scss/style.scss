@@ -15,6 +15,11 @@
   src: url("./../fonts/Rajdhani-Medium.ttf");
 }
 
+@font-face {
+  font-family: "TheLedDisplaySt";
+  src: url("./../fonts/TheLedDisplaySt.ttf");
+}
+
 .v-application {
   .title {
     line-height: 1.3;
@@ -35,7 +40,7 @@
   h5,
   h6,
   p {
-    font-family: "Radjhani Regular", sans-serif !important;
+    font-family: "Rajdhani", sans-serif !important;
     letter-spacing: normal;
     word-break: break-word;
     line-height: 1.5 !important;
@@ -117,6 +122,37 @@
           z-index: 2;
         }
       }
+    }
+    &.hover-orange {
+      &:before {
+        content: " ";
+        position: absolute;
+        background-color: var(--v-orange-base);
+      }
+      &:after {
+        content: " ";
+        position: absolute;
+        background-color: var(--v-orange-base);
+        transition: all 0.3s;
+        height: 0;
+        left: 50%;
+        top: 50%;
+        width: 0;
+        z-index: 2;
+      }
+      &:hover {
+        &:after {
+          height: 100%;
+          left: 0;
+          top: 0;
+          width: 100%;
+          z-index: 2;
+        }
+      }
+    }
+    .v-btn__content {
+      text-shadow: 2px 1px 3px #000;
+      z-index: 5;
     }
   }
   .btn-default {
@@ -909,6 +945,199 @@
       }
     }
   }
+  .jackpot-area {
+    height: 170px;
+    background-color: var(--v-dark-base);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    border-top: 4px solid var(--v-orange-base);
+    border-bottom: 4px solid var(--v-orange-base);
+    .jackpot-main {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 70%;
+      justify-content: space-around;
+      align-items: center;
+      .jackpot-title {
+        h3 {
+          color: var(--v-white-base);
+          font-family: "Rajdhani Bold", sans-serif !important;
+          font-weight: 600;
+          font-size: 2rem;
+          line-height: 1 !important;
+          border-right: 3px solid var(--v-orange-base);
+          padding-right: 20px;
+          span {
+            font-size: 2.5rem;
+          }
+        }
+      }
+      .jackpot-currency {
+        h3 {
+          font-family: "TheLedDisplaySt", sans-serif !important;
+          font-size: 2.25rem;
+          color: var(--v-orange-base);
+          font-weight: 600;
+        }
+      }
+      .jackpot-number {
+        h3 {
+          font-family: "TheLedDisplaySt", sans-serif !important;
+          font-size: 2.25rem;
+          color: var(--v-orange-base);
+          font-weight: 600;
+        }
+      }
+    }
+    .lamp-area {
+      display: flex;
+      padding: 0 40px;
+      justify-content: center;
+      .circle {
+        width: 12px;
+        height: 12px;
+        margin: 0 15px;
+        border-radius: 50%;
+        -webkit-animation: blink 0.2s ease-in-out infinite alternate;
+        animation: blink 0.2s ease-in-out infinite alternate;
+        background-color: var(--v-orange-base);
+      }
+      .circle2 {
+        width: 12px;
+        height: 12px;
+        margin: 0 15px;
+        border-radius: 50%;
+        -webkit-animation: blink2 0.2s ease-in-out infinite alternate;
+        animation: blink2 0.2s ease-in-out infinite alternate;
+        background-color: var(--v-white-base);
+      }
+      @-webkit-keyframes blink {
+        0% {
+          background-color: var(--v-orange-base);
+        }
+        100% {
+          background-color: var(--v-white-base);
+        }
+      }
+      @keyframes blink {
+        0% {
+          opacity: 1;
+          background-color: var(--v-orange-base);
+        }
+        100% {
+          background-color: var(--v-white-base);
+        }
+      }
+      @-webkit-keyframes blink2 {
+        0% {
+          background-color: var(--v-white-base);
+        }
+        100% {
+          background-color: var(--v-orange-base);
+        }
+      }
+      @keyframes blink2 {
+        0% {
+          background-color: var(--v-white-base);
+        }
+        100% {
+          background-color: var(--v-orange-base);
+        }
+      }
+    }
+  }
+  .v-overlay {
+    opacity: 0;
+  }
+  .on-hover {
+    .v-overlay {
+      opacity: 1;
+    }
+  }
+  .v-image__image {
+    transform: scale(1);
+    transition: 0.3s ease-in-out;
+  }
+  .hover-zoom {
+    .v-image__image {
+      transform: scale(1.5);
+      transition: 0.3s ease-in-out;
+    }
+  }
+  .v-carousel {
+    .v-carousel__controls__item.v-btn.v-btn--icon {
+      background-color: #ebece9;
+      height: 8px;
+      width: 40px;
+      border-radius: 5px;
+    }
+
+    .v-carousel__controls__item.v-btn.v-btn--icon.v-btn--active {
+      background-color: #1f1f1f;
+    }
+
+    .v-carousel__controls__item.v-btn.v-btn--icon:hover {
+      background-color: black;
+    }
+
+    .v-carousel__controls__item {
+      .v-btn__content .v-icon {
+        display: none;
+      }
+    }
+
+    .fade-transition-enter-active {
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+    .skeleton-box {
+      display: inline-block;
+      height: 1em;
+      position: relative;
+      overflow: hidden;
+      background-color: #dddbdd;
+
+      &:after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-100%);
+        background-image: linear-gradient(
+          90deg,
+          rgba(#fff, 0) 0,
+          rgba(#fff, 0.2) 20%,
+          rgba(#fff, 0.5) 60%,
+          rgba(#fff, 0)
+        );
+        animation: shimmer 2s infinite;
+        content: "";
+      }
+
+      @keyframes shimmer {
+        100% {
+          transform: translateX(100%);
+        }
+      }
+    }
+  }
+  .v-item-group {
+    .v-icon {
+      font-size: 45px !important;
+      color: var(--v-white-base);
+      &.v-icon--disabled{
+        opacity:.2
+      }
+    }
+  }
   footer {
     .v-btn {
       .v-btn__content {
@@ -943,32 +1172,31 @@
     .grayscale {
       .v-image__image {
         filter: grayscale(1) brightness(10);
-        transition: all .1s ease-in-out;
+        transition: all 0.1s ease-in-out;
       }
-      &:hover{
-        opacity:.4;
-        transition: all .1s ease-in-out;
+      &:hover {
+        opacity: 0.4;
+        transition: all 0.1s ease-in-out;
       }
     }
 
     .footer-description {
       overflow: hidden;
-      &.show{
-        opacity:1;
+      &.show {
+        opacity: 1;
         max-height: 100%;
-        transition: .4s;
-        -webkit-transition:.4s;
-        -moz-transition:.4s;
+        transition: 0.4s;
+        -webkit-transition: 0.4s;
+        -moz-transition: 0.4s;
       }
-      &.hide{
-        opacity:0;
+      &.hide {
+        opacity: 0;
         max-height: 0;
-        transition: .4s;
-        -webkit-transition:.4s;
-        -moz-transition:.4s;
+        transition: 0.4s;
+        -webkit-transition: 0.4s;
+        -moz-transition: 0.4s;
       }
     }
-
   }
 }
 

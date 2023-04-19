@@ -48,7 +48,7 @@
         <v-row>
           <v-col cols="12" class="px-0">
             <div class="d-flex align-center justify-space-between">
-              <div class="d-flex flex-row justify-start">
+              <div class="d-flex flex-row justify-start align-center">
                 <v-toolbar-title
                   class="d-flex align-center ml-2"
                   style="width: 160px; cursor: pointer"
@@ -178,6 +178,7 @@
 <style scoped>
 .v-toolbar {
   transform: translateY(0);
+  z-index: 8;
   /* transition: transform 0.2s linear; */
 }
 

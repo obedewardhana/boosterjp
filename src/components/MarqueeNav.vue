@@ -26,7 +26,7 @@
   position: fixed;
   left: 0;
   right: 0;
-  z-index: 2;
+  z-index: 8;
   transition: 0.2s;
   -webkit-transition: 0.2s;
   -moz-transition: 0.2s;

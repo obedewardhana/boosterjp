@@ -26,9 +26,9 @@ Responsive
   }
 }
 
-
 @media screen and (max-width: 768px) {
   .v-application {
+    overflow: hidden;
     .action-box {
       justify-content: flex-start;
     }
@@ -143,6 +143,35 @@ Responsive
           .feed-detail-date {
             flex-direction: column;
           }
+        }
+      }
+    }
+    .jackpot-area {
+      .jackpot-main {
+        .jackpot-title {
+          h3 {
+            font-size: 1.5rem;
+            span {
+              font-size: 2rem;
+            }
+          }
+        }
+        .jackpot-currency {
+          h3 {
+            font-size: 1.25rem;
+          }
+        }
+        .jackpot-number {
+          h3 {
+            font-size: 1.25rem;
+          }
+        }
+      }
+      .lamp-area {
+        width: unset;
+        .circle {
+        }
+        .circle2 {
         }
       }
     }

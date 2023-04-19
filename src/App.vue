@@ -6,7 +6,12 @@
       :flat="flat"
       :class="{ 'is-hidden': !showHeader }"
     />
-    <MarqueeNavComp :speed="speed" :content="content" color="dark" :class="{ 'is-top': !moveTop }"></MarqueeNavComp>
+    <MarqueeNavComp
+      :speed="speed"
+      :content="content"
+      color="dark"
+      :class="{ 'is-top': !moveTop }"
+    ></MarqueeNavComp>
     <v-main class="pt-0">
       <transition name="fade" mode="out-in">
         <router-view />
@@ -32,6 +37,12 @@
   </v-app>
 </template>
 
+<style scoped>
+#app {
+  background: #dedede;
+}
+</style>
+
 <script>
 import "@/assets/scss/style.scss";
 import "@/assets/scss/responsive.scss";
@@ -46,7 +57,7 @@ export default Vue.extend({
     NavigationComp,
     LoadingComp,
     MarqueeNavComp,
-    FooterComp
+    FooterComp,
   },
 
   data: () => ({
@@ -57,8 +68,9 @@ export default Vue.extend({
     showHeader: true,
     moveTop: true,
     lastScrollPosition: 0,
-    speed:70,
-    content: "Selamat Datang di BoosterJP Situs Judi Online Terpercaya Menang Berapapun PASTI di BAYAR. Info Penting : Pastikan Check Nomor Tujuan Deposit yang Sesuai. UNTUK INFO LEBIH LANJUT BISA HUBUNGI KAMI DI LIVE CHAT / WHATS APP +855 - 97 856 - 7577",
+    speed: 70,
+    content:
+      "Selamat Datang di BoosterJP Situs Judi Online Terpercaya Menang Berapapun PASTI di BAYAR. Info Penting : Pastikan Check Nomor Tujuan Deposit yang Sesuai. UNTUK INFO LEBIH LANJUT BISA HUBUNGI KAMI DI LIVE CHAT / WHATS APP +855 - 97 856 - 7577",
     scrollOffset: 40,
   }),
 
