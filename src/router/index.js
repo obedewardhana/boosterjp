@@ -66,7 +66,23 @@ const routes = [
     meta: {
       requiresAuth: false,
     }
-  }
+  },
+  {
+    path: "/promo",
+    name: "Promo",
+    component: HomePage,
+    meta: {
+      requiresAuth: false,
+    }
+  },
+  {
+    path: "/mobile",
+    name: "Mobile",
+    component: HomePage,
+    meta: {
+      requiresAuth: false,
+    }
+  },
 ];
 
 const router = new Router({

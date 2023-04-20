@@ -3,12 +3,11 @@
     <v-container>
       <v-row>
         <v-col cols="12" class="pt-7 pb-4">
-          <v-row>
+          <v-row class="flex-wrap flex-column flex-sm-row flex-md-row flex-lg-row">
             <div
               v-for="links in quicklinks"
               :key="links.id"
-              style="width: calc(100% / 5)"
-              class="pr-2 pb-2"
+              class="quicklinks pr-2 pb-2"
             >
               <v-btn
                 densed
@@ -31,10 +30,10 @@
         <v-col cols="12" class="pt-2 pb-7">
           <v-row class="px-0 py-0">
             <v-col
-              cols="3"
+              cols="12" sm="6" md="6" lg="3"
               v-for="box in boxes"
               :key="box.id"
-              class="px-0 py-0 pr-2"
+              class="px-0 py-0 pr-2 pr-md-2 pr-lg-2 pl-2 pl-sm-0 pl-md-0 pl-lg-0 pb-2"
               style="overflow: hidden"
             >
               <v-hover v-slot="{ hover }">
@@ -96,7 +95,7 @@
                 </v-img>
               </v-hover>
             </v-col>
-            <v-col cols="6" class="px-0 pt-2 pr-2">
+            <v-col cols="12" md="6" lg="6" class="pl-2 pr-2 pl-sm-0 pl-md-0 pr-md-2 pl-lg-0 pr-lg-2 pt-0">
               <v-img
                 elevation="4"
                 src="https://dummyimage.com/1250x568/999999/fff.png"
@@ -118,7 +117,7 @@
                 </template>
               </v-img>
             </v-col>
-            <v-col cols="6" class="px-0 pt-2 pr-2">
+            <v-col cols="12" md="6" lg="6" class="pl-2 pr-2 pl-sm-0 pl-md-0 pr-md-2 pl-lg-0 pr-lg-2 pt-0">
               <v-carousel cycle  show-arrows hide-delimiter-background height="auto">
                 <v-carousel-item v-for="(slide, i) in slides" :key="i" :src="slide.src" :lazy-src="slide.src" @click.stop="$router.push('/' + slide.url).catch(() => {})">
                   <template v-slot:placeholder>
@@ -202,6 +201,7 @@ export default {
           src: "https://dummyimage.com/1250x568/999999/fff.png",
         },
       ],
+      overlay: false
     };
   },
 };

@@ -2,17 +2,20 @@
   <div style="margin-top:103px">
     <BannerComp :image="banner"/>
     <RegionComp :rows="region"/>
+    <TabsComp :brands="brands" :contents="contents"/>
     <BottomSliderComp :slides="slot" />
   </div>
 </template>
 <script>
 import BannerComp from "@/components/Banner.vue";
 import RegionComp from "@/components/Togel/Region.vue";
+import TabsComp from "@/components/Tabs.vue";
 import BottomSliderComp from "@/components/BottomSlider.vue";
 export default {
   name: "TogelView",
   components: {
     BannerComp,
+    TabsComp,
     BottomSliderComp,
     RegionComp,
   },
@@ -131,7 +134,17 @@ export default {
       {id:'3',brand:'test',amount:'2000', date:'Rabu,19/04/2023'},
       {id:'4',brand:'test',amount:'2000', date:'Rabu,19/04/2023'},
       {id:'5',brand:'test',amount:'2000', date:'Rabu,19/04/2023'},
-      {id:'6',brand:'test',amount:'2000', date:'Rabu,19/04/2023'}
+      {id:'6',brand:'test',amount:'2000', date:'Rabu,19/04/2023'},
+      {id:'7',brand:'test',amount:'2000', date:'Rabu,19/04/2023'},
+      {id:'8',brand:'test',amount:'2000', date:'Rabu,19/04/2023'},
+      {id:'9',brand:'test',amount:'2000', date:'Rabu,19/04/2023'},
+      {id:'10',brand:'test',amount:'2000', date:'Rabu,19/04/2023'}
+    ],
+    brands:[
+      {id:'1',name:'brand_sdsb',src:'https://static.nukeasset.com/assets/images/vendor/sdsb.png',url:'#',type:'hot'}
+    ],
+    contents:[
+      {id:'1',name:'brand_sdsb',src:'https://static.nukeasset.com/assets/images/vendor/sdsb.png',url:'#',type:'hot'}
     ]
   }),
   methods: {},

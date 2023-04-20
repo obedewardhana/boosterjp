@@ -27,7 +27,10 @@ export default new Vuetify({
                 graylight: "#262626",
                 greylighter: "#a1a1a1",
                 orange: "#ff9100",
-                lightblue: "#c6cdde"
+                lightblue: "#c6cdde",
+                lightgrey: "#EFEFEF",
+                green: "#2CAD3E",
+                red: "#eb1c24"
             }
         }
     }

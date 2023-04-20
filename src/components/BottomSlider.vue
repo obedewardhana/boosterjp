@@ -4,12 +4,16 @@
       <v-row>
         <v-col cols="12" class="pt-4 pb-10">
           <VueSlickCarousel v-bind="settings">
-            <div class="d-flex justify-center" v-for="(slide, idx) in slides" :key="idx || slide.name">
+            <div
+              class="d-flex justify-center"
+              v-for="(slide, idx) in slides"
+              :key="idx || slide.name"
+            >
               <v-btn
                 elevation="0"
                 color="white"
                 height="50"
-                class=" mt-2 mb-2"
+                class="mt-2 mb-2"
                 style="cursor: unset"
               >
                 <v-img
@@ -67,7 +71,7 @@ export default {
         centerPadding: "5px",
         focusOnSelect: true,
         infinite: true,
-        slidesToShow: 6,
+        slidesToShow: 10,
         speed: 500,
         slidesToScroll: 1,
         responsive: [
@@ -84,22 +88,30 @@ export default {
             breakpoint: 1024,
             settings: {
               dots: false,
-              slidesToShow: 3,
+              slidesToShow: 4,
               slidesToScroll: 1,
               infinite: true,
             },
           },
           {
-            breakpoint: 600,
+            breakpoint: 768,
             settings: {
               dots: false,
-              slidesToShow: 2,
+              slidesToShow: 4,
               slidesToScroll: 1,
               initialSlide: 2,
             },
           },
           {
             breakpoint: 480,
+            settings: {
+              dots: false,
+              slidesToShow: 2,
+              slidesToScroll: 1,
+            },
+          },
+          {
+            breakpoint: 320,
             settings: {
               dots: false,
               slidesToShow: 1,

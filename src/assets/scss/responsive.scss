@@ -26,6 +26,34 @@ Responsive
   }
 }
 
+@media screen and (max-width: 1376px) {
+  .v-application {
+
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .v-application {
+    .v-carousel {
+      min-height: 384px !important;
+      .v-image__image {
+        background-position: top center !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .v-application {
+    .v-carousel {
+      min-height: 384px !important;
+      .v-image__image {
+        background-position: top center !important;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 768px) {
   .v-application {
     overflow: hidden;
@@ -148,22 +176,23 @@ Responsive
     }
     .jackpot-area {
       .jackpot-main {
+        width: 100%;
         .jackpot-title {
           h3 {
-            font-size: 1.5rem;
+            font-size: 1rem;
             span {
-              font-size: 2rem;
+              font-size: 1.3rem;
             }
           }
         }
         .jackpot-currency {
           h3 {
-            font-size: 1.25rem;
+            font-size: 1rem;
           }
         }
         .jackpot-number {
           h3 {
-            font-size: 1.25rem;
+            font-size: 1rem;
           }
         }
       }
@@ -183,9 +212,19 @@ Responsive
       .slick-prev {
         left: -40px;
       }
-  
+
       .slick-next {
         right: -40px;
+      }
+    }
+    .quicklinks {
+      width: 100% !important;
+      padding: 0 10px;
+    }
+    .v-carousel {
+      min-height: 285px !important;
+      .v-image__image {
+        background-position: top center !important;
       }
     }
   }
@@ -263,6 +302,12 @@ Responsive
             margin-bottom: 10px;
           }
         }
+      }
+    }
+    .v-carousel {
+      min-height: 155px !important;
+      .v-image__image {
+        background-position: top center !important;
       }
     }
   }

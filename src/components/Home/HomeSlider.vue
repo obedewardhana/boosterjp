@@ -3,9 +3,9 @@
     cycle
     hide-delimiter-background
     :show-arrows="false"
-    height="520"
-    contain
-    style="margin-top: 103px; min-height: 100% !important"
+    height="auto"
+    contained
+    style="margin-top: 103px; min-height: 511px"
   >
     <v-carousel-item
       cover

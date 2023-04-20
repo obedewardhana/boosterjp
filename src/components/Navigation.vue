@@ -17,7 +17,7 @@
       </v-list>
 
       <template>
-        <v-list dense>
+        <v-list dense style="margin-top: 30px;">
           <v-list-item
             v-for="([text, link], i) in links"
             :key="i"

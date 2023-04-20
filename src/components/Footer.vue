@@ -32,7 +32,7 @@
           </v-col>
           <v-col cols="12 mb-6">
             <v-row class="justify-space-between">
-              <v-col cols="3" class="px-6">
+              <v-col cols="12" md="12" lg="4" class="px-6">
                 <v-row class="flex-column">
                   <p class="text-p orange--text mb-4">Powered by:</p>
                   <v-toolbar-title
@@ -50,7 +50,7 @@
                   </v-toolbar-title>
                 </v-row>
               </v-col>
-              <v-col cols="4">
+              <v-col cols="12" md="12" lg="4" class="pt-8 pt-md-8 pt-lg-0 pl-6 pl-md-6 pl-lg-0">
                 <v-row class="">
                   <p class="text-p orange--text text-bold mb-4">
                     Aman Dan Terpercaya:
@@ -74,7 +74,7 @@
                   </div>
                 </v-row>
               </v-col>
-              <v-col cols="4">
+              <v-col cols="12" md="12" lg="4" class="pt-8 pt-md-8 pt-lg-0 pl-6 pl-md-6 pl-lg-0">
                 <v-row>
                   <p class="text-p orange--text text-bold mb-4">Kontak Kami:</p>
                 </v-row>
@@ -105,9 +105,9 @@
           </v-col>
           <v-col cols="12">
             <v-row class="justify-space-between mb-5">
-              <v-col cols="3" class="px-6">
+              <v-col cols="12" md="12" lg="3" class="px-6">
                 <v-row class="flex-column">
-                  <p class="text-p orange--text mb-4">
+                  <p class="text-p orange--text text-bold mb-4">
                     Tanggung jawab bermain:
                   </p>
                 </v-row>
