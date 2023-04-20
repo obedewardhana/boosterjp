@@ -55,21 +55,9 @@
                             aspect-ratio="1"
                             contain
                             :src="content.src"
-                            :lazy-src="content.src"
                             style="background-color: var(--v-lightgrey-base)"
                             :class="{ 'on-hover': hover }"
-                            ><template v-slot:placeholder>
-                              <v-row
-                                class="fill-height ma-0"
-                                align="center"
-                                justify="center"
-                              >
-                                <v-progress-circular
-                                  indeterminate
-                                  color="grey-lighten-5"
-                                ></v-progress-circular>
-                              </v-row>
-                            </template>
+                          >
                             <v-overlay
                               absolute
                               class="align-center justify-center"
@@ -82,7 +70,14 @@
                                   Mulai Bermain
                                 </p></v-btn
                               >
-                            </v-overlay>
+                            </v-overlay>                            
+                            <v-skeleton-loader
+                              absolute
+                              type="image"
+                              v-if="isLoading"
+                              class="fill-height"
+                            >
+                            </v-skeleton-loader>
                           </v-img>
                         </v-hover>
                         <v-card-title class="pa-2"
@@ -106,7 +101,7 @@
 </template>
 
 <script>
-import swal from 'sweetalert2';
+import swal from "sweetalert2";
 window.Swal = swal;
 export default {
   name: "TabsComp",
@@ -115,6 +110,7 @@ export default {
     return {
       tab: null,
       overlay: false,
+      isLoading: true,
     };
   },
   props: {
@@ -133,8 +129,17 @@ export default {
   methods: {
     loginFirst() {
       // $swal function calls SweetAlert into the application with the specified configuration.
-      Swal.fire('Silahkan Login!', 'Silahkan Login sebelum bermain.','warning');
+      Swal.fire(
+        "Silahkan Login!",
+        "Silahkan Login sebelum bermain.",
+        "warning"
+      );
     },
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1500);
   },
 };
 </script>

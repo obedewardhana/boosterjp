@@ -19,32 +19,22 @@
                   contain
                   height="auto"
                   elevation="4"
-                  :aspect-ratio="16/9"
+                  :aspect-ratio="16 / 9"
                   :src="cas.src"
-                  :lazy-src="cas.src"
                   :class="{ 'on-hover': hover }"
-                  style="position: relative;"
+                  style="position: relative"
                 >
-                  <template v-slot:placeholder>
-                    <v-row
-                      class="fill-height ma-0"
-                      align="center"
-                      justify="center"
-                    >
-                      <v-progress-circular
-                        indeterminate
-                        color="grey-lighten-5"
-                      ></v-progress-circular>
-                    </v-row>
-                  </template>
                   <v-overlay absolute class="align-center justify-center">
                     <v-btn
                       color="orange"
                       class="hover-transparent"
-                      @click.stop="$router.push('/' + cas.url).catch(() => {})"
+                      @click.stop="loginFirst"
                       >Mulai Bermain</v-btn
                     >
                   </v-overlay>
+
+                  <v-skeleton-loader absolute type="image" v-if="isLoading" class="fill-height" >
+                  </v-skeleton-loader>
                 </v-img>
               </v-hover>
             </v-col>
@@ -55,11 +45,15 @@
   </div>
 </template>
   <script>
+import swal from "sweetalert2";
+window.Swal = swal;
 export default {
   name: "CasinoGalleryComp",
+  components: { swal },
   data() {
     return {
       overlay: false,
+      isLoading: true,
     };
   },
   props: {
@@ -68,6 +62,21 @@ export default {
       required: true,
       default: () => [],
     },
+  },
+  methods: {
+    loginFirst() {
+      // $swal function calls SweetAlert into the application with the specified configuration.
+      Swal.fire(
+        "Silahkan Login!",
+        "Silahkan Login sebelum bermain.",
+        "warning"
+      );
+    },
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1500);
   },
 };
 </script>

@@ -1,14 +1,13 @@
 <template>
   <div>
-    <v-img :src="image" :lazy-src="image" style="min-height: 100% !important">
-      <template v-slot:placeholder>
-        <v-row class="fill-height ma-0" align="center" justify="center">
-          <v-progress-circular
-            indeterminate
-            color="grey-lighten-5"
-          ></v-progress-circular>
-        </v-row>
-      </template>
+    <v-img :src="image" style="min-height: 100% !important">
+      <v-skeleton-loader
+        absolute
+        type="image"
+        v-if="isLoading"
+        class="fill-height"
+      >
+      </v-skeleton-loader>
     </v-img>
   </div>
 </template>
@@ -17,10 +16,17 @@
 export default {
   name: "BannerComp",
   data() {
-    return {};
+    return {
+      isLoading: true,
+    };
   },
   props: {
     image: String,
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1500);
   },
 };
 </script>

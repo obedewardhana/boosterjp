@@ -3,7 +3,9 @@
     <v-container>
       <v-row>
         <v-col cols="12" class="pt-7 pb-4">
-          <v-row class="flex-wrap flex-column flex-sm-row flex-md-row flex-lg-row">
+          <v-row
+            class="flex-wrap flex-column flex-sm-row flex-md-row flex-lg-row"
+          >
             <div
               v-for="links in quicklinks"
               :key="links.id"
@@ -30,7 +32,10 @@
         <v-col cols="12" class="pt-2 pb-7">
           <v-row class="px-0 py-0">
             <v-col
-              cols="12" sm="6" md="6" lg="3"
+              cols="12"
+              sm="6"
+              md="6"
+              lg="3"
               v-for="box in boxes"
               :key="box.id"
               class="px-0 py-0 pr-2 pr-md-2 pr-lg-2 pl-2 pl-sm-0 pl-md-0 pl-lg-0 pb-2"
@@ -41,24 +46,18 @@
                   elevation="4"
                   :aspect-ratio="1"
                   :src="box.src"
-                  :lazy-src="box.src"
                   v-if="box.type == 'img'"
                   @click.stop="$router.push('/' + box.url).catch(() => {})"
                   style="cursor: pointer"
                   :class="{ 'hover-zoom': hover }"
                 >
-                  <template v-slot:placeholder>
-                    <v-row
-                      class="fill-height ma-0"
-                      align="center"
-                      justify="center"
-                    >
-                      <v-progress-circular
-                        indeterminate
-                        color="grey-lighten-5"
-                      ></v-progress-circular>
-                    </v-row>
-                  </template>
+                  <v-skeleton-loader
+                    absolute
+                    type="image"
+                    v-if="isLoading"
+                    class="fill-height"
+                  >
+                  </v-skeleton-loader>
                 </v-img>
               </v-hover>
               <v-hover v-slot="{ hover }">
@@ -67,22 +66,16 @@
                   elevation="4"
                   :aspect-ratio="1"
                   :src="box.src"
-                  :lazy-src="box.src"
                   style="cursor: pointer"
                   :class="{ 'on-hover': hover }"
                 >
-                  <template v-slot:placeholder>
-                    <v-row
-                      class="fill-height ma-0"
-                      align="center"
-                      justify="center"
-                    >
-                      <v-progress-circular
-                        indeterminate
-                        color="grey-lighten-5"
-                      ></v-progress-circular>
-                    </v-row>
-                  </template>
+                  <v-skeleton-loader
+                    absolute
+                    type="image"
+                    v-if="isLoading"
+                    class="fill-height"
+                  >
+                  </v-skeleton-loader>
                   <v-overlay absolute class="align-center justify-center">
                     <p class="text-h6 text-center">Slots</p>
                     <v-btn
@@ -95,7 +88,12 @@
                 </v-img>
               </v-hover>
             </v-col>
-            <v-col cols="12" md="6" lg="6" class="pl-2 pr-2 pl-sm-0 pl-md-0 pr-md-2 pl-lg-0 pr-lg-2 pt-0">
+            <v-col
+              cols="12"
+              md="6"
+              lg="6"
+              class="pl-2 pr-2 pl-sm-0 pl-md-0 pr-md-2 pl-lg-0 pr-lg-2 pt-0"
+            >
               <v-img
                 elevation="4"
                 src="https://dummyimage.com/1250x568/999999/fff.png"
@@ -103,35 +101,40 @@
                 style="cursor: pointer"
                 @click.stop="$router.push('/slot').catch(() => {})"
               >
-                <template v-slot:placeholder>
-                  <v-row
-                    class="fill-height ma-0"
-                    align="center"
-                    justify="center"
-                  >
-                    <v-progress-circular
-                      indeterminate
-                      color="grey-lighten-5"
-                    ></v-progress-circular>
-                  </v-row>
-                </template>
+                <v-skeleton-loader
+                  absolute
+                  type="image"
+                  v-if="isLoading"
+                  class="fill-height"
+                >
+                </v-skeleton-loader>
               </v-img>
             </v-col>
-            <v-col cols="12" md="6" lg="6" class="pl-2 pr-2 pl-sm-0 pl-md-0 pr-md-2 pl-lg-0 pr-lg-2 pt-0">
-              <v-carousel cycle  show-arrows hide-delimiter-background height="auto">
-                <v-carousel-item v-for="(slide, i) in slides" :key="i" :src="slide.src" :lazy-src="slide.src" @click.stop="$router.push('/' + slide.url).catch(() => {})">
-                  <template v-slot:placeholder>
-                    <v-row
-                      class="fill-height ma-0"
-                      align="center"
-                      justify="center"
-                    >
-                      <v-progress-circular
-                        indeterminate
-                        color="grey-lighten-5"
-                      ></v-progress-circular>
-                    </v-row>
-                  </template>
+            <v-col
+              cols="12"
+              md="6"
+              lg="6"
+              class="pl-2 pr-2 pl-sm-0 pl-md-0 pr-md-2 pl-lg-0 pr-lg-2 pt-0"
+            >
+              <v-carousel
+                cycle
+                show-arrows
+                hide-delimiter-background
+                height="auto"
+              >
+                <v-carousel-item
+                  v-for="(slide, i) in slides"
+                  :key="i"
+                  :src="slide.src"
+                  @click.stop="$router.push('/' + slide.url).catch(() => {})"
+                >
+                  <v-skeleton-loader
+                    absolute
+                    type="image"
+                    v-if="isLoading"
+                    class="fill-height"
+                  >
+                  </v-skeleton-loader>
                 </v-carousel-item>
               </v-carousel>
             </v-col>
@@ -201,8 +204,14 @@ export default {
           src: "https://dummyimage.com/1250x568/999999/fff.png",
         },
       ],
-      overlay: false
+      overlay: false,
+      isLoading: true,
     };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1500);
   },
 };
 </script>

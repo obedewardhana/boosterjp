@@ -1203,6 +1203,11 @@
       background-color: #000000;
     }
   }
+  .v-skeleton-loader {
+    .v-skeleton-loader__image {
+      height: 100%;
+    }
+  }
   .v-tabs {
     overflow: hidden;
     position: relative;
@@ -1382,14 +1387,14 @@
   .swal2-title {
     font-family: "Rajdhani", sans-serif;
   }
-  .swal2-html-container{
+  .swal2-html-container {
     font-family: "Rajdhani", sans-serif;
   }
-  .swal2-confirm{
+  .swal2-confirm {
     font-family: "Rajdhani", sans-serif;
-    background-color: var(--v-orange-base)!important;
-    &:focus{
-      box-shadow: 0 0 0 3px rgb(255 145 0 / 58%)!important;
+    background-color: var(--v-orange-base) !important;
+    &:focus {
+      box-shadow: 0 0 0 3px rgb(255 145 0 / 58%) !important;
     }
   }
 }

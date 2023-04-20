@@ -74,7 +74,7 @@
                   </div>
                 </v-row>
               </v-col>
-              <v-col cols="12" md="12" lg="4" class="pt-8 pt-md-8 pt-lg-0 pl-6 pl-md-6 pl-lg-0">
+              <v-col cols="12" md="12" lg="3" class="pt-8 pt-md-8 pt-lg-0 pl-6 pl-md-6 pl-lg-0">
                 <v-row>
                   <p class="text-p orange--text text-bold mb-4">Kontak Kami:</p>
                 </v-row>

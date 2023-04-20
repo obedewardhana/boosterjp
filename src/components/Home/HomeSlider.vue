@@ -12,16 +12,14 @@
       v-for="(image, i) in images"
       :key="i"
       :src="image.src"
-      :lazy-src="image.src"
     >
-      <template v-slot:placeholder>
-        <v-row class="fill-height ma-0" align="center" justify="center">
-          <v-progress-circular
-            indeterminate
-            color="grey-lighten-5"
-          ></v-progress-circular>
-        </v-row>
-      </template>
+      <v-skeleton-loader
+        absolute
+        type="image"
+        v-if="isLoading"
+        class="fill-height"
+      >
+      </v-skeleton-loader>
     </v-carousel-item>
   </v-carousel>
 </template>
@@ -45,7 +43,13 @@ export default {
           src: "https://dummyimage.com/3198x1200/eb9150/ffffff.png",
         },
       ],
+      isLoading: true,
     };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1500);
   },
 };
 </script>
