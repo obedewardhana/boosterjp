@@ -1,16 +1,19 @@
 <template>
   <div style="margin-top: 103px">
     <BannerComp :image="banner" />
+    <TabsComp :brands="games" :contents="contents" class="pt-10" />
     <BottomSliderComp :slides="slot" />
   </div>
 </template>
   <script>
 import BannerComp from "@/components/Banner.vue";
+import TabsComp from "@/components/Tabs.vue";
 import BottomSliderComp from "@/components/BottomSlider.vue";
 export default {
   name: "GamesView",
   components: {
     BannerComp,
+    TabsComp,
     BottomSliderComp,
   },
   data: () => ({
@@ -122,6 +125,160 @@ export default {
       },
     ],
     banner: "https://dummyimage.com/3198x1200/eb9150/ffffff.png",
+    games: [
+      {
+        id: 1,
+        name: "pragmatic_game",
+        src: "https://static.nukeasset.com/assets/images/vendor/pragmatic.png",
+        opt: [
+          "BLACKJACK",
+          "BACCARAT",
+          "BACCARAT NEW",
+          "ROULETTE",
+          "SCRATCH CARD",
+          "ALL",
+        ],
+        type: "hot",
+        url: "",
+      },
+      {
+        id: 2,
+        name: "red_tiger_games",
+        src: "https://static.nukeasset.com/assets/images/vendor/red_tiger.png",
+        opt: ["RNG"],
+        type: "hot",
+        url: "",
+      },
+      {
+        id: 3,
+        name: "netent_games",
+        src: "https://static.nukeasset.com/assets/images/vendor/netent.png",
+        opt: ["RNG"],
+        type: "new",
+        url: "",
+      },
+      {
+        id: 4,
+        name: "mg_games",
+        src: "https://static.nukeasset.com/assets/images/vendor/mg.png",
+        opt: ["ARCADE", "VIDEO BINGO", "TABLE GAMES", "ALL"],
+        type: "new",
+        url: "",
+      },
+      {
+        id: 5,
+        name: "habanero_games",
+        src: "https://static.nukeasset.com/assets/images/vendor/habanero.png",
+        opt: ["ARCADE", "TABLE GAMES", "WAR", "VIDEO POKER", "ROULETTE", "ALL"],
+        type: "hot",
+        url: "",
+      },
+      {
+        id: 6,
+        name: "sbo_games",
+        src: "https://static.nukeasset.com/assets/images/vendor/sbo.png",
+        opt: [],
+        type: "hot",
+        url: "",
+      },
+      {
+        id: 7,
+        name: "spade_games",
+        src: "https://static.nukeasset.com/assets/images/vendor/spade.png",
+        opt: ["TABLE", "ARCADE", "FISHING", "ALL"],
+        type: "new",
+        url: "",
+      },
+      {
+        id: 8,
+        name: "cq9_games",
+        src: "https://static.nukeasset.com/assets/images/vendor/cq9.png",
+        opt: ["TABLE", "ARCADE", "FISH", "ALL"],
+        type: "hot",
+        url: "",
+      },
+    ],
+    contents: [
+      {
+        id: 1,
+        name: "pragmatic_game",
+        brand: "pragmatic_game",
+        src: "https://static.nukeasset.com/assets/images/vendor/pragmatic.png",
+        opt: [
+          "BLACKJACK",
+          "BACCARAT",
+          "BACCARAT NEW",
+          "ROULETTE",
+          "SCRATCH CARD",
+          "ALL",
+        ],
+        type: "hot",
+        url: "",
+      },
+      {
+        id: 2,
+        name: "red_tiger_games",
+        brand: "red_tiger_games",
+        src: "https://static.nukeasset.com/assets/images/vendor/red_tiger.png",
+        opt: ["RNG"],
+        type: "hot",
+        url: "",
+      },
+      {
+        id: 3,
+        name: "netent_games",
+        brand: "netent_games",
+        src: "https://static.nukeasset.com/assets/images/vendor/netent.png",
+        opt: ["RNG"],
+        type: "new",
+        url: "",
+      },
+      {
+        id: 4,
+        name: "mg_games",
+        brand: "mg_games",
+        src: "https://static.nukeasset.com/assets/images/vendor/mg.png",
+        opt: ["ARCADE", "VIDEO BINGO", "TABLE GAMES", "ALL"],
+        type: "new",
+        url: "",
+      },
+      {
+        id: 5,
+        name: "habanero_games",
+        brand: "habanero_games",
+        src: "https://static.nukeasset.com/assets/images/vendor/habanero.png",
+        opt: ["ARCADE", "TABLE GAMES", "WAR", "VIDEO POKER", "ROULETTE", "ALL"],
+        type: "hot",
+        url: "",
+      },
+      {
+        id: 6,
+        name: "sbo_games",
+        brand: "sbo_games",
+        src: "https://static.nukeasset.com/assets/images/vendor/sbo.png",
+        opt: [],
+        type: "hot",
+        url: "",
+      },
+      {
+        id: 7,
+        name: "spade_games",
+        brand: "spade_games",
+        src: "https://static.nukeasset.com/assets/images/vendor/spade.png",
+        opt: ["TABLE", "ARCADE", "FISHING", "ALL"],
+        type: "new",
+        url: "",
+      },
+      {
+        id: 8,
+        name: "cq9_games",
+        brand: "cq9_games",
+        src: "https://static.nukeasset.com/assets/images/vendor/cq9.png",
+        opt: ["TABLE", "ARCADE", "FISH", "ALL"],
+        type: "hot",
+        url: "",
+      },
+    ],
   }),
   methods: {},
   mounted() {},
