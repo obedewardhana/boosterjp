@@ -35,7 +35,11 @@
                 <template v-if="brand.name == content.name">
                   <v-row>
                     <v-col cols="6" sm="3" md="3" lg="2">
-                      <v-card elevation="3" color="dark">
+                      <v-card
+                        elevation="3"
+                        color="dark"
+                        class="overflow-hidden"
+                      >
                         <template v-if="content.type == 'hot'">
                           <span class="card-ribbon-hot">{{
                             content.type
@@ -70,18 +74,13 @@
                               absolute
                               class="align-center justify-center"
                             >
-                              <p class="text-h6 text-center text-uppercase">
-                                {{ content.name }}
-                              </p>
                               <v-btn
                                 color="orange"
-                                class="hover-transparent "
-                                @click.stop="
-                                  $router
-                                    .push('/' + content.url)
-                                    .catch(() => {})
-                                "
-                                >Mulai Bermain</v-btn
+                                class="hover-transparent rounded-lg"
+                                @click.stop="loginFirst"
+                                ><p class="text-p text-capitalize mb-0">
+                                  Mulai Bermain
+                                </p></v-btn
                               >
                             </v-overlay>
                           </v-img>
@@ -107,8 +106,11 @@
 </template>
 
 <script>
+import swal from 'sweetalert2';
+window.Swal = swal;
 export default {
   name: "TabsComp",
+  components: { swal },
   data() {
     return {
       tab: null,
@@ -128,5 +130,11 @@ export default {
     },
   },
   computed: {},
+  methods: {
+    loginFirst() {
+      // $swal function calls SweetAlert into the application with the specified configuration.
+      Swal.fire('Silahkan Login!', 'Silahkan Login sebelum bermain.','warning');
+    },
+  },
 };
 </script>
