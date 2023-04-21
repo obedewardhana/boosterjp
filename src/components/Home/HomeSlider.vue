@@ -5,7 +5,7 @@
     :show-arrows="false"
     height="auto"
     contained
-    style="margin-top: 103px; min-height: 511px"
+    style="margin-top: 103px;"
   >
     <v-carousel-item
       cover

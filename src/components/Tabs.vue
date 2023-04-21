@@ -30,9 +30,10 @@
               v-for="content in contents"
               :key="content.brand"
               style="padding: 25px 35px"
+              transition="slide-x-reverse-transition"
             >
               <div v-for="brand in brands" :key="brand.id">
-                <template v-if="brand.name == content.name">
+                <template v-if="brand.name == content.name" >
                   <v-row>
                     <v-col cols="6" sm="3" md="3" lg="2">
                       <v-card

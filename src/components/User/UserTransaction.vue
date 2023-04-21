@@ -1,0 +1,66 @@
+<template>
+  <v-container>
+    <v-row>
+      <v-col cols="12">
+        <v-card
+          elevation="4"
+          white
+          class="d-flex pa-4 flex-row justify-space-between align-center rounded-4"
+          v-for="pro in profile"
+          :key="pro.id"
+        >
+          <v-card-title class="px-0 py-0">
+            <v-avatar size="60px">
+              <v-img v-if="pro.avatar == 'active'" alt="Avatar" :src="pro.src">
+                <v-skeleton-loader
+                  absolute
+                  type="image"
+                  v-if="isLoading"
+                  class="fill-height"
+                >
+                </v-skeleton-loader>
+              </v-img>
+              <v-icon v-else>mdi-user</v-icon>
+            </v-avatar>
+            <div class="d-flex flex-column align-center">
+              <p class="pl-3 mb-0 text-p black--text text-bold">
+                {{ pro.name }}
+              </p>
+              <p class="orange--text text-p pl-3 mb-0">Edit Profile</p>              
+            </div>
+          </v-card-title>
+
+          <v-card-subtitle class="d-flex align-center px-0 py-0 mt-0">
+            <div class="d-flex flex-column">
+              <p class="black--text text-bold text-right mb-0">Saldo Bonus</p>
+              <p class="black--text text-bold text-right mb-0">Rp. xxx</p>
+            </div>
+            <v-btn class="ml-5 px-5 py-5 text-capitalize hover-transparent" dark>Claim Bonus</v-btn>
+          </v-card-subtitle>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
+</template>
+<script>
+export default {
+  name: "UserTransactionComp",
+  data() {
+    return {
+      isLoading: true,
+    };
+  },
+  props: {
+    profile: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1500);
+  },
+};
+</script>

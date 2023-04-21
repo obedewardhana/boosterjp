@@ -6,6 +6,7 @@ import SlotPage from "../pages/Slot.vue";
 import CasinoPage from "../pages/Casino.vue";
 import GamesPage from "../pages/Games.vue";
 import SportsPage from "../pages/Sports.vue";
+import DashboardPage from "../pages/Users/Dashboard.vue";
 
 
 Vue.use(Router);
@@ -17,6 +18,7 @@ const routes = [
     component: HomePage,
     meta: {
       requiresAuth: false,
+      isLogin: false,
     }
   },
   {
@@ -25,6 +27,7 @@ const routes = [
     component: HomePage,
     meta: {
       requiresAuth: false,
+      isLogin: false,
     }
   },
   {
@@ -81,6 +84,15 @@ const routes = [
     component: HomePage,
     meta: {
       requiresAuth: false,
+    }
+  },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: DashboardPage,
+    meta: {
+      requiresAuth: false,
+      isLogin: true,
     }
   },
 ];

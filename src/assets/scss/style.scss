@@ -1368,6 +1368,55 @@
       }
     }
   }
+  .v-input {
+    .v-input__append-inner {
+      display: block;
+      position: absolute;
+      right: 4px;
+      .v-icon {
+        &:before {
+          font-size: 18px;
+          opacity: 0.5;
+        }
+      }
+    }
+    .v-text-field__details {
+      position: relative;
+      overflow: visible;
+      .v-messages {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 300px;
+        font-size: 11px;
+      }
+    }
+  }
+  .v-navigation-drawer--is-mobile {
+    .v-input {
+      &.error--text {
+        .v-input__control {
+          height: auto;
+          .v-text-field__details {
+            .v-messages {
+              display: block;
+              position: relative;
+              bottom: unset;
+              left: unset;
+              width: auto;
+              font-size: 11px;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.is-top {
+    .v-menu__content {
+      top: 0 !important;
+    }
+  }
 }
 
 .v-dialog {

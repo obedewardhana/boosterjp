@@ -11,8 +11,6 @@
         "@srexi/purecounterjs": "^1.5.0",
         "@svg-maps/indonesia": "^1.0.0",
         "@vue/composition-api": "^1.7.1",
-        "@vuelidate/core": "^2.0.0-alpha.44",
-        "@vuelidate/validators": "^2.0.0-alpha.31",
         "core-js": "^3.8.2",
         "deepai": "^1.0.21",
         "firebase": "^7.24.0",
@@ -25,6 +23,7 @@
         "vue-sticky-js": "0.0.4",
         "vue-svg-map": "^1.2.0",
         "vue-text-marquee": "^1.1.0",
+        "vuelidate": "^0.7.7",
         "vuetify": "^2.4.2"
     },
     "devDependencies": {

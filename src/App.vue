@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :class="{ 'is-top': !moveTop }">
     <LoadingComp v-if="isLoading"></LoadingComp>
     <NavigationComp
       :color="color"

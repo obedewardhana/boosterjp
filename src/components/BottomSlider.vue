@@ -97,7 +97,7 @@ export default {
             breakpoint: 768,
             settings: {
               dots: false,
-              slidesToShow: 4,
+              slidesToShow: 3,
               slidesToScroll: 1,
               initialSlide: 2,
             },

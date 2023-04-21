@@ -3,7 +3,21 @@
     <v-navigation-drawer v-model="drawer" app temporary :color="color">
       <v-list>
         <v-list-item
+          v-if="!this.$route.meta.isLogin"
           @click.stop="$router.push('/home').catch(() => {})"
+          class="brand-logo"
+        >
+          <v-img
+            src="@/assets/img/logo.png"
+            width="auto"
+            height="40"
+            contain
+            class="my-auto mr-3"
+          />
+        </v-list-item>
+        <v-list-item
+          v-else-if="this.$route.meta.isLogin"
+          @click.stop="$router.push('/dashboard').catch(() => {})"
           class="brand-logo"
         >
           <v-img
@@ -17,7 +31,7 @@
       </v-list>
 
       <template>
-        <v-list dense style="margin-top: 30px;">
+        <v-list dense style="margin-top: 30px">
           <v-list-item
             v-for="([text, link], i) in links"
             :key="i"
@@ -32,6 +46,101 @@
           </v-list-item>
         </v-list>
       </template>
+      <div
+        class="d-flex flex-column justify-start"
+        v-if="!this.$route.meta.isLogin"
+      >
+        <v-form @submit.prevent="submit" class="d-flex flex-column">
+          <v-text-field
+            v-model="username"
+            label="Username / Email"
+            solo
+            light
+            flat
+            class="mb-2 mr-2"
+            :class="{ 'form-group--error': $v.username.$error }"
+            :error-messages="usernameErrors"
+          ></v-text-field>
+          <v-text-field
+            v-model="password"
+            label="Kata Sandi"
+            :append-icon="showeye ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showeye ? 'text' : 'password'"
+            solo
+            light
+            flat
+            class="mb-2 mr-2"
+            @click:append="showeye = !showeye"
+            :class="{ 'form-group--error': $v.password.$error }"
+            :error-messages="passwordErrors"
+          >
+          </v-text-field>
+          <v-btn
+            type="submit"
+            small
+            color="greylighter"
+            class="ml-2 mr-2 mb-2 text-small text-shadow hover-transparent"
+            >Masuk
+          </v-btn>
+
+          <v-btn
+            type="button"
+            small
+            color="orange"
+            class="ml-2 mr-2 text-small text-shadow hover-transparent"
+            >Daftar</v-btn
+          >
+        </v-form>
+      </div>
+      <div
+        v-else-if="this.$route.meta.isLogin"
+        class="d-flex flex-row flex-wrap justify-center ml-4 mr-4 rounded-lg pt-4 pb-4"
+        style="width:inherit; background-color: var(--v-dark2-base);"
+      >
+        <div class="mr-3 mb-3 d-flex flex-column justify-end" style="width:100%;">
+          <p
+            class="text-p white--text text-bold text-right text-capitalize mb-0"
+          >
+            Your name
+          </p>
+          <p
+            class="text-p green--text text-bold text-right text-capitalize mb-0"
+          >
+            Rp. xxx
+          </p>
+        </div>
+        <div class="d-flex flex-row flex-wrap justify-end">
+          <v-btn
+            small
+            color="black"
+            width="35"
+            height="35"
+            class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
+            ><v-icon class="white--text">mdi-refresh</v-icon></v-btn
+          >
+          <v-btn
+            color="black"
+            width="35"
+            height="35"
+            class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
+            ><v-icon class="white--text">mdi-credit-card</v-icon></v-btn
+          >
+          <v-btn
+            color="black"
+            width="35"
+            height="35"
+            class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
+            ><v-icon class="white--text">mdi-recycle</v-icon></v-btn
+          >
+          <v-btn
+            color="black"
+            width="35"
+            height="35"
+            class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
+            ><v-icon class="white--text">mdi-account</v-icon></v-btn
+          >
+        </div>
+      </div>
     </v-navigation-drawer>
 
     <v-app-bar
@@ -48,10 +157,14 @@
         <v-row>
           <v-col cols="12" class="px-0">
             <div class="d-flex align-center justify-space-between">
-              <div class="d-flex flex-row justify-start align-center">
+              <div
+                class="d-flex flex-row justify-start align-center"
+                style="width: 100%"
+              >
                 <v-toolbar-title
                   class="d-flex align-center ml-2"
                   style="width: 160px; cursor: pointer"
+                  v-if="!this.$route.meta.isLogin"
                   @click.stop="$router.push('/home').catch(() => {})"
                 >
                   <v-img
@@ -62,110 +175,281 @@
                     class="my-auto mr-3"
                   />
                 </v-toolbar-title>
+
+                <v-toolbar-title
+                  class="d-flex align-center ml-2"
+                  style="width: 160px; cursor: pointer"
+                  v-if="this.$route.meta.isLogin"
+                  @click.stop="$router.push('/dashboard').catch(() => {})"
+                >
+                  <v-img
+                    src="@/assets/img/logo.png"
+                    width="auto"
+                    height="100"
+                    contain
+                    class="my-auto mr-3"
+                  />
+                </v-toolbar-title>
+
                 <v-app-bar-nav-icon
                   @click.stop="drawer = !drawer"
                   v-if="isXs"
                 />
-                <div v-else class="d-flex flex-row align-center justify-start">
-                  <v-btn class="no-hover no-padding" text depressed>
-                    <router-link
-                      class="nav-link white--text hover-text"
-                      to="/togel"
+                <div
+                  v-else
+                  class="d-flex pl-3 flex-row align-center justify-space-between"
+                  style="width: 100%"
+                >
+                  <div
+                    class="d-flex flex-row align-center justify-start"
+                    v-if="!isMd"
+                  >
+                    <v-btn class="no-hover no-padding" text depressed>
+                      <router-link
+                        class="nav-link white--text hover-text"
+                        to="/togel"
+                      >
+                        <span class="nav-menu">Togel</span>
+                      </router-link>
+                    </v-btn>
+                    <v-btn class="no-hover no-padding" text depressed>
+                      <router-link
+                        class="nav-link white--text hover-text"
+                        to="/slot"
+                      >
+                        <span class="nav-menu">Slot</span>
+                      </router-link>
+                    </v-btn>
+                    <v-btn class="no-hover no-padding" text depressed>
+                      <router-link
+                        class="nav-link white--text hover-text"
+                        to="/casino"
+                      >
+                        <span class="nav-menu">Casino</span>
+                      </router-link>
+                    </v-btn>
+                    <v-btn class="no-hover no-padding" text depressed>
+                      <router-link
+                        class="nav-link white--text hover-text"
+                        to="/games"
+                      >
+                        <span class="nav-menu">Games</span>
+                      </router-link>
+                    </v-btn>
+                    <v-btn class="no-hover no-padding" text depressed>
+                      <router-link
+                        class="nav-link white--text hover-text"
+                        to="/sports"
+                      >
+                        <span class="nav-menu">Sports</span>
+                      </router-link>
+                    </v-btn>
+                    <v-btn class="no-hover no-padding" text depressed>
+                      <router-link
+                        class="nav-link white--text hover-text"
+                        to="/promo"
+                      >
+                        <span class="nav-menu">Promo</span>
+                      </router-link>
+                    </v-btn>
+                    <v-btn class="no-hover no-padding" text depressed>
+                      <router-link
+                        class="nav-link white--text hover-text"
+                        to="/mobile"
+                      >
+                        <span class="nav-menu">Mobile</span>
+                      </router-link>
+                    </v-btn>
+                  </div>
+
+                  <div
+                    class="d-flex flex-row align-center justify-start"
+                    v-else
+                  >
+                    <v-btn class="no-hover no-padding" text depressed>
+                      <router-link
+                        class="nav-link white--text hover-text"
+                        to="/togel"
+                      >
+                        <span class="nav-menu">Togel</span>
+                      </router-link>
+                    </v-btn>
+                    <v-btn class="no-hover no-padding" text depressed>
+                      <router-link
+                        class="nav-link white--text hover-text"
+                        to="/slot"
+                      >
+                        <span class="nav-menu">Slot</span>
+                      </router-link>
+                    </v-btn>
+
+                    <v-menu
+                      offset-y
+                      transition="slide-y-transition"
+                      style="z-index: 6 !important"
                     >
-                      <span class="nav-menu">Togel</span>
-                    </router-link>
-                  </v-btn>
-                  <v-btn class="no-hover no-padding" text depressed>
-                    <router-link
-                      class="nav-link white--text hover-text"
-                      to="/slot"
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                          class="no-hover no-padding ml-1"
+                          depressed
+                          v-bind="attrs"
+                          v-on="on"
+                        >
+                          Others
+                        </v-btn>
+                      </template>
+                      <v-list dark>
+                        <v-list-item>
+                          <v-btn class="no-hover no-padding" text depressed>
+                            <router-link
+                              class="nav-link white--text hover-text"
+                              to="/casino"
+                            >
+                              <span class="nav-menu">Casino</span>
+                            </router-link>
+                          </v-btn>
+                        </v-list-item>
+                        <v-list-item>
+                          <v-btn class="no-hover no-padding" text depressed>
+                            <router-link
+                              class="nav-link white--text hover-text"
+                              to="/games"
+                            >
+                              <span class="nav-menu">Games</span>
+                            </router-link>
+                          </v-btn>
+                        </v-list-item>
+                        <v-list-item>
+                          <v-btn class="no-hover no-padding" text depressed>
+                            <router-link
+                              class="nav-link white--text hover-text"
+                              to="/sports"
+                            >
+                              <span class="nav-menu">Sports</span>
+                            </router-link>
+                          </v-btn>
+                        </v-list-item>
+                        <v-list-item>
+                          <v-btn class="no-hover no-padding" text depressed>
+                            <router-link
+                              class="nav-link white--text hover-text"
+                              to="/promo"
+                            >
+                              <span class="nav-menu">Promo</span>
+                            </router-link>
+                          </v-btn>
+                        </v-list-item>
+                        <v-list-item>
+                          <v-btn class="no-hover no-padding" text depressed>
+                            <router-link
+                              class="nav-link white--text hover-text"
+                              to="/mobile"
+                            >
+                              <span class="nav-menu">Mobile</span>
+                            </router-link>
+                          </v-btn>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
+                  </div>
+
+                  <div
+                    v-if="!this.$route.meta.isLogin"
+                    class="d-flex flex-row justify-end"
+                    style="margin-top: -16px"
+                  >
+                    <v-form @submit.prevent="submit" class="d-flex">
+                      <v-text-field
+                        v-model="username"
+                        label="Username / Email"
+                        solo
+                        light
+                        flat
+                        :class="{ 'form-group--error': $v.username.$error }"
+                        :error-messages="usernameErrors"
+                      ></v-text-field>
+                      <v-text-field
+                        v-model="password"
+                        label="Kata Sandi"
+                        :append-icon="showeye ? 'mdi-eye' : 'mdi-eye-off'"
+                        :type="showeye ? 'text' : 'password'"
+                        solo
+                        light
+                        flat
+                        class="mr-4"
+                        @click:append="showeye = !showeye"
+                        :class="{ 'form-group--error': $v.password.$error }"
+                        :error-messages="passwordErrors"
+                      >
+                      </v-text-field>
+                      <v-btn
+                        type="submit"
+                        small
+                        color="greylighter"
+                        class="mr-1 text-small text-shadow hover-transparent"
+                        >Masuk
+                      </v-btn>
+
+                      <v-btn
+                        type="button"
+                        small
+                        color="orange"
+                        class="mr-2 text-small text-shadow hover-transparent"
+                        >Daftar</v-btn
+                      >
+                    </v-form>
+                  </div>
+                  <div
+                    v-else-if="this.$route.meta.isLogin"
+                    class="d-flex flex-column flex-sm-row flex-md-row flex-lg-row flex-wrap align-center"
+                  >
+                    <div
+                      class="mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
                     >
-                      <span class="nav-menu">Slot</span>
-                    </router-link>
-                  </v-btn>
-                  <v-btn class="no-hover no-padding" text depressed>
-                    <router-link
-                      class="nav-link white--text hover-text"
-                      to="/casino"
+                      <p
+                        class="text-p white--text text-bold text-right text-capitalize mb-0"
+                      >
+                        Your name
+                      </p>
+                      <p
+                        class="text-p green--text text-bold text-right text-capitalize mb-0"
+                      >
+                        Rp. xxx
+                      </p>
+                    </div>
+                    <v-btn
+                      small
+                      color="black"
+                      width="35"
+                      height="35"
+                      class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
+                      ><v-icon class="white--text">mdi-refresh</v-icon></v-btn
                     >
-                      <span class="nav-menu">Casino</span>
-                    </router-link>
-                  </v-btn>
-                  <v-btn class="no-hover no-padding" text depressed>
-                    <router-link
-                      class="nav-link white--text hover-text"
-                      to="/games"
+                    <v-btn
+                      color="black"
+                      width="35"
+                      height="35"
+                      class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
+                      ><v-icon class="white--text"
+                        >mdi-credit-card</v-icon
+                      ></v-btn
                     >
-                      <span class="nav-menu">Games</span>
-                    </router-link>
-                  </v-btn>
-                  <v-btn class="no-hover no-padding" text depressed>
-                    <router-link
-                      class="nav-link white--text hover-text"
-                      to="/sports"
+                    <v-btn
+                      color="black"
+                      width="35"
+                      height="35"
+                      class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
+                      ><v-icon class="white--text">mdi-recycle</v-icon></v-btn
                     >
-                      <span class="nav-menu">Sports</span>
-                    </router-link>
-                  </v-btn>
-                  <v-btn class="no-hover no-padding" text depressed>
-                    <router-link
-                      class="nav-link white--text hover-text"
-                      to="/promo"
+                    <v-btn
+                      color="black"
+                      width="35"
+                      height="35"
+                      class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
+                      ><v-icon class="white--text">mdi-account</v-icon></v-btn
                     >
-                      <span class="nav-menu">Promo</span>
-                    </router-link>
-                  </v-btn>
-                  <v-btn class="no-hover no-padding" text depressed>
-                    <router-link
-                      class="nav-link white--text hover-text"
-                      to="/mobile"
-                    >
-                      <span class="nav-menu">Mobile</span>
-                    </router-link>
-                  </v-btn>
+                  </div>
                 </div>
-              </div>
-              <div
-                class="d-flex flex-row justify-end"
-                style="margin-top: -16px"
-              >
-                <v-form @submit.prevent class="d-flex">
-                  <v-text-field
-                    v-model="username"
-                    :rules="usernamerule"
-                    label="Username / Email"
-                    solo
-                    light
-                    flat
-                    class=""
-                  ></v-text-field>
-                  <v-text-field
-                    v-model="password"
-                    :rules="passwordrule"
-                    :append-inner-icon="showeye ? 'mdi-eye' : 'mdi-eye-off'"
-                    :type="showeye ? 'text' : 'password'"
-                    label="Kata Sandi"
-                    solo
-                    light
-                    flat
-                    class="mr-4"
-                    @click:append="showeye = !showeye"
-                  ></v-text-field>
-                  <v-btn
-                    type="submit"
-                    small
-                    color="greylighter"
-                    class="mr-1 text-small text-shadow hover-transparent"
-                    >Masuk</v-btn
-                  >
-                  <v-btn
-                    type="button"
-                    small
-                    color="orange"
-                    class="mr-2 text-small text-shadow hover-transparent"
-                    >Daftar</v-btn
-                  >
-                </v-form>
               </div>
             </div>
           </v-col>
@@ -191,11 +475,20 @@
 </style>
   
 <script>
+import { validationMixin } from "vuelidate";
+import { required, minLength } from "vuelidate/lib/validators";
+
 export default {
   name: "Navigation",
+  mixins: [validationMixin],
+  validations: {
+    username: { required },
+    password: { required, minLength: minLength(6) },
+  },
   data: () => ({
     drawer: null,
     isXs: false,
+    isMd: false,
     links: [
       ["Togel", "togel"],
       ["Slot", "slot"],
@@ -204,29 +497,39 @@ export default {
       ["Promo", "promo"],
       ["Mobile", "mobile"],
     ],
-    username: "",
-    password: "",
+    username: null,
+    password: null,
+    submitStatus: null,
     showeye: true,
-    usernamerule: [
-      (value) => {
-        if (value) return true;
-        return "Username / Email harus diisi.";
-      },
-    ],
-    passwordrule: [
-      (value) => {
-        if (value) return true;
-        return "Kata Sandi harus diisi.";
-      },
-    ],
   }),
   props: {
     color: String,
     flat: Boolean,
   },
+  computed: {
+    usernameErrors() {
+      const errors = [];
+      if (!this.$v.username.$dirty) return errors;
+      !this.$v.username.required && errors.push("Username harus diisi.");
+      return errors;
+    },
+    passwordErrors() {
+      const errors = [];
+      if (!this.$v.password.$dirty) return errors;
+      !this.$v.password.required && errors.push("Password harus diisi.");
+      !this.$v.password.minLength &&
+        errors.push(
+          "Password minimal " +
+            this.$v.password.$params.minLength.min +
+            " karakter ."
+        );
+      return errors;
+    },
+  },
   methods: {
     onResize() {
       this.isXs = window.innerWidth < 850;
+      this.isMd = window.innerWidth < 991;
     },
     checkRoute() {
       console.log(this.$route.name);
@@ -235,6 +538,17 @@ export default {
       this.$router.push({
         path: `/${id}`,
       });
+    },
+    submit() {
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        this.submitStatus = "error";
+      } else {
+        this.submitStatus = "success";
+        this.$router.push({
+          path: `/dashboard`,
+        });
+      }
     },
   },
 
@@ -248,6 +562,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.$route.meta.isLogin);
     this.checkRoute();
     this.onResize();
     window.addEventListener("resize", this.onResize, { passive: true });

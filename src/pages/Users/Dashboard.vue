@@ -1,24 +1,18 @@
 <template>
-  <div>
-    <HomeSliderComp />
-    <JackpotSectionComp />
-    <ProductGalleryComp />
-    <BottomSliderComp :slides="slot"/>
+  <div style="margin-top:103px">
+    <UserTransactionComp :profile="profile" class="pt-10"/>
+    <BottomSliderComp :slides="slot" />
   </div>
 </template>
-  
+
 <script>
-import HomeSliderComp from "@/components/Home/HomeSlider.vue";
-import JackpotSectionComp from "@/components/Home/JackpotSection.vue";
-import ProductGalleryComp from "@/components/Home/ProductGallery.vue";
+import UserTransactionComp from "@/components/User/UserTransaction.vue";
 import BottomSliderComp from "@/components/BottomSlider.vue";
 export default {
-  name: "HomeView",
+  name: "DashboardView",
   components: {
-    HomeSliderComp,
-    JackpotSectionComp,
-    ProductGalleryComp,
     BottomSliderComp,
+    UserTransactionComp
   },
   data: () => ({
     slot: [
@@ -127,15 +121,14 @@ export default {
         src: "https://static.nukeasset.com/assets/images/vendor/sbo.png",
         opt: ["Slot"],
       },
-    ],    
+    ],
+    profile: [{
+      id:'1',
+      name:'Your name',
+      saldo:'',
+      avatar:'active',
+      src:'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
+    }],
   }),
-  methods: {},
-  mounted() {
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1500);
-  },
 };
 </script>
-  
-

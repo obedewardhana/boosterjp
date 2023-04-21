@@ -35,7 +35,6 @@ Responsive
 @media screen and (max-width: 1024px) {
   .v-application {
     .v-carousel {
-      min-height: 384px !important;
       .v-image__image {
         background-position: top center !important;
       }
@@ -46,7 +45,6 @@ Responsive
 @media screen and (max-width: 991px) {
   .v-application {
     .v-carousel {
-      min-height: 384px !important;
       .v-image__image {
         background-position: top center !important;
       }
@@ -222,7 +220,6 @@ Responsive
       padding: 0 10px;
     }
     .v-carousel {
-      min-height: 285px !important;
       .v-image__image {
         background-position: top center !important;
       }
@@ -305,7 +302,6 @@ Responsive
       }
     }
     .v-carousel {
-      min-height: 155px !important;
       .v-image__image {
         background-position: top center !important;
       }
