@@ -1,19 +1,17 @@
 <template>
   <div style="margin-top: 103px">
-    <BannerComp :image="banner" />
-    <TabsComp :brands="sports" :contents="contents" class="pt-12" />
+    <RegisterComp />
     <BottomSliderComp :slides="slot" />
   </div>
 </template>
-  <script>
-import BannerComp from "@/components/Banner.vue";
-import TabsComp from "@/components/Tabs.vue";
+
+<script>
+import RegisterComp from "@/components/Register.vue";
 import BottomSliderComp from "@/components/BottomSlider.vue";
 export default {
-  name: "SportsView",
+  name: "RegisterView",
   components: {
-    BannerComp,
-    TabsComp,
+    RegisterComp,
     BottomSliderComp,
   },
   data: () => ({
@@ -124,78 +122,6 @@ export default {
         opt: ["Slot"],
       },
     ],
-    banner: "https://dummyimage.com/3198x1200/eb9150/ffffff.png",
-    sports: [
-      {
-        id: 1,
-        name: "ibc_sports_sports",
-        brand: "ibc_sports_sports",
-        src: "https://static.nukeasset.com/assets/images/vendor/ibc_sports.png",
-        type:"",
-        url:""
-      },
-      {
-        id: 3,
-        name: "ibc_esports_esports",
-        brand: "ibc_esports_esports",
-        src: "https://static.nukeasset.com/assets/images/vendor/ibc_esports.png",
-        type:"hot",
-        url:""
-      },
-      {
-        id: 4,
-        name: "sbo_sports_book",
-        brand: "sbo_sports_book",
-        src: "https://static.nukeasset.com/assets/images/vendor/sbo_sports.png",
-        type:"new",
-        url:""
-      },
-      {
-        id: 5,
-        name: "sbo_virtual_sports",
-        brand: "sbo_virtual_sports",
-        src: "https://static.nukeasset.com/assets/images/vendor/sbo_virtual.png",
-        type:"",
-        url:""
-      },
-    ],
-    contents: [
-      {
-        id: 1,
-        name: "ibc_sports_sports",
-        brand: "ibc_sports_sports",
-        src: "https://static.nukeasset.com/assets/images/vendor/ibc_sports.png",
-        type:"",
-        url:""
-      },
-      {
-        id: 3,
-        name: "ibc_esports_esports",
-        brand: "ibc_esports_esports",
-        src: "https://static.nukeasset.com/assets/images/vendor/ibc_esports.png",
-        type:"hot",
-        url:""
-      },
-      {
-        id: 4,
-        name: "sbo_sports_book",
-        brand: "sbo_sports_book",
-        src: "https://static.nukeasset.com/assets/images/vendor/sbo_sports.png",
-        type:"new",
-        url:""
-      },
-      {
-        id: 5,
-        name: "sbo_virtual_sports",
-        brand: "sbo_virtual_sports",
-        src: "https://static.nukeasset.com/assets/images/vendor/sbo_virtual.png",
-        type:"",
-        url:""
-      },
-    ],
   }),
-  methods: {},
-  mounted() {},
 };
 </script>
-  

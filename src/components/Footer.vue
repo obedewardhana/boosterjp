@@ -196,7 +196,6 @@ export default {
   data: () => ({
     links: [
       ["Tentang Kami", "about"],
-      ["Referral", "referral"],
       ["Syarat & Ketentuan", "terms"],
       ["F.A.Q", "faq"],
     ],

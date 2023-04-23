@@ -1,7 +1,7 @@
 <template>
   <div style="margin-top: 103px">
     <BannerComp :image="banner" />
-    <CasinoGalleryComp :casino="casino" class="pt-10"/>
+    <CasinoGalleryComp :casino="casino" class="pt-12"/>
     <BottomSliderComp :slides="slot" />
   </div>
 </template>

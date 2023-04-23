@@ -88,6 +88,7 @@
             small
             color="orange"
             class="ml-2 mr-2 text-small text-shadow hover-transparent"
+            @click.stop="$router.push('/register').catch(() => {})"
             >Daftar</v-btn
           >
         </v-form>
@@ -130,7 +131,7 @@
             width="35"
             height="35"
             class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
-            ><v-icon class="white--text">mdi-recycle</v-icon></v-btn
+            ><v-icon class="white--text">mdi-currency-usd</v-icon></v-btn
           >
           <v-btn
             color="black"
@@ -395,6 +396,7 @@
                         small
                         color="orange"
                         class="mr-2 text-small text-shadow hover-transparent"
+                        @click.stop="$router.push('/register').catch(() => {})"
                         >Daftar</v-btn
                       >
                     </v-form>
@@ -422,14 +424,14 @@
                       color="black"
                       width="35"
                       height="35"
-                      class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
+                      class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"
                       ><v-icon class="white--text">mdi-refresh</v-icon></v-btn
                     >
                     <v-btn
                       color="black"
                       width="35"
                       height="35"
-                      class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
+                      class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"
                       ><v-icon class="white--text"
                         >mdi-credit-card</v-icon
                       ></v-btn
@@ -438,14 +440,14 @@
                       color="black"
                       width="35"
                       height="35"
-                      class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
-                      ><v-icon class="white--text">mdi-recycle</v-icon></v-btn
+                      class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"
+                      ><v-icon class="white--text">mdi-currency-usd</v-icon></v-btn
                     >
                     <v-btn
                       color="black"
                       width="35"
                       height="35"
-                      class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
+                      class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"
                       ><v-icon class="white--text">mdi-account</v-icon></v-btn
                     >
                   </div>

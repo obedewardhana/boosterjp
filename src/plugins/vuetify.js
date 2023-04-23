@@ -19,6 +19,7 @@ export default new Vuetify({
                 dark2:"#474747",
                 white: "#ffffff",
                 black:"#000000",
+                gray:"#dedede",
                 socialfacebook:"#3b5998",
                 socialinstagram:"#833AB4",
                 socialgmail:"#c71610",

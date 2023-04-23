@@ -1,18 +1,21 @@
 <template>
   <div style="margin-top:103px">
-    <UserTransactionComp :profile="profile" class="pt-10"/>
+    <UserHeaderComp :profile="profile" class="pt-10"/>
+    <UserTransactionComp/>
     <BottomSliderComp :slides="slot" />
   </div>
 </template>
 
 <script>
+import UserHeaderComp from "@/components/User/UserHeader.vue";
 import UserTransactionComp from "@/components/User/UserTransaction.vue";
 import BottomSliderComp from "@/components/BottomSlider.vue";
 export default {
   name: "DashboardView",
   components: {
     BottomSliderComp,
-    UserTransactionComp
+    UserTransactionComp,
+    UserHeaderComp
   },
   data: () => ({
     slot: [

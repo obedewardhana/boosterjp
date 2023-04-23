@@ -1,7 +1,7 @@
 <template>
   <div style="margin-top: 103px">
     <BannerComp :image="banner" />
-    <TabsComp :brands="games" :contents="contents" class="pt-10" />
+    <TabsComp :brands="games" :contents="contents" class="pt-12" />
     <BottomSliderComp :slides="slot" />
   </div>
 </template>

@@ -47,7 +47,7 @@
                   :aspect-ratio="1"
                   :src="box.src"
                   v-if="box.type == 'img'"
-                  @click.stop="$router.push('/' + box.url).catch(() => {})"
+                  @click.stop="loginFirst"
                   style="cursor: pointer"
                   :class="{ 'hover-zoom': hover }"
                 >
@@ -77,11 +77,11 @@
                   >
                   </v-skeleton-loader>
                   <v-overlay absolute class="align-center justify-center">
-                    <p class="text-h6 text-center">Slots</p>
+                    <p class="text-h6 text-center">{{box.name}}</p>
                     <v-btn
                       color="orange"
                       class="hover-transparent"
-                      @click.stop="$router.push('/' + box.url).catch(() => {})"
+                      @click.stop="loginFirst"
                       >Mulai Bermain</v-btn
                     >
                   </v-overlay>
@@ -160,24 +160,28 @@ export default {
         {
           id: "1",
           type: "img",
+          name: "Slots",
           url: "#",
           src: "https://dummyimage.com/900x900/9c9c9c/fff.png",
         },
         {
           id: "2",
           type: "img",
+          name: "Slots",
           url: "#",
           src: "https://dummyimage.com/900x900/9c9c9c/fff.png",
         },
         {
           id: "3",
           type: "img",
+          name: "Slots",
           url: "#",
           src: "https://dummyimage.com/900x900/9c9c9c/fff.png",
         },
         {
           id: "4",
           type: "button",
+          name: "Slots",
           url: "#",
           src: "https://dummyimage.com/900x900/9c9c9c/fff.png",
         },
@@ -207,6 +211,16 @@ export default {
       overlay: false,
       isLoading: true,
     };
+  },
+  methods: {
+    loginFirst() {
+      // $swal function calls SweetAlert into the application with the specified configuration.
+      Swal.fire(
+        "Silahkan Login!",
+        "Silahkan Login sebelum bermain.",
+        "warning"
+      );
+    },
   },
   mounted() {
     setTimeout(() => {

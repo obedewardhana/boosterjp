@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import HomePage from "../pages/Home.vue";
+import RegisterPage from "../pages/Register.vue";
 import TogelPage from "../pages/Togel.vue";
 import SlotPage from "../pages/Slot.vue";
 import CasinoPage from "../pages/Casino.vue";
@@ -25,6 +26,15 @@ const routes = [
     path: "/home",
     name: "Home",
     component: HomePage,
+    meta: {
+      requiresAuth: false,
+      isLogin: false,
+    }
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: RegisterPage,
     meta: {
       requiresAuth: false,
       isLogin: false,
