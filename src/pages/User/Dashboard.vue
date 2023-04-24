@@ -2,7 +2,7 @@
   <div>
     <UserHeaderComp :profile="profile" class="pt-10"/>
     <UserTransactionComp :transcategories="transcategories"/>
-    <PopularGamesComp :contents="slot"/>
+    <PopularGamesComp :contents="slot" class="pb-8"/>
     <BottomSliderComp :slides="slot" />
   </div>
 </template>

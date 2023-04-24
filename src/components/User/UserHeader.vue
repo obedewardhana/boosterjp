@@ -5,11 +5,11 @@
         <v-card
           elevation="4"
           white
-          class="d-flex pl-4 pr-4 pb-4 pt-4 flex-row justify-space-between align-center rounded-lg"
+          class="d-flex pl-4 pr-4 pb-4 pt-4 flex-row flex-wrap justify-space-between align-center rounded-lg"
           v-for="pro in profile"
           :key="pro.id"
         >
-          <v-card-title class="px-0 py-0">
+          <v-card-title class="px-0 py-0 mb-5 mb-sm-5 mb-md-0 mb-lg-0">
             <v-avatar size="80px">
               <v-img v-if="pro.avatar == 'active'" alt="Avatar" :src="pro.src">
                 <v-skeleton-loader
@@ -36,7 +36,7 @@
             </div>
           </v-card-title>
 
-          <v-card-subtitle class="d-flex align-center px-0 py-0 mt-0">
+          <v-card-subtitle class="d-flex align-center px-0 py-0 mt-0 ml-auto mr-auto ml-sm-auto mr-sm-0 ml-lg-auto mr-md-0 ml-md-auto mr-lg-0">
             <div
               class="d-flex flex-column"
               style="

@@ -9,7 +9,7 @@
       </v-col>
     </v-row>
 
-    <v-row class="pt-0">
+    <v-row class="pt-0 mt-0">
       <v-col cols="12" class="pt-0 mt-0" >
         <div class="scroll-x" style="padding-top:10px">
           <v-col

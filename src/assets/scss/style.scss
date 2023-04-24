@@ -867,6 +867,37 @@
       }
     }
   }
+  .table-simple {
+    width: 100%;
+    thead {
+      background: var(--v-gray-base);
+    }
+    td {
+      padding: 10px;
+    }
+    tbody {
+      td {
+        border-bottom: 1px solid var(--v-gray-base);
+      }
+    }
+    th {
+      padding: 10px;
+    }
+  }
+
+  .tab-simple {
+    p {
+      padding: 0 10px;
+      border-bottom: 3px solid transparent;
+    }
+    .v-tab--active {
+      p {
+        color: var(--v-orange-base) !important;
+        border-bottom: 3px solid var(--v-orange-base);
+      }
+    }
+  }
+
   footer {
     .v-btn {
       .v-btn__content {
