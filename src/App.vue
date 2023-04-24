@@ -70,7 +70,7 @@ export default Vue.extend({
     lastScrollPosition: 0,
     speed: 70,
     content:
-      "Selamat Datang di BoosterJP Situs Judi Online Terpercaya Menang Berapapun PASTI di BAYAR. Info Penting : Pastikan Check Nomor Tujuan Deposit yang Sesuai. UNTUK INFO LEBIH LANJUT BISA HUBUNGI KAMI DI LIVE CHAT / WHATS APP +855 - 97 856 - 7577",
+      "Selamat Datang di BuntungHoki88 Situs Judi Online Terpercaya Menang Berapapun PASTI di BAYAR. Info Penting : Pastikan Check Nomor Tujuan Deposit yang Sesuai. UNTUK INFO LEBIH LANJUT BISA HUBUNGI KAMI DI LIVE CHAT / WHATS APP +855 - 97 856 - 7577",
     scrollOffset: 40,
   }),
 

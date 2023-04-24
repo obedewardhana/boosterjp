@@ -138,7 +138,7 @@
               :class="[visible ? 'show' : 'hide']"
             >
               <p class="white--text text-p">
-                Boosterjp adalah SITUS MESIN SLOTGAMES 4D MANIA JACKPOT PAUS WD
+                BuntungHoki88 adalah SITUS MESIN SLOTGAMES 4D MANIA JACKPOT PAUS WD
                 PASTI BAYAR 2022 100% Tanpa Ribet Hoki Jp Untung Manjur Anti
                 NYedot Cheats Trending Games Populer Di Asia . Kami Himbau Untuk
                 Tidak Candu Main Kasino Slotgames Darat / Online Apa lagi Bukan
@@ -156,7 +156,7 @@
                 mempunyai ijin resmi di Eropa yang diberikan oleh Isle of Man,
                 yang berstatus pemberi ijin resmi dalam bermain judi bola secara
                 online. <br /><br />
-                Boosterjp Juga Menjadi Salah Satu Situs Terbesar Di asia Yang
+                BuntungHoki88 Juga Menjadi Salah Satu Situs Terbesar Di asia Yang
                 Menerima Deposit Melalui Pulsa Ewalet yang 24jam nonstop . Bonus
                 Promo Nya Pun Sangat Menarik Dan Bonus Bonus Yang Di Sediakan
                 Paling Dicari Oleh Slotter Mania Tanah Air Karena Turnovernya
