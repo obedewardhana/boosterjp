@@ -119,13 +119,13 @@
               <v-text-field
                 v-model="cpassword"
                 placeholder="6 - 14 karakter"
-                :append-icon="showeye ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="showeye ? 'text' : 'cpassword'"
+                :append-icon="showmata ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="showmata ? 'text' : 'password'"
                 solo
                 light
                 flat
                 class=""
-                @click:append="showeye = !showeye"
+                @click:append="showmata = !showmata"
                 :class="{ 'form-group--error': $v.cpassword.$error }"
                 :error-messages="cpasswordErrors"
               >
@@ -164,7 +164,11 @@
               Dengan menetapkan DAFTAR, Anda menyatakan bahwa benar Anda berusia
               18 tahun ke atas dan Anda setuju dengan
             </p>
-            <p role="button" class="mb-0 orange--text text-p text-center" @click.stop="$router.push('/terms-condition').catch(() => {})">
+            <p
+              role="button"
+              class="mb-0 orange--text text-p text-center"
+              @click.stop="$router.push('/terms-condition').catch(() => {})"
+            >
               Syarat & Ketentuan
             </p>
           </v-card>
@@ -184,7 +188,13 @@
 </template>
 <script>
 import { validationMixin } from "vuelidate";
-import { required, minLength, maxLength, email, sameAs } from "vuelidate/lib/validators";
+import {
+  required,
+  minLength,
+  maxLength,
+  email,
+  sameAs,
+} from "vuelidate/lib/validators";
 
 import swal from "sweetalert2";
 window.Swal = swal;
@@ -197,11 +207,16 @@ export default {
   },
   validations: {
     fullname: { required },
-    email: { required,email },
+    email: { required, email },
     handphone: { required },
     username: { required },
     password: { required, minLength: minLength(6), maxLength: maxLength(13) },
-    cpassword: { required, minLength: minLength(6), maxLength: maxLength(13), sameAsPassword: sameAs('password')  },
+    cpassword: {
+      required,
+      minLength: minLength(6),
+      maxLength: maxLength(13),
+      sameAsPassword: sameAs("password"),
+    },
   },
   data() {
     return {
@@ -214,6 +229,7 @@ export default {
       information: "Pilih",
       submitStatus: null,
       showeye: false,
+      showmata: false,
       phonecode: {
         name: "Indonesia",
         code: "ID",
@@ -331,7 +347,8 @@ export default {
             this.$v.cpassword.$params.maxLength.max +
             " karakter ."
         );
-        !this.$v.cpassword.sameAsPassword && errors.push("Password tidak sesuai.");
+      !this.$v.cpassword.sameAsPassword &&
+        errors.push("Password tidak sesuai.");
       return errors;
     },
   },
@@ -346,9 +363,10 @@ export default {
           "Registrasi Berhasil!",
           "Akun berhasil didaftarkan.",
           "success"
-        );
-        this.$router.push({
-          path: `/home`,
+        ).then((confirmed) => {
+          this.$router.push({
+            path: `/success`,
+          });
         });
       }
     },

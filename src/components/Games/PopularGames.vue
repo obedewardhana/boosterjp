@@ -42,14 +42,6 @@
                   :class="{ 'on-hover': hover }"
                 >
                   <v-overlay absolute class="align-center justify-center">
-                    <v-btn
-                      color="orange"
-                      class="hover-transparent rounded-lg"
-                      @click.stop=""
-                      ><p class="text-p text-capitalize mb-0">
-                        Mulai Bermain
-                      </p></v-btn
-                    >
                   </v-overlay>
                   <v-skeleton-loader
                     absolute

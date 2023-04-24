@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import RegisterComp from "@/components/Register.vue";
+import RegisterComp from "@/components/User/Register.vue";
 import BottomSliderComp from "@/components/BottomSlider.vue";
 export default {
   name: "RegisterView",
