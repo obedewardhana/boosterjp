@@ -41,6 +41,12 @@
 #app {
   background: #dedede;
 }
+.v-main {
+  margin-top: 103px;
+}
+.no-marquee .v-main {
+    margin-top: 65px;
+}
 </style>
 
 <script>

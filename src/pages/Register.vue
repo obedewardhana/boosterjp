@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 103px">
+  <div>
     <RegisterComp />
     <BottomSliderComp :slides="slot" />
   </div>

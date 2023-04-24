@@ -71,7 +71,7 @@ export default {
         centerPadding: "5px",
         focusOnSelect: true,
         infinite: true,
-        slidesToShow: 7,
+        slidesToShow: 6,
         speed: 500,
         slidesToScroll: 1,
         responsive: [

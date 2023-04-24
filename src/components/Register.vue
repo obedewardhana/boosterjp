@@ -213,7 +213,7 @@ export default {
       cpassword: null,
       information: "Pilih",
       submitStatus: null,
-      showeye: true,
+      showeye: false,
       phonecode: {
         name: "Indonesia",
         code: "ID",

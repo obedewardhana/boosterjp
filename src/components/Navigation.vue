@@ -502,7 +502,7 @@ export default {
     username: null,
     password: null,
     submitStatus: null,
-    showeye: true,
+    showeye: false,
   }),
   props: {
     color: String,

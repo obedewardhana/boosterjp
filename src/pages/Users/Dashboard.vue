@@ -1,7 +1,8 @@
 <template>
-  <div style="margin-top:103px">
+  <div>
     <UserHeaderComp :profile="profile" class="pt-10"/>
-    <UserTransactionComp/>
+    <UserTransactionComp :transcategories="transcategories"/>
+    <PopularGamesComp :contents="slot"/>
     <BottomSliderComp :slides="slot" />
   </div>
 </template>
@@ -9,12 +10,14 @@
 <script>
 import UserHeaderComp from "@/components/User/UserHeader.vue";
 import UserTransactionComp from "@/components/User/UserTransaction.vue";
+import PopularGamesComp from "@/components/Games/PopularGames.vue";
 import BottomSliderComp from "@/components/BottomSlider.vue";
 export default {
   name: "DashboardView",
   components: {
     BottomSliderComp,
     UserTransactionComp,
+    PopularGamesComp,
     UserHeaderComp
   },
   data: () => ({
@@ -132,6 +135,11 @@ export default {
       avatar:'active',
       src:'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
     }],
+    transcategories : [
+      {id:'1',name:'Deposit',url:'/deposit'},
+      {id:'2',name:'Withdraw',url:'/withdraw'},
+      {id:'3',name:'Riwayat',url:'/history'}
+    ]
   }),
 };
 </script>

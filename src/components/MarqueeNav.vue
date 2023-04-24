@@ -135,6 +135,7 @@ export default {
       });
     },
     removeMarquee(seconds) {
+      document.body.classList.add('no-marquee')
       setTimeout(() => (this.showMarquee = false), seconds * 100);
     },
   },
