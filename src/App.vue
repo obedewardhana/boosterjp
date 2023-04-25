@@ -57,7 +57,7 @@
 <script>
 import "@/assets/scss/style.scss";
 import "@/assets/scss/responsive.scss";
-import { LiveChatWidget } from '@livechat/widget-vue'
+import { LiveChatWidget } from '@livechat/widget-vue/v2'
 import Vue from "vue";
 import NavigationComp from "./components/Navigation";
 import MarqueeNavComp from "./components/MarqueeNav";
