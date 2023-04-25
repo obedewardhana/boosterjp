@@ -25,12 +25,12 @@
             ></v-img>
           </v-tab>
 
-          <v-tabs-items v-model="tab">
+          <v-tabs-items v-model="tab" >
             <v-tab-item
               v-for="content in contents"
               :key="content.brand"
               style="padding: 25px 35px"
-              transition="slide-x-reverse-transition"
+              :transition="false"
             >
               <div v-for="brand in brands" :key="brand.id">
                 <template v-if="brand.name == content.name" >
@@ -39,7 +39,7 @@
                       <v-card
                         elevation="3"
                         color="dark"
-                        class="overflow-hidden"
+                        class="overflow-hidden hover-zoom"
                       >
                         <template v-if="content.type == 'hot'">
                           <span class="card-ribbon-hot">{{

@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 103px">
+  <div>
     <BannerComp :image="banner" />
     <TabsComp :brands="games" :contents="contents" class="pt-12" />
     <BottomSliderComp :slides="slot" />

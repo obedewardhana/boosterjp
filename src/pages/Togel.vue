@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top:103px">
+  <div>
     <BannerComp :image="banner"/>
     <RegionComp :rows="region"/>
     <TabsComp :brands="brands" :contents="contents"/>

@@ -1,12 +1,12 @@
 <template>
-  <div style="margin-top: 103px">
+  <div>
     <RegisterComp />
     <BottomSliderComp :slides="slot" />
   </div>
 </template>
 
 <script>
-import RegisterComp from "@/components/Register.vue";
+import RegisterComp from "@/components/User/Register.vue";
 import BottomSliderComp from "@/components/BottomSlider.vue";
 export default {
   name: "RegisterView",

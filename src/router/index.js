@@ -1,13 +1,14 @@
 import Vue from "vue";
 import Router from "vue-router";
 import HomePage from "../pages/Home.vue";
-import RegisterPage from "../pages/Register.vue";
 import TogelPage from "../pages/Togel.vue";
 import SlotPage from "../pages/Slot.vue";
 import CasinoPage from "../pages/Casino.vue";
 import GamesPage from "../pages/Games.vue";
 import SportsPage from "../pages/Sports.vue";
-import DashboardPage from "../pages/Users/Dashboard.vue";
+import DashboardPage from "../pages/User/Dashboard.vue";
+import RegisterPage from "../pages/User/Register.vue";
+import SuccessPage from "../pages/User/Success.vue";
 
 
 Vue.use(Router);
@@ -100,6 +101,15 @@ const routes = [
     path: "/dashboard",
     name: "Dashboard",
     component: DashboardPage,
+    meta: {
+      requiresAuth: false,
+      isLogin: true,
+    }
+  },
+  {
+    path: "/success",
+    name: "Success",
+    component: SuccessPage,
     meta: {
       requiresAuth: false,
       isLogin: true,
