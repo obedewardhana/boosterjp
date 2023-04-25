@@ -635,8 +635,14 @@
   }
   .hover-zoom {
     .v-image__image {
-      transform: scale(1.5);
+      transform: scale(1);
       transition: 0.3s ease-in-out;
+    }
+    &:hover{
+      .v-image__image {
+        transform: scale(1.15);
+        transition: 0.3s ease-in-out;
+      }
     }
   }
   .v-carousel {
@@ -887,12 +893,12 @@
 
   .tab-simple {
     p {
-      padding: 0 10px;
+      padding: 0 4px 10px;
       border-bottom: 3px solid transparent;
     }
     .v-tab--active {
       p {
-        color: var(--v-orange-base) !important;
+        color: var(--v-black-base)!important;
         border-bottom: 3px solid var(--v-orange-base);
       }
     }

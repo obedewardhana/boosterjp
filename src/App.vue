@@ -18,6 +18,13 @@
       </transition>
     </v-main>
     <FooterComp color="black"></FooterComp>
+
+    <LiveChatWidget license="15361152" visibility="maximized" />
+
+    <v-btn width="40" height="40" fixed bottom left class="rounded-circle no-shadow no-padding" style="z-index:8;" color="green" @click="outside(whatsapp)">
+      <v-icon class="white--text">mdi-whatsapp</v-icon>
+    </v-btn>
+
     <v-scale-transition>
       <v-btn
         fab
@@ -26,19 +33,16 @@
         dark
         fixed
         bottom
-        right
+        left
         small
         color="dark"
         @click="toTop"
+        style="left:65px;z-index:8;"
       >
         <v-icon>mdi-arrow-up</v-icon>
       </v-btn>
     </v-scale-transition>
 
-    <LiveChatWidget
-      license="15361152"
-      visibility="maximized"
-    />
   </v-app>
 </template>
 
@@ -50,14 +54,14 @@
   margin-top: 103px;
 }
 .no-marquee .v-main {
-    margin-top: 65px;
+  margin-top: 65px;
 }
 </style>
 
 <script>
 import "@/assets/scss/style.scss";
 import "@/assets/scss/responsive.scss";
-import { LiveChatWidget } from '@livechat/widget-vue/v2'
+import { LiveChatWidget } from "@livechat/widget-vue/v2";
 import Vue from "vue";
 import NavigationComp from "./components/Navigation";
 import MarqueeNavComp from "./components/MarqueeNav";
@@ -70,12 +74,13 @@ export default Vue.extend({
     LoadingComp,
     MarqueeNavComp,
     FooterComp,
-    LiveChatWidget
+    LiveChatWidget,
   },
 
   data: () => ({
     fab: null,
     color: "dark",
+    whatsapp:"https://wa.me/6281355538777",
     flat: null,
     isLoading: true,
     showHeader: true,
@@ -117,6 +122,14 @@ export default Vue.extend({
       if (typeof window === "undefined") return;
       const top = window.pageYOffset || e.target.scrollTop || 0;
       this.fab = top > 60;
+    },
+    goTo(id) {
+      this.$router.push({
+        path: `/${id}`,
+      });
+    },
+    outside(id) {
+      window.open(id, "_blank");
     },
     toTop() {
       this.$vuetify.goTo(0);
