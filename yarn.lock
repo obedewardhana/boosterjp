@@ -1288,6 +1288,20 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@livechat/widget-core@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@livechat/widget-core/-/widget-core-1.3.0.tgz#756485751dba41fe37f52891f8dfabca40dcc359"
+  integrity sha512-fiKxe9qc8iJGol+ImvQIvdPc3mZYtimq5az8YQOmi0x0VEsYdga0rzRL+zGSSiVP+yMhher4ro4tHKZEx+Et3A==
+  dependencies:
+    mitt "3.0.0"
+
+"@livechat/widget-vue@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@livechat/widget-vue/-/widget-vue-1.3.0.tgz#02851cd1e79dd769ff447265024e21a0860f70dd"
+  integrity sha512-amTwtX1aYuitIzb0mxQnWbglX3xjr2JiCoZeRP60J8m0u5BbGrsY7HMmu0xq8XjU4acLdUKD4DR3m7P+ny41xA==
+  dependencies:
+    "@livechat/widget-core" "^1.3.0"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -5795,6 +5809,11 @@ mississippi@^3.0.0:
     pumpify "^1.3.3"
     stream-each "^1.1.0"
     through2 "^2.0.0"
+
+mitt@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/mitt/-/mitt-3.0.0.tgz#69ef9bd5c80ff6f57473e8d89326d01c414be0bd"
+  integrity sha512-7dX2/10ITVyqh4aOSVI9gdape+t9l2/8QxHrFmUXu4EEUpdlxl6RudZUPZoc+zuY2hk1j7XxVroIVIan/pD/SQ==
 
 mixin-deep@^1.2.0:
   version "1.3.2"

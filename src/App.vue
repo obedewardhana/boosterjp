@@ -34,6 +34,11 @@
         <v-icon>mdi-arrow-up</v-icon>
       </v-btn>
     </v-scale-transition>
+
+    <LiveChatWidget
+      license="15361152"
+      visibility="maximized"
+    />
   </v-app>
 </template>
 
@@ -46,6 +51,7 @@
 <script>
 import "@/assets/scss/style.scss";
 import "@/assets/scss/responsive.scss";
+import { LiveChatWidget } from '@livechat/widget-vue'
 import Vue from "vue";
 import NavigationComp from "./components/Navigation";
 import MarqueeNavComp from "./components/MarqueeNav";
@@ -58,6 +64,7 @@ export default Vue.extend({
     LoadingComp,
     MarqueeNavComp,
     FooterComp,
+    LiveChatWidget
   },
 
   data: () => ({
