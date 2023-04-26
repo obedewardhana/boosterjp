@@ -875,6 +875,7 @@
   }
   .table-simple {
     width: 100%;
+    background: var(--v-white-base);
     thead {
       background: var(--v-gray-base);
     }
@@ -1126,6 +1127,13 @@
     img {
       width: 20px;
     }
+  }
+  .loader{
+    background-color: transparent;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
   }
 }
 

@@ -23,7 +23,8 @@
               :ripple="false"
               v-for="transcategorie in transcategories"
               :key="transcategorie.id"
-              class=""
+              class="no-hover"
+              @click.stop="loadData()"
             >
               <p class="text-p mb-0 text-uppercase text-medium grey--text">
                 {{ transcategorie.name }}
@@ -34,18 +35,44 @@
               <v-tab-item
                 v-for="transcategorie in transcategories"
                 :key="transcategorie.id"
-                class="overflow-auto pt-5"
+                class="pt-5 overflow-auto"
+                :transition="false"
+                style="min-height:150px; height: auto;"
               >
                 <template v-if="tab === 0">
-                  <DepositComp :deposit="deposit" />
+                  <div
+                    v-if="isLoading"
+                    class="d-flex flex-row justify-center align-center pb-8 loader"
+                  >
+                    <v-progress-circular indeterminate></v-progress-circular>
+                  </div>
+                  <v-slide-x-transition v-if="!isLoading" mode="out-in" appear>
+                    <DepositComp absolute :deposit="deposit" />
+                  </v-slide-x-transition>
                 </template>
 
                 <template v-if="tab === 1">
-                  <WithdrawComp :withdraw="withdraw" />
+                  <div
+                    v-if="isLoading"
+                    class="d-flex flex-row justify-center align-center pb-8 loader"
+                  >
+                    <v-progress-circular indeterminate></v-progress-circular>
+                  </div>
+                  <v-slide-x-transition v-if="!isLoading" mode="out-in" appear>
+                    <WithdrawComp absolute :withdraw="withdraw" />
+                  </v-slide-x-transition>
                 </template>
 
                 <template v-if="tab === 2">
-                  <HistoryComp :history="history" />
+                  <div
+                    v-if="isLoading"
+                    class="d-flex flex-row justify-center align-center pb-8 loader"
+                  >
+                    <v-progress-circular indeterminate></v-progress-circular>
+                  </div>
+                  <v-slide-x-transition v-if="!isLoading" mode="out-in" appear>
+                    <HistoryComp absolute :history="history" />
+                  </v-slide-x-transition>
                 </template>
               </v-tab-item>
             </v-tabs-items>
@@ -65,7 +92,7 @@ export default {
   components: {
     DepositComp,
     HistoryComp,
-    WithdrawComp
+    WithdrawComp,
   },
   data() {
     return {
@@ -134,6 +161,14 @@ export default {
       type: Array,
       required: true,
       default: () => [],
+    },
+  },
+  methods: {
+    loadData() {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 400);
     },
   },
   mounted() {
