@@ -36,7 +36,7 @@
 
             <template v-if="tab === 0">
               <div class="tab-filter">
-                <p class="text-p mb-0 pb-0">Permainan:</p>
+                <p class="text-p black--text mb-0 pb-0">Permainan:</p>
                 <v-select
                   v-model="selbet"
                   :items="selectbet"
@@ -55,7 +55,7 @@
 
             <template v-else-if="tab === 1">
               <div class="tab-filter">
-                <p class="text-p mb-0 pb-0">Jenis Transaksi:</p>
+                <p class="text-p black--text mb-0 pb-0">Jenis Transaksi:</p>
                 <v-select
                   v-model="seltrans"
                   :items="selecttrans"
@@ -268,6 +268,7 @@ export default {
           note: "-",
         },
       ],
+      page:1
     };
   },
   methods: {

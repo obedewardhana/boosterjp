@@ -30,6 +30,7 @@
         </tr>
       </tbody>
     </table>
+    <v-pagination v-model="page" :length="15" :total-visible="7"></v-pagination>
   </v-card>
 </template>
   
@@ -39,6 +40,7 @@ export default {
   data() {
     return {
       isLoading: true,
+      page:1
     };
   },
   props: {

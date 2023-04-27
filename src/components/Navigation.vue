@@ -44,6 +44,15 @@
               }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item
+            v-if="this.$route.meta.isLogin"
+            @click.stop="$router.push('/logout').catch(() => {})"
+            ><v-list-item-content>
+              <v-list-item-title class="menu-title white--text hover-text"
+                >Logout</v-list-item-title
+              >
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
       </template>
       <div
@@ -95,10 +104,13 @@
       </div>
       <div
         v-else-if="this.$route.meta.isLogin"
-        class="d-flex flex-row flex-wrap justify-center ml-4 mr-4 rounded-lg pt-4 pb-4"
-        style="width:inherit; background-color: var(--v-dark2-base);"
+        class="d-flex flex-row flex-wrap justify-center ml-4 mr-4 mt-4 rounded-lg pt-4 pb-4"
+        style="width: inherit; background-color: var(--v-dark2-base)"
       >
-        <div class="mr-3 mb-3 d-flex flex-column justify-end" style="width:100%;">
+        <div
+          class="mr-3 mb-3 d-flex flex-column justify-end"
+          style="width: 100%"
+        >
           <p
             class="text-p white--text text-bold text-right text-capitalize mb-0"
           >
@@ -109,37 +121,6 @@
           >
             Rp. xxx
           </p>
-        </div>
-        <div class="d-flex flex-row flex-wrap justify-end">
-          <v-btn
-            small
-            color="black"
-            width="35"
-            height="35"
-            class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
-            ><v-icon class="white--text">mdi-refresh</v-icon></v-btn
-          >
-          <v-btn
-            color="black"
-            width="35"
-            height="35"
-            class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
-            ><v-icon class="white--text">mdi-credit-card</v-icon></v-btn
-          >
-          <v-btn
-            color="black"
-            width="35"
-            height="35"
-            class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
-            ><v-icon class="white--text">mdi-currency-usd</v-icon></v-btn
-          >
-          <v-btn
-            color="black"
-            width="35"
-            height="35"
-            class="no-padding hover-transparent mr-3 mb-3 mr-sm-3 mb-sm-0 mr-md-3 mb-md-0 mr-lg-3 mb-lg-0"
-            ><v-icon class="white--text">mdi-account</v-icon></v-btn
-          >
         </div>
       </div>
     </v-navigation-drawer>
@@ -441,15 +422,79 @@
                       width="35"
                       height="35"
                       class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"
-                      ><v-icon class="white--text">mdi-currency-usd</v-icon></v-btn
+                      ><v-icon class="white--text"
+                        >mdi-currency-usd</v-icon
+                      ></v-btn
                     >
-                    <v-btn
-                      color="black"
-                      width="35"
-                      height="35"
-                      class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"
-                      ><v-icon class="white--text">mdi-account</v-icon></v-btn
+                    <v-menu
+                      offset-y
+                      elevation="0"
+                      flat
+                      transition="slide-y-transition"
+                      style="z-index: 6 !important"
+                      left
                     >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                          color="black"
+                          width="35"
+                          height="35"
+                          class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"
+                          v-bind="attrs"
+                          v-on="on"
+                          ><v-icon class="white--text"
+                            >mdi-account</v-icon
+                          ></v-btn
+                        >
+                      </template>
+                      <v-list light flat>
+                        <v-list-item
+                          :class="{
+                            'orange--active': this.$route.name == 'Profile',
+                          }"
+                          class="hover-orange"
+                          role="button"
+                          @click.stop="$router.push('/profile').catch(() => {})"
+                        >
+                          <v-btn
+                            class="no-hover no-shadow no-padding text-capitalize"
+                            text
+                            depressed
+                          >
+                            <span class="nav-menu black--text">Profile</span>
+                          </v-btn>
+                        </v-list-item>
+                        <v-list-item
+                          :class="{
+                            'orange--active': this.$route.name == 'Transaction',
+                          }"
+                          class="hover-orange"
+                          role="button"
+                          @click.stop="
+                            $router.push('/transaction').catch(() => {})
+                          "
+                        >
+                          <v-btn
+                            class="no-hover no-shadow no-padding text-capitalize"
+                            text
+                            depressed
+                          >
+                            <span class="nav-menu black--text"
+                              >Laporan Transaksi</span
+                            >
+                          </v-btn>
+                        </v-list-item>
+                        <v-list-item class="hover-orange">
+                          <v-btn
+                            class="no-hover no-shadow no-padding text-capitalize"
+                            text
+                            depressed
+                          >
+                            <span class="nav-menu black--text">Logout</span>
+                          </v-btn>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
                   </div>
                 </div>
               </div>
