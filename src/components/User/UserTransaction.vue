@@ -31,13 +31,27 @@
               </p>
             </v-tab>
 
-            <v-tabs-items v-model="tab" >
+            <v-btn
+              size="small"
+              elevation="0"
+              absolute
+              right
+              top
+              class="no-shadow"
+              style="background-color: transparent; right: -10px;"
+              @click.stop="$router.push('/transaction').catch(() => {})"
+              ><v-icon  class="orange--text text-p"
+                >mdi-note-text-outline</v-icon
+              ></v-btn
+            >
+
+            <v-tabs-items v-model="tab">
               <v-tab-item
                 v-for="transcategorie in transcategories"
                 :key="transcategorie.id"
                 class="pt-5 overflow-auto"
                 :transition="false"
-                style="min-height:150px; height: auto;"
+                style="min-height: 150px; height: auto"
               >
                 <template v-if="tab === 0">
                   <div
@@ -169,6 +183,11 @@ export default {
       setTimeout(() => {
         this.isLoading = false;
       }, 400);
+    },
+    goTo(id) {
+      this.$router.push({
+        path: `/${id}`,
+      });
     },
   },
   mounted() {

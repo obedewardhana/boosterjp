@@ -9,6 +9,7 @@ import SportsPage from "../pages/Sports.vue";
 import DashboardPage from "../pages/User/Dashboard.vue";
 import RegisterPage from "../pages/User/Register.vue";
 import SuccessPage from "../pages/User/Success.vue";
+import TransactionPage from "../pages/User/Transaction.vue";
 
 
 Vue.use(Router);
@@ -110,6 +111,15 @@ const routes = [
     path: "/success",
     name: "Success",
     component: SuccessPage,
+    meta: {
+      requiresAuth: false,
+      isLogin: true,
+    }
+  },
+  {
+    path: "/transaction",
+    name: "Transaction",
+    component: TransactionPage,
     meta: {
       requiresAuth: false,
       isLogin: true,

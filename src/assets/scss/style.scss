@@ -252,6 +252,9 @@
         -webkit-transition: 0.3s;
       }
     }
+    &.no-bg{
+      background-color: transparent!important;
+    }
     .slick-prev {
       top: 0;
       display: flex;
@@ -817,6 +820,25 @@
       }
       &.v-tab--active {
         background-color: var(--v-white-base);
+        &.no-bg{
+          background-color: transparent!important;
+        }
+      }
+    }
+    .tab-filter{
+      display: flex;
+      justify-content:flex-end;
+      flex-direction: row;
+      margin-left: auto;
+      p{
+        margin-top:8px;
+      }
+      .v-input {
+        .v-input__control {
+          .v-select__selection {
+            margin-left:15px;
+          }
+        }
       }
     }
     .v-overlay {
@@ -862,6 +884,15 @@
         border-radius: 0 10px 10px 0;
         box-shadow: 1px 2px 3px 1px #000;
       }
+      &.no-bg{
+        background-color: transparent!important;
+      }
+    }
+    &.no-bg{
+      background-color: transparent!important;
+      .v-tabs-bar{
+        background-color: transparent!important;
+      }
     }
   }
   .theme--light.v-tabs {
@@ -876,6 +907,7 @@
   .table-simple {
     width: 100%;
     background: var(--v-white-base);
+    overflow-y: hidden;
     thead {
       background: var(--v-gray-base);
     }
