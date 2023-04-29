@@ -15,6 +15,7 @@
           elevation="0"
           class="d-flex pl-3 pr-3 pb-3 pt-3 mb-3 flex-row justify-space-between align-center rounded-md no-bg"
         >
+          <div class="filter-list"></div>
           <v-tabs
             v-model="tab"
             height="50"
@@ -29,7 +30,7 @@
               class="no-hover no-bg pb-5"
               @click.stop="loadData()"
             >
-              <p class="text-p mb-0 text-uppercase text-medium grey--text">
+              <p class="text-p mb-0 text-uppercase text-bold grey--text">
                 {{ tabtitle.name }}
               </p>
             </v-tab>
@@ -40,10 +41,12 @@
                 <v-select
                   v-model="selbet"
                   :items="selectbet"
+                  append-icon="mdi-chevron-down"
                   label="Permainan"
                   item-text="option"
                   solo
                   absolute
+                  attach=".filter-list"
                   top
                   right
                   light
@@ -59,10 +62,12 @@
                 <v-select
                   v-model="seltrans"
                   :items="selecttrans"
+                  append-icon="mdi-chevron-down"
                   label="Permainan"
                   item-text="option"
                   solo
                   absolute
+                  attach=".filter-list"
                   top
                   right
                   light
@@ -71,13 +76,15 @@
                 </v-select>
               </div>
             </template>
-            
 
-            <v-tabs-items v-model="tab" style="background-color: transparent;min-height:400px">
+            <v-tabs-items
+              v-model="tab"
+              style="background-color: transparent; min-height: 400px"
+            >
               <v-tab-item
                 v-for="tabtitle in tabtitles"
                 :key="tabtitle.id"
-                class="pt-5 overflow-auto"
+                class="overflow-auto"
                 :transition="false"
                 style="min-height: 150px; height: auto"
               >
@@ -88,8 +95,13 @@
                   >
                     <v-progress-circular indeterminate></v-progress-circular>
                   </div>
-                  <v-slide-x-transition v-if="!isLoading" hide-on-leave mode="out-in" appear>
-                    <HistoryBetComp absolute :historybet="historybet"/>
+                  <v-slide-x-transition
+                    v-if="!isLoading"
+                    hide-on-leave
+                    mode="out-in"
+                    appear
+                  >
+                    <HistoryBetComp absolute :historybet="historybet" />
                   </v-slide-x-transition>
                 </template>
                 <template v-if="tab === 1">
@@ -99,8 +111,16 @@
                   >
                     <v-progress-circular indeterminate></v-progress-circular>
                   </div>
-                  <v-slide-x-transition v-if="!isLoading" hide-on-leave mode="out-in" appear>
-                    <HistoryTransactionComp absolute :historytrans="historytrans"/>
+                  <v-slide-x-transition
+                    v-if="!isLoading"
+                    hide-on-leave
+                    mode="out-in"
+                    appear
+                  >
+                    <HistoryTransactionComp
+                      absolute
+                      :historytrans="historytrans"
+                    />
                   </v-slide-x-transition>
                 </template>
               </v-tab-item>
@@ -119,7 +139,7 @@ export default {
   name: "ReportComp",
   components: {
     HistoryBetComp,
-    HistoryTransactionComp
+    HistoryTransactionComp,
   },
   data() {
     return {
@@ -268,7 +288,7 @@ export default {
           note: "-",
         },
       ],
-      page:1
+      page: 1,
     };
   },
   methods: {

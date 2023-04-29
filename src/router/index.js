@@ -10,6 +10,9 @@ import DashboardPage from "../pages/User/Dashboard.vue";
 import RegisterPage from "../pages/User/Register.vue";
 import SuccessPage from "../pages/User/Success.vue";
 import TransactionPage from "../pages/User/Transaction.vue";
+import ProfilePage from "../pages/User/Profile.vue";
+import ChangePasswordPage from "../pages/User/ChangePassword.vue";
+import BankPage from "../pages/User/Bank.vue";
 
 
 Vue.use(Router);
@@ -120,6 +123,24 @@ const routes = [
     path: "/transaction",
     name: "Transaction",
     component: TransactionPage,
+    meta: {
+      requiresAuth: false,
+      isLogin: true,
+    }
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: ProfilePage,
+    meta: {
+      requiresAuth: false,
+      isLogin: true,
+    }
+  },
+  {
+    path: "/change_password",
+    name: "ChangePassword",
+    component: ChangePasswordPage,
     meta: {
       requiresAuth: false,
       isLogin: true,

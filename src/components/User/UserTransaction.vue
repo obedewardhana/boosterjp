@@ -40,7 +40,7 @@
               class="no-shadow"
               style="background-color: transparent; right: -10px;"
               @click.stop="$router.push('/transaction').catch(() => {})"
-              ><v-icon  class="orange--text text-p"
+              ><v-icon  class="orange--text big-icon text-p"
                 >mdi-note-text-outline</v-icon
               ></v-btn
             >

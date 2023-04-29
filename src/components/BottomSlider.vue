@@ -76,6 +76,24 @@ export default {
         slidesToScroll: 1,
         responsive: [
           {
+            breakpoint: 2000,
+            settings: {
+              dots: false,
+              slidesToShow: 7,
+              slidesToScroll: 1,
+              infinite: true,
+            },
+          },
+          {
+            breakpoint: 1600,
+            settings: {
+              dots: false,
+              slidesToShow: 6,
+              slidesToScroll: 1,
+              infinite: true,
+            },
+          },
+          {
             breakpoint: 1367,
             settings: {
               dots: false,

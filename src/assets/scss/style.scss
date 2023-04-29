@@ -201,7 +201,7 @@
     }
   }
   .v-list {
-    padding:0;
+    padding: 0;
     .v-list-item {
       font-family: "Rajdhani", sans-serif;
       position: relative;
@@ -232,7 +232,7 @@
           width: 0;
           z-index: 2;
         }
-        &.orange--active{
+        &.orange--active {
           .black--text {
             color: var(--v-white-base) !important;
           }
@@ -603,9 +603,6 @@
       }
     }
   }
-  .v-overlay {
-    opacity: 0;
-  }
   .on-hover {
     .v-overlay {
       opacity: 1;
@@ -717,8 +714,12 @@
   }
   .v-item-group {
     .v-icon {
-      font-size: 45px;
-      color: var(--v-white-base);
+      &.big-icon {
+        font-size: 45px;
+      }
+      &.small-icon {
+        font-size: 14px;
+      }
       &.v-icon--disabled {
         opacity: 0.2;
       }
@@ -905,15 +906,82 @@
   .tab-simple {
     p {
       padding: 0 4px 10px;
-      border-bottom: 3px solid transparent;
     }
     .v-tab--active {
+      position: relative;
       p {
+        position: relative;
         color: var(--v-black-base) !important;
-        border-bottom: 3px solid var(--v-orange-base);
+        &:after {
+          content: " ";
+          display: block;
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          background: var(--v-orange-base);
+          width: 50%;
+          height: 2px;
+        }
+      }
+    }
+    &.tab-center {
+      .v-slide-group__content {
+        justify-content: center;
       }
     }
   }
+  .filter-list {
+    display: flex;
+    position: absolute;
+    top: 62px;
+    right: 12px;
+    width: 300px;
+    height: 100%;
+    justify-content: flex-end;
+
+    .v-menu__content {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      left: unset !important;
+      max-width: unset !important;
+      margin-top: 0;
+      .v-list {
+        border-radius: 4px;
+        border: 1px solid var(--v-gray-base);
+        min-width: 130px;
+        .v-list-item {
+          border-bottom: 1px solid var(--v-gray-base);
+        }
+      }
+    }
+  }
+
+  .ava-input {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 9;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    .v-input__control {
+      display: none;
+    }
+
+    .v-input__prepend-outer {
+      margin: 0;
+    }
+
+    .v-icon {
+      color: var(--v-white-base);
+    }
+  }
+
   .v-pagination {
     margin-top: 20px;
     .v-pagination__item {
@@ -933,9 +1001,9 @@
       }
     }
   }
-  .v-menu__content{
-    box-shadow:unset;
-    margin-top:16px;
+  .v-menu__content {
+    box-shadow: unset;
+    margin-top: 16px;
   }
   footer {
     .v-btn {
@@ -1044,7 +1112,7 @@
   &.is-top {
     .v-menu__content--fixed {
       top: 0 !important;
-      margin-top:0;
+      margin-top: 0;
     }
   }
   .list-description {
@@ -1057,7 +1125,7 @@
   .form-single {
     background: var(--v-white-base);
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 5px;
     max-width: 550px;
     margin: 0 auto;
     width: 100%;
@@ -1070,9 +1138,11 @@
         margin: 0;
         font-size: 12px;
         font-family: "Rajdhani Bold", sans-serif;
-        margin: 6px;
+        margin-top: 6px;
         font-weight: 600;
         margin-left: 13px;
+        margin-bottom: 0;
+        padding: 0;
       }
       .phone-box {
         display: flex;
@@ -1096,6 +1166,9 @@
       }
       .v-input {
         margin-bottom: 8px;
+        .v-icon {
+          color: rgba(0, 0, 0, 0.54);
+        }
         &.form-group--error {
           margin-bottom: 0;
           .v-input__control {
@@ -1138,6 +1211,7 @@
             }
           }
           .v-text-field__details {
+            display: block;
             position: relative;
             overflow: visible;
             margin-bottom: 0;
@@ -1171,6 +1245,8 @@
 }
 
 .v-dialog {
+  overflow: hidden;
+  position: relative;
   .v-list-item {
     padding: 0;
     font-family: "Rajdhani", sans-serif;
@@ -1179,6 +1255,19 @@
     }
     .v-list-item__subtitle {
       font-family: "Rajdhani", sans-serif;
+    }
+  }
+  .dialog-close {
+    display: block;
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    right: 0;
+    top: 0;
+    text-align: right;
+    .v-btn__content {
+      justify-content: flex-end;
+      margin-top: 10px;
     }
   }
 }
@@ -1193,6 +1282,12 @@
   .swal2-confirm {
     font-family: "Rajdhani", sans-serif;
     background-color: var(--v-orange-base) !important;
+    &:focus {
+      box-shadow: 0 0 0 3px rgb(255 145 0 / 58%) !important;
+    }
+  }
+  .swal2-cancel {
+    font-family: "Rajdhani", sans-serif;
     &:focus {
       box-shadow: 0 0 0 3px rgb(255 145 0 / 58%) !important;
     }

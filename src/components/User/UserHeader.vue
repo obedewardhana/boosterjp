@@ -28,7 +28,7 @@
               </p>
               <p
                 role="button"
-                @click.stop="$router.push('/home').catch(() => {})"
+                @click.stop="$router.push('/profile').catch(() => {})"
                 class="orange--text text-p pl-3 mb-0"
               >
                 Edit Profile

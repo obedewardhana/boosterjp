@@ -454,6 +454,7 @@
                           }"
                           class="hover-orange"
                           role="button"
+                          style="border: 1px solid var(--v-gray-base)"
                           @click.stop="$router.push('/profile').catch(() => {})"
                         >
                           <v-btn
@@ -470,6 +471,7 @@
                           }"
                           class="hover-orange"
                           role="button"
+                          style="border: 1px solid var(--v-gray-base)"
                           @click.stop="
                             $router.push('/transaction').catch(() => {})
                           "
