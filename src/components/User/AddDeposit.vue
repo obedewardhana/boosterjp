@@ -26,7 +26,7 @@
             >
               <v-form @submit.prevent="submit" class="d-flex flex-column">
                 <div class="form-single d-flex flex-column pa-0">
-                  <div class="form-group-single">
+                  <div class="form-group-single form-disabled">
                     <p style="padding-top: 6px" v-if="form_type == 'Bank'">
                       Nama Rekening
                     </p>
@@ -76,7 +76,7 @@
                       </div>
                     </v-col>
                     <v-col cols="7" class="pa-0">
-                      <div class="form-group-single mb-5">
+                      <div class="form-group-single form-disabled mb-5">
                         <p style="padding-top: 6px" v-if="form_type == 'Bank'">
                           Rekening Bank
                         </p>
@@ -102,6 +102,7 @@
                           flat
                           class=""
                           :class="{ 'form-group--error': $v.selopt.$error }"
+                          disabled
                           :error-messages="seloptErrors"
                         ></v-select>
                       </div>
@@ -165,7 +166,7 @@
 
 <script>
 import { validationMixin } from "vuelidate";
-import { required, between } from "vuelidate/lib/validators";
+import { required, minValue } from "vuelidate/lib/validators";
 
 import swal from "sweetalert2";
 window.Swal = swal;
@@ -181,7 +182,7 @@ export default {
     selkun: { required },
     selopt: { required },
     receiver: { required },
-    transferAmount: { required,between: between(50000,50000) },
+    transferAmount: { required,minValue: minValue(50000) },
   },
   data() {
     return {
@@ -227,8 +228,8 @@ export default {
       if (!this.$v.transferAmount.$dirty) return errors;
       !this.$v.transferAmount.required &&
         errors.push("Nominal Deposit harus diisi.");
-        !this.$v.transferAmount.between &&
-        errors.push("Nominal Deposit harus diantara 50000 sampai 50000.");
+        !this.$v.transferAmount.minValue &&
+        errors.push("Nominal Deposit harus diatas 50000.");
       return errors;
     },
   },

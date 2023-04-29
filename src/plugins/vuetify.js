@@ -30,6 +30,7 @@ export default new Vuetify({
                 orange: "#ff9100",
                 lightblue: "#c6cdde",
                 lightgrey: "#EFEFEF",
+                darkgrey: "#bfbfbf",
                 green: "#2CAD3E",
                 red: "#eb1c24"
             }

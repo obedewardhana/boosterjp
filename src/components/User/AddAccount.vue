@@ -101,6 +101,7 @@
                 <v-select
                   v-model="selopt"
                   :items="options"
+                  label="Pilih Akun"
                   solo
                   light
                   flat
@@ -112,7 +113,9 @@
             </v-col>
           </v-row>
           <div class="form-group-single">
-            <p style="width: 100%">Handphone</p>
+            <p style="width: 100%" v-if="form_type == 'Pulsa'">Handphone</p>
+            <p style="width: 100%" v-else-if="form_type == 'E-wallet'">Handphone</p>
+            <p style="width: 100%" v-else-if="form_type == 'Bank'">No. Rekening</p>
             <v-text-field
               v-model="handphone"
               placeholder="Ex: 81288888"
@@ -196,6 +199,11 @@ export default {
     handphoneErrors() {
       const errors = [];
       if (!this.$v.handphone.$dirty) return errors;
+      if(this.form_type =='Bank')  
+      !this.$v.handphone.required && errors.push("Nomor Rekening harus diisi.");
+      else if(this.form_type =='Pulsa')  
+      !this.$v.handphone.required && errors.push("Handphone harus diisi.");
+      else if(this.form_type =='E-wallet')  
       !this.$v.handphone.required && errors.push("Handphone harus diisi.");
       return errors;
     },
