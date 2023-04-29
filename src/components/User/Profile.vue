@@ -52,12 +52,12 @@
             <p
               class="text-p black--text text-bold text-right text-capitalize pa-0 mb-0"
             >
-              Your name
+              {{ fullname }}
             </p>
             <p
               class="text-p green--text text-bold text-right text-capitalize pa-0 mb-0"
             >
-              Rp. xxx
+              Rp. {{ balance }}
             </p>
           </div>
         </v-card>
@@ -153,6 +153,7 @@ import { validationMixin } from "vuelidate";
 import { required, email } from "vuelidate/lib/validators";
 
 import swal from "sweetalert2";
+import { getStore } from '../../utilities';
 window.Swal = swal;
 
 export default {
@@ -181,6 +182,7 @@ export default {
       email: "youremail@gmail.com",
       handphone: "81249363362",
       submitStatus: null,
+      balance: 0,
       urlimg: "",
       phonecode: {
         name: "Indonesia",
@@ -265,8 +267,20 @@ export default {
         Swal.fire("Berhasil!", "Data anda telah berhasil disimpan.", "success");
       }
     },
+    getData() {
+      if (getStore("token") && getStore("member")) {
+        const member = JSON.parse(getStore("member"));
+        this.fullname = member.fullname;
+        this.email = member.email;
+        this.handphone = member.phone_number;
+        this.image = "https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png"
+        this.urlimg = "https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png"
+        this.balance = member.balance;
+      }
+    },
   },
   mounted() {
+    this.getData();
     setTimeout(() => {
       this.isLoading = false;
     }, 1500);

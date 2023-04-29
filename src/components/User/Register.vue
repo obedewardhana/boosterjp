@@ -377,12 +377,10 @@ export default {
           this.submitStatus = "success";
           Swal.fire(
             "Registrasi Berhasil!",
-            "Akun berhasil didaftarkan.",
+            "Akun berhasil didaftarkan. Silahkan melakukan transasi",
             "success"
           ).then((confirmed) => {
-            this.$router.push({
-              path: `/success`,
-            });
+            window.location.href = '/success';
           });
         }).catch((err) => {
           Swal.fire(

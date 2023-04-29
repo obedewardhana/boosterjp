@@ -641,9 +641,9 @@ export default {
     logout() {
       method.post("logout")
       .then(() => {
-        window.location.reload();
         removeItem("token");
         removeItem("member");
+        window.location.href = '/';
       })
     },
     submit() {
@@ -656,7 +656,7 @@ export default {
         const data = res.data.data;
         setStore("token", data.token);
         setStore("member", data.member);
-        window.location.reload();
+        window.location.href = '/';
       }).catch((err) => {
         const status = err.response.status;
         if (status > 400) {

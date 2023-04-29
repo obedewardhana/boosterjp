@@ -35,7 +35,7 @@
             SELAMAT BERGABUNG DI BUNTUNGHOKI
           </p>
           <p class="text-p text-uppercase" v-for="pr in profile" :key="pr.id">
-            {{ pr.name }}
+            {{ pr.username }}
           </p>
           <p class="text-p mb-0 text-medium text-center black--text">
             Dapatkan berbagai macam kemudahan untuk produk layanan kami

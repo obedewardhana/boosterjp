@@ -24,13 +24,14 @@
 </template>
 
 <script>
+import urlPublic from '../../utilities/axios-public';
 export default {
   name: "HomeSliderComp",
   data() {
     return {
       images: [
         {
-          src: "https://dummyimage.com/3198x1200/eb9150/ffffff.png",
+          src: "../../src/img/banner1.png",
         },
         {
           src: "https://dummyimage.com/3198x1200/eb9150/ffffff.png",
@@ -45,7 +46,17 @@ export default {
       isLoading: true,
     };
   },
+  methods: {
+    async banner() {
+      await urlPublic.get('banner')
+      .then((res) => {
+        const data = res.data.data;
+        this.images = data;
+      })
+    }
+  },
   mounted() {
+    this.banner();
     setTimeout(() => {
       this.isLoading = false;
     }, 1500);
