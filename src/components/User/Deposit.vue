@@ -1,44 +1,26 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" class="pt-6">
-        <v-card
-          color="dark"
-          elevation="0"
-          class="mx-auto mt-4 mb-0 pa-3 d-flex flex-row align-center"
-          style="max-width: 550px; width: 100%; border-radius: 8px"
-        >
-          <v-icon class="orange--text text-h5 mr-2">mdi-account</v-icon>
-          <p
-            class="mb-0 white--text text-p text-bold text-uppercase text-center"
-          >
-            Data Pribadi
-          </p>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row>
       <v-col cols="12">
         <v-card
           elevation="0"
-          class="mx-auto d-flex pb-3 mb-3 flex-row justify-center align-center rounded-md no-bg"
+          class="mx-auto d-flex pb-3 pt-8 mb-3 flex-row justify-center align-center rounded-md no-bg"
           style="max-width: 550px; width: 100%; border-radius: 8px"
         >
           <v-tabs
             v-model="tab"
             align-tabs="center"
-            height="50"
-            class="rounded tab-simple tab-center no-bg"
-            :show-arrows="true"
+            height="35"
+            class="rounded tab-plain tab-center"
           >
             <v-tab
               :ripple="false"
               v-for="tabtitle in tabtitles"
               :key="tabtitle.id"
-              class="no-hover no-bg pb-5 justify-center"
+              class="no-hover justify-center"
               @click.stop="loadData()"
             >
-              <p class="text-p mb-0 text-uppercase text-bold grey--text">
+              <p class="text-p mb-0 text-capitalize text-bold grey--text">
                 {{ tabtitle.name }}
               </p>
             </v-tab>
@@ -46,6 +28,7 @@
             <v-tabs-items
               v-model="tab"
               style="background-color: transparent; min-height: 350px"
+              class="mt-4"
             >
               <v-tab-item
                 v-for="tabtitle in tabtitles"
@@ -66,7 +49,7 @@
                     mode="out-in"
                     appear
                   >
-                    <ProfileComp :profile="profile" absolute />
+                    <AddDepositComp />
                   </v-slide-x-transition>
                 </template>
 
@@ -83,7 +66,6 @@
                     mode="out-in"
                     appear
                   >
-                    <ChangePasswordComp absolute />
                   </v-slide-x-transition>
                 </template>
 
@@ -100,7 +82,24 @@
                     mode="out-in"
                     appear
                   >
-                    <BankComp :banks="banks" absolute />
+                    <LastTransactionComp :lasttrans="lasttrans" />
+                  </v-slide-x-transition>
+                </template>
+
+                <template v-if="tab === 3">
+                  <div
+                    v-if="isLoading"
+                    class="d-flex flex-row justify-center align-center pb-8 loader"
+                  >
+                    <v-progress-circular indeterminate></v-progress-circular>
+                  </div>
+                  <v-slide-x-transition
+                    v-if="!isLoading"
+                    hide-on-leave
+                    mode="out-in"
+                    appear
+                  >
+                    <BankComp :banks="banks" />
                   </v-slide-x-transition>
                 </template>
               </v-tab-item>
@@ -112,15 +111,17 @@
     </v-row>
   </v-container>
 </template>
-  <script>
-import ProfileComp from "@/components/User/Profile.vue";
-import ChangePasswordComp from "@/components/User/ChangePassword.vue";
+    <script>
+import AddDepositComp from "@/components/User/AddDeposit.vue";
+// import AddWithdrawComp from "@/components/User/AddWithdraw.vue";
+import LastTransactionComp from "@/components/Transactions/LastTransaction.vue";
+
 import BankComp from "@/components/User/Bank.vue";
 export default {
-  name: "PersonalizationComp",
+  name: "DepositComp",
   components: {
-    ProfileComp,
-    ChangePasswordComp,
+    LastTransactionComp,
+    AddDepositComp,
     BankComp,
   },
   data() {
@@ -128,9 +129,10 @@ export default {
       isLoading: true,
       tab: 0,
       tabtitles: [
-        { id: "1", name: "Profile", tag: "profile" },
-        { id: "2", name: "Ganti Password", tag: "change_password" },
-        { id: "3", name: "Akun Bank", tag: "bank_account" },
+        { id: "1", name: "Deposit", tag: "deposit" },
+        { id: "2", name: "Withdraw", tag: "withdraw" },
+        { id: "3", name: "Transaksi Terakhir", tag: "last_transaction" },
+        { id: "4", name: "Info AKun", tag: "account_info" },
       ],
       banks: [
         {
@@ -161,6 +163,53 @@ export default {
           src: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
         },
       ],
+      lasttrans: [
+        {
+          id: "1",
+          date: "Senin,24 April 2023 Pukul 17.00 WIB",
+          account: "Muhammad Rizky Firdaus / 1270011730833",
+          category: "deposit",
+          amount: "Rp. 0",
+          status: "success",
+          note: "-",
+        },
+        {
+          id: "2",
+          date: "Senin,24 April 2023 Pukul 17.00 WIB",
+          account: "Muhammad Rizky Firdaus / 1270011730833",
+          category: "deposit",
+          amount: "Rp. 0",
+          status: "success",
+          note: "-",
+        },
+        {
+          id: "3",
+          date: "Senin,24 April 2023 Pukul 17.00 WIB",
+          account: "Muhammad Rizky Firdaus / 1270011730833",
+          category: "manual_transfer_out",
+          amount: "Rp. 0",
+          status: "success",
+          note: "-",
+        },
+        {
+          id: "4",
+          date: "Senin,24 April 2023 Pukul 17.00 WIB",
+          account: "Muhammad Rizky Firdaus / 1270011730833",
+          category: "manual_transfer_in",
+          amount: "Rp. 0",
+          status: "success",
+          note: "-",
+        },
+        {
+          id: "5",
+          date: "Senin,24 April 2023 Pukul 17.00 WIB",
+          account: "Muhammad Rizky Firdaus / 1270011730833",
+          category: "deposit",
+          amount: "Rp. 0",
+          status: "rejected",
+          note: "-",
+        },
+      ],
     };
   },
   methods: {
@@ -183,4 +232,4 @@ export default {
   },
 };
 </script>
-  
+    

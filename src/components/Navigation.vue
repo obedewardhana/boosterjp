@@ -408,20 +408,55 @@
                       class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"
                       ><v-icon class="white--text">mdi-refresh</v-icon></v-btn
                     >
-                    <v-btn
-                      color="black"
-                      width="35"
-                      height="35"
-                      class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"
-                      ><v-icon class="white--text"
-                        >mdi-credit-card</v-icon
-                      ></v-btn
+
+                    <v-menu
+                      offset-y
+                      elevation="0"
+                      flat
+                      transition="slide-y-transition"
+                      style="z-index: 6 !important"
+                      left
                     >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                          color="black"
+                          width="35"
+                          height="35"
+                          class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"
+                          v-bind="attrs"
+                          v-on="on"
+                          ><v-icon class="white--text"
+                            >mdi-credit-card</v-icon
+                          ></v-btn
+                        >
+                      </template>
+                      <v-list light flat>
+                        <v-list-item
+                          :class="{
+                            'orange--active': this.$route.name == 'Profile',
+                          }"
+                          class="hover-orange"
+                          role="button"
+                          style="border: 1px solid var(--v-gray-base)"
+                          @click.stop="$router.push('/profile').catch(() => {})"
+                        >
+                          <v-btn
+                            class="no-hover no-shadow no-padding text-capitalize"
+                            text
+                            depressed
+                          >
+                            <span class="nav-menu black--text">Profile</span>
+                          </v-btn>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
+
                     <v-btn
                       color="black"
                       width="35"
                       height="35"
                       class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"
+                      @click.stop="$router.push('/deposit').catch(() => {})"
                       ><v-icon class="white--text"
                         >mdi-currency-usd</v-icon
                       ></v-btn

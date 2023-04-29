@@ -140,7 +140,6 @@
         >
       </v-form>
     </v-card>
-    <div role="button" ref="test"></div>
   </div>
 </template>
 

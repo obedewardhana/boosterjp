@@ -875,6 +875,24 @@
       }
     }
   }
+  .v-stepper {
+    background: transparent !important;
+    &:not(.v-sheet--outlined){
+      box-shadow: unset;
+    }
+    .v-stepper__header {
+      box-shadow: unset;
+      .v-divider{
+        border-color: var(--v-orange-base);
+      }
+      .v-stepper__label {
+        font-family: "Rajdhani", sans-serif;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+    }
+  }
+
   .theme--light.v-tabs {
     .v-tab {
       &:hover {
@@ -922,6 +940,35 @@
           background: var(--v-orange-base);
           width: 50%;
           height: 2px;
+        }
+      }
+    }
+    &.tab-center {
+      .v-slide-group__content {
+        justify-content: center;
+      }
+    }
+  }
+  .tab-plain {
+    .v-tabs-bar {
+      background-color: transparent !important;
+      p {
+        padding: 0;
+      }
+      .v-tab {
+        background-color: var(--v-dark2-base);
+        border-radius: 5px;
+        margin: 0 2px;
+        border-bottom: 3px solid transparent;
+        color: var(--v-white-base) !important;
+        &.v-tab--active {
+          background-color: var(--v-dark-base) !important;
+          position: relative;
+          border-bottom: 3px solid var(--v-orange-base);
+          p {
+            position: relative;
+            color: var(--v-white-base) !important;
+          }
         }
       }
     }
@@ -1219,7 +1266,7 @@
             .v-messages {
               display: block;
               position: absolute;
-              width: 300px;
+              width: 100%;
               .v-messages__message {
                 font-size: 14px;
                 font-family: "Rajdhani", sans-serif !important;

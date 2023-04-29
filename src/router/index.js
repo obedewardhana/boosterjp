@@ -12,7 +12,7 @@ import SuccessPage from "../pages/User/Success.vue";
 import TransactionPage from "../pages/User/Transaction.vue";
 import ProfilePage from "../pages/User/Profile.vue";
 import ChangePasswordPage from "../pages/User/ChangePassword.vue";
-import BankPage from "../pages/User/Bank.vue";
+import DepositPage from "../pages/User/Deposit.vue";
 
 
 Vue.use(Router);
@@ -141,6 +141,15 @@ const routes = [
     path: "/change_password",
     name: "ChangePassword",
     component: ChangePasswordPage,
+    meta: {
+      requiresAuth: false,
+      isLogin: true,
+    }
+  },
+  {
+    path: "/deposit",
+    name: "Deposit",
+    component: DepositPage,
     meta: {
       requiresAuth: false,
       isLogin: true,
