@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getStore } from '.';
 
 var method = axios.create({
-  baseURL: 'http://localhost:8000/api/v1/',
+  baseURL: process.env.API_URL,
   headers: {
     "Authorization" : `Bearer ${getStore('token')}`
   }
