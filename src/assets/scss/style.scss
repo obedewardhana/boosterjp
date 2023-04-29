@@ -877,12 +877,12 @@
   }
   .v-stepper {
     background: transparent !important;
-    &:not(.v-sheet--outlined){
+    &:not(.v-sheet--outlined) {
       box-shadow: unset;
     }
     .v-stepper__header {
       box-shadow: unset;
-      .v-divider{
+      .v-divider {
         border-color: var(--v-orange-base);
       }
       .v-stepper__label {
@@ -1178,6 +1178,16 @@
     width: 100%;
     .form-group-single {
       background: var(--v-gray-base);
+      &.form-disabled {
+        background: var(--v-darkgrey-base);
+        .v-input {
+          .v-input__control {
+            .v-input__slot {
+              background: var(--v-darkgrey-base)!important;
+            }
+          }
+        }
+      }
       margin-bottom: 10px;
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
