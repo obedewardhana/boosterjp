@@ -385,7 +385,11 @@ export default {
             });
           });
         }).catch((err) => {
-          console.log(err);
+          Swal.fire(
+            "Failed",
+            "Terjadi kesalahan, mohon ulangi beberapa saat lagi",
+            "error"
+          );
         })
         
       }
