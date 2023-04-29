@@ -197,6 +197,9 @@ import {
 } from "vuelidate/lib/validators";
 
 import swal from "sweetalert2";
+import urlPublic from "../../utilities/axios-public";
+import { setStore } from '../../utilities/index';
+
 window.Swal = swal;
 
 export default {
@@ -358,16 +361,33 @@ export default {
       if (this.$v.$invalid) {
         this.submitStatus = "error";
       } else {
-        this.submitStatus = "success";
-        Swal.fire(
-          "Registrasi Berhasil!",
-          "Akun berhasil didaftarkan.",
-          "success"
-        ).then((confirmed) => {
-          this.$router.push({
-            path: `/success`,
+        let formData = new FormData();
+        formData.append("fullname", this.fullname);
+        formData.append("email", this.email);
+        formData.append("phone_number", this.handphone);
+        formData.append("password", this.password);
+        formData.append("username", this.username);
+        formData.append("registered_from", this.information)
+        
+        urlPublic.post("register", formData)
+        .then((res) => {
+          const data = res.data.data;
+          setStore('token', data.token);
+          setStore('member', data.member);
+          this.submitStatus = "success";
+          Swal.fire(
+            "Registrasi Berhasil!",
+            "Akun berhasil didaftarkan.",
+            "success"
+          ).then((confirmed) => {
+            this.$router.push({
+              path: `/success`,
+            });
           });
-        });
+        }).catch((err) => {
+          console.log(err);
+        })
+        
       }
     },
   },

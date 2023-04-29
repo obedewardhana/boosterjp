@@ -336,7 +336,7 @@
                   </div>
 
                   <div
-                    v-if="!this.$route.meta.isLogin"
+                    v-if="!this.isLogin"
                     class="d-flex flex-row justify-end"
                     style="margin-top: -16px"
                   >
@@ -383,7 +383,7 @@
                     </v-form>
                   </div>
                   <div
-                    v-else-if="this.$route.meta.isLogin"
+                    v-else-if="this.isLogin"
                     class="d-flex flex-column flex-sm-row flex-md-row flex-lg-row flex-wrap align-center"
                   >
                     <div
@@ -392,12 +392,12 @@
                       <p
                         class="text-p white--text text-bold text-right text-capitalize mb-0"
                       >
-                        Your name
+                        {{this.member.username}}
                       </p>
                       <p
                         class="text-p green--text text-bold text-right text-capitalize mb-0"
                       >
-                        Rp. xxx
+                        Rp. {{this.member.balance}}
                       </p>
                     </div>
                     <v-btn
@@ -527,7 +527,7 @@
                             text
                             depressed
                           >
-                            <span class="nav-menu black--text">Logout</span>
+                            <span class="nav-menu black--text" @click="logout">Logout</span>
                           </v-btn>
                         </v-list-item>
                       </v-list>
@@ -559,8 +559,12 @@
 </style>
   
 <script>
+import Swal from 'sweetalert2';
 import { validationMixin } from "vuelidate";
 import { required, minLength } from "vuelidate/lib/validators";
+import { getStore, removeItem, setStore } from "../utilities";
+import urlPublic from '../utilities/axios-public';
+import method from "../utilities/axios-setup";
 
 export default {
   name: "Navigation",
@@ -573,6 +577,8 @@ export default {
     drawer: null,
     isXs: false,
     isMd: false,
+    isLogin: getStore("token") ? true : false,
+    member: null,
     links: [
       ["Togel", "togel"],
       ["Slot", "slot"],
@@ -611,6 +617,15 @@ export default {
     },
   },
   methods: {
+    checkLogin() {
+      if (getStore('member')) {
+        this.isLogin = true;
+        this.member = JSON.parse(getStore('member'));
+      } else {
+        this.isLogin = false;
+        this.member = null;
+      }
+    },
     onResize() {
       this.isXs = window.innerWidth < 850;
       this.isMd = window.innerWidth < 991;
@@ -623,16 +638,39 @@ export default {
         path: `/${id}`,
       });
     },
+    logout() {
+      method.post("logout")
+      .then(() => {
+        window.location.reload();
+        removeItem("token");
+        removeItem("member");
+      })
+    },
     submit() {
       this.$v.$touch();
-      if (this.$v.$invalid) {
-        this.submitStatus = "error";
-      } else {
-        this.submitStatus = "success";
-        this.$router.push({
-          path: `/dashboard`,
-        });
-      }
+      let formData = new FormData();
+      formData.append('username', this.username);
+      formData.append('password', this.password);
+      urlPublic.post('login', formData)
+      .then((res) => {
+        const data = res.data.data;
+        setStore("token", data.token);
+        setStore("member", data.member);
+        window.location.reload();
+      }).catch((err) => {
+        const status = err.response.status;
+        if (status > 400) {
+          Swal.fire("Gagal", "Periksa kembali username atau password Anda", "error");
+        }
+      });
+      // if (this.$v.$invalid) {
+      //   this.submitStatus = "error";
+      // } else {
+      //   this.submitStatus = "success";
+      //   this.$router.push({
+      //     path: `/dashboard`,
+      //   });
+      // }
     },
   },
 
@@ -649,6 +687,7 @@ export default {
     console.log(this.$route.meta.isLogin);
     this.checkRoute();
     this.onResize();
+    this.checkLogin();
     window.addEventListener("resize", this.onResize, { passive: true });
   },
 };

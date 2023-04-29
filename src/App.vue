@@ -19,7 +19,7 @@
     </v-main>
     <FooterComp color="black"></FooterComp>
 
-    <LiveChatWidget license="15361152" visibility="maximized" />
+    <LiveChatWidget license="15361152" visibility="minimized" />
 
     <v-btn width="40" height="40" fixed bottom left class="rounded-circle no-shadow no-padding" style="z-index:8;" color="green" @click="outside(whatsapp)">
       <v-icon class="white--text">mdi-whatsapp</v-icon>
