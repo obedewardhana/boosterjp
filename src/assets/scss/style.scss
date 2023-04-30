@@ -200,6 +200,16 @@
       opacity: 1;
     }
   }
+  .confirm-box {
+    background: #dedede;
+    padding: 25px;
+    th{
+      padding-bottom: 20px;
+    }
+    td{
+      padding-bottom: 20px;
+    }
+  }
   .v-list {
     padding: 0;
     .v-list-item {
@@ -372,6 +382,21 @@
       }
     }
   }
+  .receiver-box {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    .receiver-img {
+      width: 20%;
+    }
+    .receiver-title {
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      margin-left: 10px;
+    }
+  }
   .v-btn.brand-name {
     display: block;
     text-align: left;
@@ -470,7 +495,7 @@
       font-family: "Rajdhani", sans-serif;
       font-style: italic;
       font-size: 14px;
-      padding-left: 7px;
+      padding-left: 11px;
       width: 130px;
     }
     &.v-text-field--solo {
@@ -1183,7 +1208,7 @@
         .v-input {
           .v-input__control {
             .v-input__slot {
-              background: var(--v-darkgrey-base)!important;
+              background: var(--v-darkgrey-base) !important;
             }
           }
         }

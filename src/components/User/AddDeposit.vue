@@ -63,6 +63,7 @@
                       <div class="form-group-single mb-4 mr-4">
                         <p style="padding-top: 6px">Tipe Akun</p>
                         <v-select
+                          @change="isDisabled = false"
                           v-model="selkun"
                           :items="accounttype"
                           label="Tipe Akun"
@@ -76,7 +77,10 @@
                       </div>
                     </v-col>
                     <v-col cols="7" class="pa-0">
-                      <div class="form-group-single form-disabled mb-5">
+                      <div
+                        class="form-group-single mb-5"
+                        :class="{ 'form-disabled': isDisabled }"
+                      >
                         <p style="padding-top: 6px" v-if="form_type == 'Bank'">
                           Rekening Bank
                         </p>
@@ -94,6 +98,7 @@
                         </p>
                         <p style="padding-top: 6px">Pilih Akun</p>
                         <v-select
+                          @change="showForm = false"
                           v-model="selopt"
                           :items="options"
                           label="Pilih Akun"
@@ -102,61 +107,238 @@
                           flat
                           class=""
                           :class="{ 'form-group--error': $v.selopt.$error }"
-                          disabled
+                          :disabled="isDisabled"
                           :error-messages="seloptErrors"
                         ></v-select>
                       </div>
                     </v-col>
                   </v-row>
-                  <div class="form-group-single mb-5">
-                    <p style="width: 100%">Jumlah Ditransfer</p>
-                    <v-text-field
-                      v-model="transferAmount"
-                      placeholder="Masukkan jumlah deposit"
-                      type="number"
-                      solo
-                      light
-                      flat
-                      class="select-phone"
-                      :class="{ 'form-group--error': $v.transferAmount.$error }"
-                      :error-messages="transferAmountErrors"
-                      ><p>Jumlah Ditransfer</p>
-                    </v-text-field>
-                  </div>
-                  <div class="form-group-single mb-5">
-                    <p style="padding-top: 6px">Tujuan Transfer</p>
-                    <v-select
-                      v-model="receiver"
-                      :items="options"
-                      label="Pilih tujuan"
-                      solo
-                      light
-                      flat
-                      class=""
-                      :class="{ 'form-group--error': $v.receiver.$error }"
-                      :error-messages="receiverErrors"
-                    ></v-select>
-                  </div>
+                  <template v-if="!showForm">
+                    <div class="form-group-single mb-5">
+                      <p style="width: 100%">Jumlah Ditransfer</p>
+                      <v-text-field
+                        v-model="transferAmount"
+                        placeholder="Masukkan jumlah deposit"
+                        type="number"
+                        solo
+                        light
+                        flat
+                        class="select-phone"
+                        :class="{
+                          'form-group--error': $v.transferAmount.$error,
+                        }"
+                        :error-messages="transferAmountErrors"
+                        ><p>Jumlah Ditransfer</p>
+                      </v-text-field>
+                    </div>
+                    <div class="form-group-single mb-5">
+                      <p style="padding-top: 6px">Tujuan Transfer</p>
+                      <v-select
+                        v-model="receiver"
+                        @change="showButton = false"
+                        :items="options"
+                        label="Pilih tujuan"
+                        solo
+                        light
+                        flat
+                        class=""
+                        :class="{ 'form-group--error': $v.receiver.$error }"
+                        :error-messages="receiverErrors"
+                      ></v-select>
+                    </div>
+                    <div class="form-group-single">
+                      <p style="padding-top: 6px">Catatan Tambahan</p>
+                      <v-text-field
+                        v-model="notes"
+                        placeholder="Tambah Catatan"
+                        solo
+                        light
+                        flat
+                        class=""
+                        :class="{ 'form-group--error': $v.notes.$error }"
+                        :error-messages="notesErrors"
+                      >
+                      </v-text-field>
+                    </div>
+                  </template>
                 </div>
 
-                <v-btn
-                  type="submit"
-                  small
-                  color="orange"
-                  class="mt-4 pt-5 pb-5 mx-auto text-small text-shadow hover-transparent"
-                  style="max-width: 550px; width: 100%; border-radius: 8px"
-                  ><p class="mb-0 white--text text-h6 text-uppercase">
-                    KONFIRMASI
-                  </p></v-btn
-                >
+                <template v-if="!showButton">
+                  <div class="receiver-box">
+                    <div class="receiver-img">
+                      <v-img
+                        contain
+                        width="80"
+                        height="80"
+                        src="https://static.nukeasset.com/assets/images/banks/dana.png"
+                      >
+                      </v-img>
+                    </div>
+                    <div class="receiver-title">
+                      <p
+                        class="black--text text-p text-uppercase text-bold mb-0"
+                      >
+                        Dwi Nurhayati
+                      </p>
+                      <p
+                        class="d-flex flex-row black--text text-p text-uppercase text-bold mb-0"
+                      >
+                        08828288283
+                        <span
+                          class="green--text text-p ml-3 text-uppercase text-bold mb-0"
+                          >Online</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                  <v-btn
+                    type="submit"
+                    small
+                    color="orange"
+                    class="mt-4 pt-5 pb-5 mx-auto text-small text-shadow hover-transparent"
+                    style="max-width: 550px; width: 100%; border-radius: 8px"
+                    @click="submit"
+                    ><p class="mb-0 white--text text-h6 text-uppercase">
+                      KONFIRMASI
+                    </p></v-btn
+                  >
+                </template>
               </v-form>
             </v-card>
           </v-stepper-content>
 
           <v-stepper-content step="2">
+            <v-card
+              elevation="0"
+              color="white"
+              class="rounded pa-3"
+              style="max-width: 550px; width: 100%; border-radius: 8px"
+            >
+              <div class="confirm-box">
+                <table style="width: 100%">
+                  <tr>
+                    <th class="text-left text-p" style="width: 150px">
+                      Rekening Bank
+                    </th>
+                    <td class="text-p">
+                      Muhammad Rizky Firdaus <br />
+                      GoPay - 5363
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="text-left text-p" style="width: 150px">
+                      Rekening Tujuan
+                    </th>
+                    <td class="text-p">
+                      DWI NURHAYATI <br />
+                      DANA - 089519639517
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="text-left text-p" style="width: 150px">
+                      Jumlah Ditransfer
+                    </th>
+                    <td class="text-p text-bold">Rp 436.346</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left text-p" style="width: 150px">
+                      Terbilang
+                    </th>
+                    <td class="text-p text-bold">
+                      EMPAT RATUS TIGA PULUH ENAM RIBU TIGA RATUS EMPAT PULUH
+                      ENAM RUPIAH
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </v-card>
+            <v-btn
+              type="submit"
+              small
+              color="orange"
+              class="mt-4 pt-5 pb-5 mb-4 mx-auto text-small text-shadow hover-transparent"
+              style="max-width: 550px; width: 100%; border-radius: 8px"
+              @click="e1 = 3"
+              ><p class="mb-0 white--text text-h6 text-uppercase">
+                KONFIRMASI
+              </p></v-btn
+            >
+            <p
+              role="button"
+              @click="e1 = 1"
+              class="text-p text-center orange--text text-bold"
+            >
+              Kembali ke halaman sebelumnya.
+            </p>
           </v-stepper-content>
 
           <v-stepper-content step="3">
+            <v-card
+              elevation="0"
+              color="white"
+              class="rounded pa-3"
+              style="max-width: 550px; width: 100%; border-radius: 8px"
+            >
+              <v-img
+                width="100"
+                height="100"
+                src="@/assets/img/icon-success.png"
+                class="mx-auto mt-4"
+              ></v-img>
+              <p class="mt-4 mb-2 text-h5 mb-0 black--text text-bold text-center text-uppercase">
+                TRANSAKSI BERHASIL
+              </p>
+              <p class="text-p text-center black--text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+
+              <div class="confirm-box">
+                <table style="width: 100%">
+                  <tr>
+                    <th class="text-left text-p" style="width: 150px">
+                      Rekening Bank
+                    </th>
+                    <td class="text-p">
+                      Muhammad Rizky Firdaus <br />
+                      GoPay - 5363
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="text-left text-p" style="width: 150px">
+                      Rekening Tujuan
+                    </th>
+                    <td class="text-p">
+                      DWI NURHAYATI <br />
+                      DANA - 089519639517
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="text-left text-p" style="width: 150px">
+                      Jumlah Ditransfer
+                    </th>
+                    <td class="text-p text-bold">Rp 436.346</td>
+                  </tr>
+                  <tr>
+                    <th class="text-left text-p" style="width: 150px">
+                      Terbilang
+                    </th>
+                    <td class="text-p text-bold">
+                      EMPAT RATUS TIGA PULUH ENAM RIBU TIGA RATUS EMPAT PULUH
+                      ENAM RUPIAH
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </v-card>
+            <v-btn
+              type="button"
+              small
+              color="orange"
+              class="mt-4 pt-5 pb-5 mb-4 mx-auto text-small text-shadow hover-transparent"
+              style="max-width: 550px; width: 100%; border-radius: 8px"
+              @click.stop="$router.push('/dashboard').catch(() => {})"
+              ><p class="mb-0 white--text text-h6 text-uppercase">
+                SELESAI
+              </p></v-btn
+            >
           </v-stepper-content>
         </v-stepper-items>
       </v-stepper>
@@ -182,7 +364,9 @@ export default {
     selkun: { required },
     selopt: { required },
     receiver: { required },
-    transferAmount: { required,minValue: minValue(50000) },
+    isDisabled: true,
+    transferAmount: { required, minValue: minValue(50000) },
+    notes: { required },
   },
   data() {
     return {
@@ -193,9 +377,13 @@ export default {
       submitStatus: null,
       selkun: "",
       selopt: "",
-      receiver:"",
+      receiver: "",
+      notes: "",
       accounttype: ["Bank", "Pulsa", "E-wallet"],
       options: ["a", "b", "c"],
+      isDisabled: true,
+      showForm: true,
+      showButton: true,
     };
   },
   computed: {
@@ -228,8 +416,14 @@ export default {
       if (!this.$v.transferAmount.$dirty) return errors;
       !this.$v.transferAmount.required &&
         errors.push("Nominal Deposit harus diisi.");
-        !this.$v.transferAmount.minValue &&
+      !this.$v.transferAmount.minValue &&
         errors.push("Nominal Deposit harus diatas 50000.");
+      return errors;
+    },
+    notesErrors() {
+      const errors = [];
+      if (!this.$v.notes.$dirty) return errors;
+      !this.$v.notes.required && errors.push("Catatan harus diisi.");
       return errors;
     },
   },
@@ -241,7 +435,11 @@ export default {
       } else {
         this.submitStatus = "success";
         this.e1 = "2";
+        this.$vuetify.goTo(0);
       }
+    },
+    setSelectedValue(event) {
+      this.selectedValue = event.target.selectedOptions[0].value;
     },
   },
   mounted() {},

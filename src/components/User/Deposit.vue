@@ -65,7 +65,7 @@
                     hide-on-leave
                     mode="out-in"
                     appear
-                  >
+                  ><AddWithdrawComp />
                   </v-slide-x-transition>
                 </template>
 
@@ -113,7 +113,7 @@
 </template>
     <script>
 import AddDepositComp from "@/components/User/AddDeposit.vue";
-// import AddWithdrawComp from "@/components/User/AddWithdraw.vue";
+import AddWithdrawComp from "@/components/User/AddWithdraw.vue";
 import LastTransactionComp from "@/components/Transactions/LastTransaction.vue";
 
 import BankComp from "@/components/User/Bank.vue";
@@ -122,6 +122,7 @@ export default {
   components: {
     LastTransactionComp,
     AddDepositComp,
+    AddWithdrawComp,
     BankComp,
   },
   data() {
