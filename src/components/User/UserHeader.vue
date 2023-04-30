@@ -11,7 +11,7 @@
         >
           <v-card-title class="px-0 py-0 mb-5 mb-sm-5 mb-md-0 mb-lg-0">
             <v-avatar size="80px">
-              <v-img v-if="pro.avatar == 'active'" alt="Avatar" :src="pro.src">
+              <v-img alt="Avatar" :src="src">
                 <v-skeleton-loader
                   absolute
                   type="image"
@@ -20,11 +20,10 @@
                 >
                 </v-skeleton-loader>
               </v-img>
-              <v-icon v-else>mdi-user</v-icon>
             </v-avatar>
             <div class="d-flex flex-column align-center">
               <p class="pl-3 mb-0 text-p black--text text-bold">
-                {{ pro.name }}
+                {{ pro.fullname }}
               </p>
               <p
                 role="button"
@@ -45,7 +44,7 @@
               "
             >
               <p class="black--text text-bold text-right mb-0">Saldo Bonus</p>
-              <p class="black--text text-bold text-right mb-0">Rp. xxx</p>
+              <p class="black--text text-bold text-right mb-0">Rp. 0</p>
             </div>
             <v-btn
               class="ml-5 pl-5 pr-5 pt-6 pb-6 text-capitalize hover-transparent"
@@ -72,6 +71,11 @@ export default {
       required: true,
       default: () => [],
     },
+    src: {
+      type: String,
+      required: false,
+      default: "https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png"
+    }
   },
   mounted() {
     setTimeout(() => {

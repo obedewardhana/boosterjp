@@ -67,6 +67,8 @@ import NavigationComp from "./components/Navigation";
 import MarqueeNavComp from "./components/MarqueeNav";
 import FooterComp from "./components/Footer";
 import LoadingComp from "@/components/Loading";
+import method from "./utilities/axios-setup";
+import { setStore } from "./utilities";
 export default Vue.extend({
   name: "App",
   components: {
@@ -128,6 +130,12 @@ export default Vue.extend({
         path: `/${id}`,
       });
     },
+    async member() {
+      await method.get('member').then((res) => {
+        const data = res.data.data;
+        setStore('member', JSON.stringify(data));
+      })
+    },
     outside(id) {
       window.open(id, "_blank");
     },
@@ -137,6 +145,9 @@ export default Vue.extend({
   },
 
   mounted() {
+    setInterval(async () => {
+      await this.member();
+    }, 120000);
     setTimeout(() => {
       this.isLoading = false;
     }, 1500);

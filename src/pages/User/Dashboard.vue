@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UserHeaderComp :profile="profile" class="pt-10"/>
+    <UserHeaderComp :profile="profile" :src="src" class="pt-10"/>
     <UserTransactionComp :transcategories="transcategories"/>
     <PopularGamesComp :contents="slot" class="pb-8"/>
     <BottomSliderComp :slides="slot" />
@@ -12,6 +12,7 @@ import UserHeaderComp from "@/components/User/UserHeader.vue";
 import UserTransactionComp from "@/components/User/UserTransaction.vue";
 import PopularGamesComp from "@/components/Games/PopularGames.vue";
 import BottomSliderComp from "@/components/BottomSlider.vue";
+import { getStore } from '../../utilities';
 export default {
   name: "DashboardView",
   components: {
@@ -128,13 +129,8 @@ export default {
         opt: ["Slot"],
       },
     ],
-    profile: [{
-      id:'1',
-      name:'Your name',
-      saldo:'',
-      avatar:'active',
-      src:'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-    }],
+    src: "https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png",
+    profile: [JSON.parse(getStore('member'))],
     transcategories : [
       {id:'1',name:'Deposit',url:'/deposit'},
       {id:'2',name:'Withdraw',url:'/withdraw'},

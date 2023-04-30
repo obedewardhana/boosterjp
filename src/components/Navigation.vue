@@ -52,12 +52,13 @@
             {{ this.member.username }}
           </p>
           <p class="text-p green--text text-bold text-right text-capitalize mb-0">
-            Rp. {{ this.member.balance }}
+            {{ this.balance }}
           </p>
 
 
         </div>
         <v-btn small color="black" width="35" height="35"
+        @click="getNewData"
           class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"><v-icon
             class="white--text">mdi-refresh</v-icon></v-btn>
 
@@ -100,9 +101,8 @@
             </v-list-item>
             <v-list-item :class="{
                 'orange--active': this.$route.name == 'Transaction',
-              }" class="hover-orange" role="button" style="border: 1px solid var(--v-gray-base)"
-              @click.stop="$router.push('/transaction').catch(() => { })
-                ">
+              }" class="hover-orange" role="button" style="border: 1px solid var(--v-gray-base)" @click.stop="$router.push('/transaction').catch(() => { })
+    ">
               <v-btn class="no-hover no-shadow no-padding text-capitalize" text depressed>
                 <span class="nav-menu black--text">Laporan Transaksi</span>
               </v-btn>
@@ -259,10 +259,11 @@
                         {{ this.member.username }}
                       </p>
                       <p class="text-p green--text text-bold text-right text-capitalize mb-0">
-                        Rp. {{ this.member.balance }}
+                        {{ this.balance }}
                       </p>
                     </div>
                     <v-btn small color="black" width="35" height="35"
+                      @click="getNewData"
                       class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"><v-icon
                         class="white--text">mdi-refresh</v-icon></v-btn>
 
@@ -351,7 +352,7 @@
 import Swal from 'sweetalert2';
 import { validationMixin } from "vuelidate";
 import { required, minLength } from "vuelidate/lib/validators";
-import { getStore, removeItem, setStore } from "../utilities";
+import { getStore, removeItem, rupiah, setStore } from "../utilities";
 import urlPublic from '../utilities/axios-public';
 import method from "../utilities/axios-setup";
 
@@ -376,6 +377,7 @@ export default {
       ["Promo", "promo"],
       ["Mobile", "mobile"],
     ],
+    balance: "",
     username: null,
     password: null,
     submitStatus: null,
@@ -408,8 +410,10 @@ export default {
   methods: {
     checkLogin() {
       if (getStore('member')) {
+        const data = JSON.parse(getStore('member'));
         this.isLogin = true;
-        this.member = JSON.parse(getStore('member'));
+        this.member = data;
+        this.balance = rupiah(data.balance.toString())
       } else {
         this.isLogin = false;
         this.member = null;
@@ -426,6 +430,12 @@ export default {
       this.$router.push({
         path: `/${id}`,
       });
+    },
+    async getNewData() {
+      await method.get('member').then((res) => {
+        const data = res.data.data;
+        setStore('member', JSON.stringify(data));
+      })
     },
     logout() {
       method.post("logout")

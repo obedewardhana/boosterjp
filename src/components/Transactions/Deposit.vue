@@ -28,7 +28,7 @@
         </tr>
       </tbody>
     </table>
-    <v-pagination v-model="page" :length="15" :total-visible="7"></v-pagination>
+    <v-pagination @input="pageHandler" v-model="pages" :length="length" :total-visible="7"></v-pagination>
   </div>
 </template>
 
@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       isLoading: true,
-      page: 1,
+      pages: this.page,
     };
   },
   props: {
@@ -47,6 +47,21 @@ export default {
       required: true,
       default: () => [],
     },
+    page: {
+      type: Number,
+      required: true,
+      default: 1,
+    },
+    pageHandler : {
+      type: Function,
+      required: false,
+      default: () => null,
+    },
+    length: {
+      type: Number,
+      required: true,
+      default: 15,
+    }
   },
   mounted() {
     setTimeout(() => {

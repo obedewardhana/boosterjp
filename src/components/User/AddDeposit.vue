@@ -63,7 +63,7 @@
                       <div class="form-group-single mb-4 mr-4">
                         <p style="padding-top: 6px">Tipe Akun</p>
                         <v-select
-                          @change="isDisabled = false"
+                          @change="paymentTypeChange"
                           v-model="selkun"
                           :items="accounttype"
                           label="Tipe Akun"
@@ -98,13 +98,15 @@
                         </p>
                         <p style="padding-top: 6px">Pilih Akun</p>
                         <v-select
-                          @change="showForm = false"
+                          @change="memberBankChange"
                           v-model="selopt"
                           :items="options"
                           label="Pilih Akun"
                           solo
                           light
                           flat
+                          return-object
+                          item-text="label"
                           class=""
                           :class="{ 'form-group--error': $v.selopt.$error }"
                           :disabled="isDisabled"
@@ -135,12 +137,14 @@
                       <p style="padding-top: 6px">Tujuan Transfer</p>
                       <v-select
                         v-model="receiver"
-                        @change="showButton = false"
-                        :items="options"
+                        @change="adminBankChange"
+                        :items="adminBank"
                         label="Pilih tujuan"
                         solo
                         light
                         flat
+                        return-object
+                        item-text="label"
                         class=""
                         :class="{ 'form-group--error': $v.receiver.$error }"
                         :error-messages="receiverErrors"
@@ -156,7 +160,6 @@
                         flat
                         class=""
                         :class="{ 'form-group--error': $v.notes.$error }"
-                        :error-messages="notesErrors"
                       >
                       </v-text-field>
                     </div>
@@ -170,7 +173,7 @@
                         contain
                         width="80"
                         height="80"
-                        src="https://static.nukeasset.com/assets/images/banks/dana.png"
+                        :src="detailAdminBank.logo"
                       >
                       </v-img>
                     </div>
@@ -178,12 +181,12 @@
                       <p
                         class="black--text text-p text-uppercase text-bold mb-0"
                       >
-                        Dwi Nurhayati
+                        {{ detailAdminBank.accountName }}
                       </p>
                       <p
                         class="d-flex flex-row black--text text-p text-uppercase text-bold mb-0"
                       >
-                        08828288283
+                        {{ detailAdminBank.accountNumber }}
                         <span
                           class="green--text text-p ml-3 text-uppercase text-bold mb-0"
                           >Online</span
@@ -221,8 +224,8 @@
                       Rekening Bank
                     </th>
                     <td class="text-p">
-                      Muhammad Rizky Firdaus <br />
-                      GoPay - 5363
+                      {{ this.selopt.accountName }} <br />
+                      {{this.selopt.label}}
                     </td>
                   </tr>
                   <tr>
@@ -230,23 +233,22 @@
                       Rekening Tujuan
                     </th>
                     <td class="text-p">
-                      DWI NURHAYATI <br />
-                      DANA - 089519639517
+                      {{this.receiver.accountName}} <br />
+                      {{this.receiver.label}}
                     </td>
                   </tr>
                   <tr>
                     <th class="text-left text-p" style="width: 150px">
                       Jumlah Ditransfer
                     </th>
-                    <td class="text-p text-bold">Rp 436.346</td>
+                    <td class="text-p text-bold">{{ this.rupiahFormat }}</td>
                   </tr>
                   <tr>
                     <th class="text-left text-p" style="width: 150px">
                       Terbilang
                     </th>
                     <td class="text-p text-bold">
-                      EMPAT RATUS TIGA PULUH ENAM RIBU TIGA RATUS EMPAT PULUH
-                      ENAM RUPIAH
+                      {{ this.stringFormat.toUpperCase() }}
                     </td>
                   </tr>
                 </table>
@@ -258,7 +260,7 @@
               color="orange"
               class="mt-4 pt-5 pb-5 mb-4 mx-auto text-small text-shadow hover-transparent"
               style="max-width: 550px; width: 100%; border-radius: 8px"
-              @click="e1 = 3"
+              @click="confirmDeposit"
               ><p class="mb-0 white--text text-h6 text-uppercase">
                 KONFIRMASI
               </p></v-btn
@@ -351,6 +353,9 @@ import { validationMixin } from "vuelidate";
 import { required, minValue } from "vuelidate/lib/validators";
 
 import swal from "sweetalert2";
+import { getStore, rupiah, terbilang } from '../../utilities';
+import method from '../../utilities/axios-setup';
+import Swal from 'sweetalert2';
 window.Swal = swal;
 
 export default {
@@ -366,7 +371,7 @@ export default {
     receiver: { required },
     isDisabled: true,
     transferAmount: { required, minValue: minValue(50000) },
-    notes: { required },
+    notes: {  },
   },
   data() {
     return {
@@ -374,16 +379,36 @@ export default {
       form_type: "",
       fullname: "Your name",
       transferAmount: null,
+      rupiahFormat: null,
+      stringFormat: "",
       submitStatus: null,
       selkun: "",
       selopt: "",
       receiver: "",
       notes: "",
       accounttype: ["Bank", "Pulsa", "E-wallet"],
+      adminBank: [],
+      detailAdminBank : {
+        logo: '',
+        accountName: '',
+        accountNumber: '',
+        status: 'Online'
+      },
       options: ["a", "b", "c"],
+      test: [
+        {
+          label: 'test',
+          value: 'test',
+        }
+      ],
       isDisabled: true,
       showForm: true,
       showButton: true,
+      formDeposit: {
+        amount: 0,
+        member_bank_id: 0,
+        admin_bank_id: 0,
+      },
     };
   },
   computed: {
@@ -420,14 +445,58 @@ export default {
         errors.push("Nominal Deposit harus diatas 50000.");
       return errors;
     },
-    notesErrors() {
-      const errors = [];
-      if (!this.$v.notes.$dirty) return errors;
-      !this.$v.notes.required && errors.push("Catatan harus diisi.");
-      return errors;
-    },
   },
   methods: {
+    rupiahFormat(string) {
+      rupiah(string)
+    },
+    async paymentType() {
+      await method.get('dataset/payment-type').then((res) => {
+        const data = res.data.data;
+        let arrData = [];
+        data.forEach(row => {
+          arrData.push(row.name)
+        });
+        this.accounttype = arrData;
+      });
+    },
+    async memberBank(type) {
+      await method.get(`dataset/user-bank?payment_type=${type}`)
+      .then((res) => {
+        const data = res.data.data;
+        let arrData = [];
+        data.forEach(row => {
+          let item = {
+            value: row.id,
+            accountName: row.account_name,
+            bankName: row.bank_name,
+            label: row.bank_name +' - '+ row.account_number
+          }
+          arrData.push(item);
+        });
+        this.options = arrData;
+      })
+    },
+    async getAdminBank(name) {
+      await method.get(`dataset/admin-bank?name=${name}`)
+      .then((res) => {
+        const data = res.data.data;
+        let arrData = [];
+        data.forEach(row => {
+          let item = {
+            value: row.id,
+            bankName: row.bank_name,
+            accountName: row.account_name,
+            accountNumber: row.account_number,
+            label: row.bank_name +' - '+ row.account_name,
+            logo: row.logo,
+            status: row.status,
+          };
+          arrData.push(item);
+        });
+        this.adminBank = arrData;
+      })
+    },
     submit() {
       this.$v.$touch();
       if (this.$v.$invalid) {
@@ -435,13 +504,62 @@ export default {
       } else {
         this.submitStatus = "success";
         this.e1 = "2";
+        this.rupiahFormat = rupiah(this.transferAmount);
+        this.stringFormat = terbilang(parseInt(this.transferAmount));
         this.$vuetify.goTo(0);
       }
+    },
+    async confirmDeposit() {
+      let formData = new FormData();
+      formData.append('amount', this.transferAmount)
+      formData.append('member_bank_id', this.formDeposit.member_bank_id)
+      formData.append('admin_bank_id', this.formDeposit.admin_bank_id)
+
+      await method.post('transaction/deposit', formData)
+      .then((res) => {
+        this.e1 = "3"
+      }).catch((err) => {
+        const error = err.response.data;
+        const status = err.response.status;
+        if (status > 400) {
+          Swal.fire("Failed", error.data, 'error');
+        } else {
+          Swal.fire("Failed", "Terjadi Kesalahan. Mohon ulangi beberasapa saat lagi", 'error')
+        }
+      })
+    },
+    loadDataUser() {
+      const data = JSON.parse(getStore('member'));
+      this.fullname = data.fullname;
     },
     setSelectedValue(event) {
       this.selectedValue = event.target.selectedOptions[0].value;
     },
+    async paymentTypeChange(event) {
+      await this.memberBank(event)
+      this.isDisabled = false;
+    },
+    async memberBankChange(event) {
+      const bankName = event.bankName;
+      await this.getAdminBank(bankName);
+      this.formDeposit.member_bank_id = event.value
+      this.showForm = false;
+    },
+    adminBankChange(event) {
+      this.detailAdminBank = {
+        logo: event.logo,
+        bankName: event.bankName,
+        accountName: event.accountName,
+        accountNumber: event.accountNumber,
+        status: 'Online'
+      }
+      this.formDeposit.admin_bank_id = event.value
+      this.showButton = false;
+    }
   },
-  mounted() {},
+  mounted() {
+    this.paymentType();
+    this.loadDataUser();
+  },
 };
 </script>
