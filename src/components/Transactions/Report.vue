@@ -101,7 +101,7 @@
                     mode="out-in"
                     appear
                   >
-                    <HistoryBetComp absolute :historybet="historybet" />
+                    <HistoryBetComp absolute :page.sync="page.historybet" :historybet="historybet" :pageHandler="betPageHandler" :length="length.historybet" />
                   </v-slide-x-transition>
                 </template>
                 <template v-if="tab === 1">
@@ -119,7 +119,10 @@
                   >
                     <HistoryTransactionComp
                       absolute
+                      :page.sync="page.historytrans"
+                      :pageHandler="transactionPageHandler"
                       :historytrans="historytrans"
+                      :length="length.historytrans"
                     />
                   </v-slide-x-transition>
                 </template>
@@ -135,6 +138,7 @@
 <script>
 import HistoryBetComp from "@/components/Transactions/HistoryBet.vue";
 import HistoryTransactionComp from "@/components/Transactions/HistoryTransaction.vue";
+import method from '../../utilities/axios-setup';
 export default {
   name: "ReportComp",
   components: {
@@ -149,6 +153,14 @@ export default {
         { id: "1", name: "Sejarah Taruhan", tag: "history_bet" },
         { id: "2", name: "Sejarah Transaksi", tag: "history_transaction" },
       ],
+      page: {
+        historytrans: 1,
+        historybet: 1,
+      },
+      length: {
+        historytrans: 10,
+        historybet: 10,
+      },
       selbet: { option: "Semua" },
       seltrans: { option: "Deposit" },
       selectbet: [
@@ -161,8 +173,6 @@ export default {
       selecttrans: [
         { option: "Deposit" },
         { option: "Withdraw" },
-        { option: "Manual Transfer in" },
-        { option: "Manual Transfer out" },
       ],
       historybet: [
         {
@@ -232,66 +242,87 @@ export default {
           note: "-",
         },
       ],
-      historytrans: [
-        {
-          id: "1",
-          date: "Senin,24 April 2023 Pukul 17.00 WIB",
-          account: "Muhammad Rizky Firdaus / 1270011730833",
-          category: "deposit",
-          amount: "Rp. 0",
-          status: "success",
-          note: "-",
-        },
-        {
-          id: "2",
-          date: "Senin,24 April 2023 Pukul 17.00 WIB",
-          account: "Muhammad Rizky Firdaus / 1270011730833",
-          category: "deposit",
-          amount: "Rp. 0",
-          status: "success",
-          note: "-",
-        },
-        {
-          id: "3",
-          date: "Senin,24 April 2023 Pukul 17.00 WIB",
-          account: "Muhammad Rizky Firdaus / 1270011730833",
-          category: "manual_transfer_out",
-          amount: "Rp. 0",
-          status: "success",
-          note: "-",
-        },
-        {
-          id: "4",
-          date: "Senin,24 April 2023 Pukul 17.00 WIB",
-          account: "Muhammad Rizky Firdaus / 1270011730833",
-          category: "manual_transfer_in",
-          amount: "Rp. 0",
-          status: "success",
-          note: "-",
-        },
-        {
-          id: "5",
-          date: "Senin,24 April 2023 Pukul 17.00 WIB",
-          account: "Muhammad Rizky Firdaus / 1270011730833",
-          category: "deposit",
-          amount: "Rp. 0",
-          status: "rejected",
-          note: "-",
-        },
-        {
-          id: "6",
-          date: "Senin,24 April 2023 Pukul 17.00 WIB",
-          account: "Muhammad Rizky Firdaus / 1270011730833",
-          category: "withdraw",
-          amount: "Rp. 0",
-          status: "rejected",
-          note: "-",
-        },
-      ],
-      page: 1,
+      historytrans: [],
     };
   },
   methods: {
+    async betPageHandler(page) {
+      this.page.historybet = page;
+      await this.getHistoryBet();
+    },
+    async transactionPageHandler(page) {
+      this.page.historytrans = page;
+      await this.getHistoryTransaction();
+    },
+    async getHistoryBet() {
+      await method.get(`transaction?type=bet&page=${this.page.historybet}`)
+      .then((res) => {
+        const data = res.data.data;
+        const pagination = data.pagination;
+        this.length.historybet = pagination.last_page;
+        let arrData = [];
+        data.data.forEach((row) => {
+          let status = '';
+          if (row.status === 0) {
+            status = 'lose'
+          } else if (row.status === 1) {
+            status = 'win'
+          } else {
+            status = 'draw'
+          }
+
+          let item = {
+            id: row.id,
+            date: row.created_at,
+            games: row.game_type,
+            category: "slot",
+            bet: "Rp ." + row.bet,
+            result: row.status === 0 ? "-Rp. " + row.win : "Rp. " + row.win,
+            amount: "Rp. " + row.result,
+            status: status,
+            note: "-",
+          }
+          arrData.push(item);
+        });
+        this.historybet = arrData;
+      })
+    },
+    async getHistoryTransaction () {
+      await method.get(`transaction?type=transaction&page=${this.page.historytrans}`)
+      .then((res) => {
+        const data = res.data.data;
+        const pagination = data.pagination;
+        this.length.historytrans = pagination.last_page;
+        let arrData = [];
+        data.data.forEach((row) => {
+          let status = '';
+          if (row.status === 0) {
+            status = 'pending'
+          } else if (row.status === 1) {
+            status = 'success'
+          } else {
+            status = 'rejected'
+          }
+          let remarks
+          if (row.remarks !== null) {
+            remarks = JSON.parse(row.remarks)
+          } else {
+            remarks = null
+          }
+          let item = {
+            id: row.id,
+            date: row.created_at,
+            account: row.account_name + '/' + row.account_number,
+            category: row.type,
+            amount: "Rp. " + row.amount,
+            status: status,
+            note: remarks !== null ? remarks.note : null,
+          }
+          arrData.push(item);
+        });
+        this.historytrans = arrData;
+      })
+    },
     loadData() {
       this.isLoading = true;
       setTimeout(() => {
@@ -305,6 +336,8 @@ export default {
     },
   },
   mounted() {
+    this.getHistoryBet()
+    this.getHistoryTransaction()
     setTimeout(() => {
       this.isLoading = false;
     }, 1500);
