@@ -136,6 +136,7 @@
           transition="slide-y-transition"
           style="z-index: 6 !important"
           left
+          :close-on-content-click="false"
         >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -148,25 +149,15 @@
               ><v-icon class="white--text">mdi-credit-card</v-icon></v-btn
             >
           </template>
-          <v-list light flat>
-            <v-list-item
-              :class="{
-                'orange--active': this.$route.name == 'Profile',
-              }"
-              class="hover-orange"
-              role="button"
-              style="border: 1px solid var(--v-gray-base)"
-              @click.stop="$router.push('/profile').catch(() => {})"
-            >
-              <v-btn
-                class="no-hover no-shadow no-padding text-capitalize"
-                text
-                depressed
-              >
-                <span class="nav-menu black--text">Profile</span>
-              </v-btn>
-            </v-list-item>
-          </v-list>
+          <v-card
+            color="light"
+            elevation="0"
+            class="mx-auto mb-0 pa-3"
+            width="300"
+            style="width: 300px; border-radius: 8px"
+          >
+            <AddDepositInstantComp />
+          </v-card>
         </v-menu>
 
         <v-btn
@@ -555,7 +546,7 @@
                       <v-card
                         color="light"
                         elevation="0"
-                        class="mx-auto  mb-0 pa-3"
+                        class="mx-auto mb-0 pa-3"
                         width="300"
                         style="width: 300px; border-radius: 8px"
                       >
@@ -633,15 +624,17 @@
                             >
                           </v-btn>
                         </v-list-item>
-                        <v-list-item role="button" class="hover-orange" @click="logout">
+                        <v-list-item
+                          role="button"
+                          class="hover-orange"
+                          @click="logout"
+                        >
                           <v-btn
                             class="no-hover no-shadow no-padding text-capitalize"
                             text
                             depressed
                           >
-                            <span class="nav-menu black--text" 
-                              >Logout</span
-                            >
+                            <span class="nav-menu black--text">Logout</span>
                           </v-btn>
                         </v-list-item>
                       </v-list>
