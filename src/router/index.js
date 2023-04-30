@@ -13,6 +13,7 @@ import TransactionPage from "../pages/User/Transaction.vue";
 import ProfilePage from "../pages/User/Profile.vue";
 import ChangePasswordPage from "../pages/User/ChangePassword.vue";
 import DepositPage from "../pages/User/Deposit.vue";
+import { getStore } from "../utilities";
 
 
 Vue.use(Router);
@@ -106,8 +107,8 @@ const routes = [
     name: "Dashboard",
     component: DashboardPage,
     meta: {
-      requiresAuth: false,
-      isLogin: true,
+      requiresAuth: true,
+      isLogin: false,
     }
   },
   {
@@ -115,8 +116,8 @@ const routes = [
     name: "Success",
     component: SuccessPage,
     meta: {
-      requiresAuth: false,
-      isLogin: true,
+      requiresAuth: true,
+      isLogin: false,
     }
   },
   {
@@ -124,8 +125,8 @@ const routes = [
     name: "Transaction",
     component: TransactionPage,
     meta: {
-      requiresAuth: false,
-      isLogin: true,
+      requiresAuth: true,
+      isLogin: false,
     }
   },
   {
@@ -133,8 +134,8 @@ const routes = [
     name: "Profile",
     component: ProfilePage,
     meta: {
-      requiresAuth: false,
-      isLogin: true,
+      requiresAuth: true,
+      isLogin: false,
     }
   },
   {
@@ -142,7 +143,7 @@ const routes = [
     name: "ChangePassword",
     component: ChangePasswordPage,
     meta: {
-      requiresAuth: false,
+      requiresAuth: true,
       isLogin: true,
     }
   },
@@ -151,7 +152,7 @@ const routes = [
     name: "Deposit",
     component: DepositPage,
     meta: {
-      requiresAuth: false,
+      requiresAuth: true,
       isLogin: true,
     }
   },
@@ -175,5 +176,14 @@ router.beforeEach((to, from, next) => {
       next(path);
       return;
   }
+
+  if (to.meta.requiresAuth) {
+    if (!getStore("token")) {
+      next("/")
+    } else {
+      next();
+    }
+  }
   next();
+
 });

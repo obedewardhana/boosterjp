@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- MOBILE -->
     <v-navigation-drawer v-model="drawer" app temporary :color="color">
       <v-list>
         <v-list-item
@@ -57,7 +58,7 @@
       </template>
       <div
         class="d-flex flex-column justify-start"
-        v-if="!this.$route.meta.isLogin"
+        v-if="!this.isLogin"
       >
         <v-form @submit.prevent="submit" class="d-flex flex-column">
           <v-text-field
@@ -103,7 +104,7 @@
         </v-form>
       </div>
       <div
-        v-else-if="this.$route.meta.isLogin"
+        v-else-if="this.isLogin"
         class="d-flex flex-row flex-wrap justify-center ml-4 mr-4 mt-4 rounded-lg pt-4 pb-4"
         style="width: inherit; background-color: var(--v-dark2-base)"
       >
@@ -114,17 +115,153 @@
           <p
             class="text-p white--text text-bold text-right text-capitalize mb-0"
           >
-            Your name
+            {{this.member.username}}
           </p>
           <p
             class="text-p green--text text-bold text-right text-capitalize mb-0"
           >
-            Rp. xxx
+            Rp. {{ this.member.balance }}
           </p>
+
+          
         </div>
+        <v-btn
+                      small
+                      color="black"
+                      width="35"
+                      height="35"
+                      class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"
+                      ><v-icon class="white--text">mdi-refresh</v-icon></v-btn
+                    >
+
+                    <v-menu
+                      offset-y
+                      elevation="0"
+                      flat
+                      transition="slide-y-transition"
+                      style="z-index: 6 !important"
+                      left
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                          color="black"
+                          width="35"
+                          height="35"
+                          class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"
+                          v-bind="attrs"
+                          v-on="on"
+                          ><v-icon class="white--text"
+                            >mdi-credit-card</v-icon
+                          ></v-btn
+                        >
+                      </template>
+                      <v-list light flat>
+                        <v-list-item
+                          :class="{
+                            'orange--active': this.$route.name == 'Profile',
+                          }"
+                          class="hover-orange"
+                          role="button"
+                          style="border: 1px solid var(--v-gray-base)"
+                          @click.stop="$router.push('/profile').catch(() => {})"
+                        >
+                          <v-btn
+                            class="no-hover no-shadow no-padding text-capitalize"
+                            text
+                            depressed
+                          >
+                            <span class="nav-menu black--text">Profile</span>
+                          </v-btn>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
+
+                    <v-btn
+                      color="black"
+                      width="35"
+                      height="35"
+                      class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"
+                      @click.stop="$router.push('/deposit').catch(() => {})"
+                      ><v-icon class="white--text"
+                        >mdi-currency-usd</v-icon
+                      ></v-btn
+                    >
+                    <v-menu
+                      offset-y
+                      elevation="0"
+                      flat
+                      transition="slide-y-transition"
+                      style="z-index: 6 !important"
+                      left
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                          color="black"
+                          width="35"
+                          height="35"
+                          class="no-padding hover-transparent mr-2 mb-2 mr-sm-2 mb-sm-0 mr-md-2 mb-md-0 mr-lg-2 mb-lg-0"
+                          v-bind="attrs"
+                          v-on="on"
+                          ><v-icon class="white--text"
+                            >mdi-account</v-icon
+                          ></v-btn
+                        >
+                      </template>
+                      <v-list light flat>
+                        <v-list-item
+                          :class="{
+                            'orange--active': this.$route.name == 'Profile',
+                          }"
+                          class="hover-orange"
+                          role="button"
+                          style="border: 1px solid var(--v-gray-base)"
+                          @click.stop="$router.push('/profile').catch(() => {})"
+                        >
+                          <v-btn
+                            class="no-hover no-shadow no-padding text-capitalize"
+                            text
+                            depressed
+                          >
+                            <span class="nav-menu black--text">Profile</span>
+                          </v-btn>
+                        </v-list-item>
+                        <v-list-item
+                          :class="{
+                            'orange--active': this.$route.name == 'Transaction',
+                          }"
+                          class="hover-orange"
+                          role="button"
+                          style="border: 1px solid var(--v-gray-base)"
+                          @click.stop="
+                            $router.push('/transaction').catch(() => {})
+                          "
+                        >
+                          <v-btn
+                            class="no-hover no-shadow no-padding text-capitalize"
+                            text
+                            depressed
+                          >
+                            <span class="nav-menu black--text"
+                              >Laporan Transaksi</span
+                            >
+                          </v-btn>
+                        </v-list-item>
+                        <v-list-item class="hover-orange">
+                          <v-btn
+                            class="no-hover no-shadow no-padding text-capitalize"
+                            text
+                            depressed
+                          >
+                            <span class="nav-menu black--text" @click="logout">Logout</span>
+                          </v-btn>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
       </div>
+      
     </v-navigation-drawer>
 
+    <!-- LAPTOP -->
     <v-app-bar
       app
       :color="color"
@@ -146,7 +283,7 @@
                 <v-toolbar-title
                   class="d-flex align-center ml-2"
                   style="width: 160px; cursor: pointer"
-                  v-if="!this.$route.meta.isLogin"
+                  v-if="!this.isLogin"
                   @click.stop="$router.push('/home').catch(() => {})"
                 >
                   <v-img
@@ -161,7 +298,7 @@
                 <v-toolbar-title
                   class="d-flex align-center ml-2"
                   style="width: 160px; cursor: pointer"
-                  v-if="this.$route.meta.isLogin"
+                  v-if="this.isLogin"
                   @click.stop="$router.push('/dashboard').catch(() => {})"
                 >
                   <v-img
@@ -641,9 +778,9 @@ export default {
     logout() {
       method.post("logout")
       .then(() => {
-        window.location.reload();
         removeItem("token");
         removeItem("member");
+        window.location.href = '/';
       })
     },
     submit() {
@@ -656,7 +793,7 @@ export default {
         const data = res.data.data;
         setStore("token", data.token);
         setStore("member", data.member);
-        window.location.reload();
+        window.location.href = '/';
       }).catch((err) => {
         const status = err.response.status;
         if (status > 400) {

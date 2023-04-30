@@ -6,19 +6,14 @@
   
 <script>
 import SuccessComp from "@/components/User/Success.vue";
+import { getStore } from '../../utilities';
 export default {
   name: "SuccessView",
   components: {
     SuccessComp
   },  
   data: () => ({
-    profile: [{
-      id:'1',
-      name:'Your name',
-      saldo:'',
-      avatar:'active',
-      src:'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-    }]
+    profile: [JSON.parse(getStore("member"))]
   })
 };
 </script>

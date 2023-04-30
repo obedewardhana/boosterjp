@@ -145,6 +145,7 @@
   </div>
 </template>
 <script>
+import { getStore } from '../../utilities';
 export default {
   name: "ProductGalleryComp",
   data() {
@@ -162,50 +163,50 @@ export default {
           type: "img",
           name: "Slots",
           url: "#",
-          src: "https://dummyimage.com/900x900/9c9c9c/fff.png",
+          src: `${process.env.VUE_APP_BE_URL}images/banner1.png`,
         },
         {
           id: "2",
           type: "img",
           name: "Slots",
           url: "#",
-          src: "https://dummyimage.com/900x900/9c9c9c/fff.png",
+          src:  `${process.env.VUE_APP_BE_URL}images/banner2.png`,
         },
         {
           id: "3",
           type: "img",
           name: "Slots",
           url: "#",
-          src: "https://dummyimage.com/900x900/9c9c9c/fff.png",
+          src:  `${process.env.VUE_APP_BE_URL}images/banner3.png`,
         },
         {
           id: "4",
           type: "button",
           name: "Slots",
           url: "#",
-          src: "https://dummyimage.com/900x900/9c9c9c/fff.png",
+          src:  `${process.env.VUE_APP_BE_URL}images/banner2.png`,
         },
       ],
       slides: [
         {
           id: "1",
           url: "#",
-          src: "https://dummyimage.com/1250x568/999999/fff.png",
+          src: `${process.env.VUE_APP_BE_URL}images/banner2.png`,
         },
         {
           id: "2",
           url: "#",
-          src: "https://dummyimage.com/1250x568/999999/fff.png",
+          src: `${process.env.VUE_APP_BE_URL}images/banner3.png`,
         },
         {
           id: "3",
           url: "#",
-          src: "https://dummyimage.com/1250x568/999999/fff.png",
+          src: `${process.env.VUE_APP_BE_URL}images/banner1.png`,
         },
         {
           id: "4",
           url: "#",
-          src: "https://dummyimage.com/1250x568/999999/fff.png",
+          src: `${process.env.VUE_APP_BE_URL}images/banner1.png`,
         },
       ],
       overlay: false,
@@ -214,12 +215,18 @@ export default {
   },
   methods: {
     loginFirst() {
-      // $swal function calls SweetAlert into the application with the specified configuration.
-      Swal.fire(
-        "Silahkan Login!",
-        "Silahkan Login sebelum bermain.",
-        "warning"
-      );
+      if (getStore("token")) {
+        this.$router.push({
+          path: `/slot`
+        })
+      } else {
+        // $swal function calls SweetAlert into the application with the specified configuration.
+        Swal.fire(
+          "Silahkan Login!",
+          "Silahkan Login sebelum bermain.",
+          "warning"
+        );
+      }
     },
   },
   mounted() {
