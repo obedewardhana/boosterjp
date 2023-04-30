@@ -49,7 +49,7 @@
                     <span class="nav-menu black--text">Tambah Rekening</span>
                   </v-btn>
                 </v-list-item>
-                <v-list-item
+                <!-- <v-list-item
                   class="hover-orange"
                   role="button"
                   style="border-bottom: 1px solid var(--v-dark-base)"
@@ -75,7 +75,7 @@
                   >
                     <span class="nav-menu black--text">Tambah E-wallet</span>
                   </v-btn>
-                </v-list-item>
+                </v-list-item> -->
               </v-list>
             </v-menu>
           </v-card-title>
@@ -98,11 +98,7 @@
             </tbody>
           </table>
 
-          <v-pagination
-            v-model="page"
-            :length="15"
-            :total-visible="7"
-          ></v-pagination>
+          <v-pagination @input="pageHandler" v-model="pages" :length="length" :total-visible="7"></v-pagination>
         </v-card>
       </v-col>
     </v-row>
@@ -160,7 +156,7 @@ export default {
   data() {
     return {
       isLoading: true,
-      page: 1,
+      pages: this.page,
       dialogA: false,
       dialogB: false,
       dialogC: false,
@@ -204,6 +200,21 @@ export default {
       required: true,
       default: () => [],
     },
+    page: {
+      type: Number,
+      required: true,
+      default: 1,
+    },
+    pageHandler : {
+      type: Function,
+      required: false,
+      default: () => null,
+    },
+    length: {
+      type: Number,
+      required: true,
+      default: 15,
+    }
   },
   mounted() {
     setTimeout(() => {

@@ -78,12 +78,14 @@
                 <v-select
                   v-model="selkun"
                   :items="accounttype"
+                  @change="paymentTypeChange"
                   label="Tipe Akun"
+                  return-object
+                  item-text="name"
                   solo
                   light
                   flat
                   class=""
-                  disabled
                 ></v-select>
               </div>
             </v-col>
@@ -101,11 +103,15 @@
                 <v-select
                   v-model="selopt"
                   :items="options"
+                  @change="selectOption"
                   label="Pilih Akun"
+                  return-object
+                  item-text="label"
                   solo
                   light
                   flat
                   class=""
+                  :disabled="disabledBankName"
                   :class="{ 'form-group--error': $v.selopt.$error }"
                   :error-messages="seloptErrors"
                 ></v-select>
@@ -151,6 +157,8 @@ import { validationMixin } from "vuelidate";
 import { required, email } from "vuelidate/lib/validators";
 
 import swal from "sweetalert2";
+import method from '../../utilities/axios-setup';
+import { getStore } from '../../utilities';
 window.Swal = swal;
 
 export default {
@@ -175,12 +183,17 @@ export default {
   data() {
     return {
       fullname: "Your name",
+      disabledBankName: true,
       handphone: null,
       submitStatus: null,
-      selkun: this.form_type,
-      selopt: "a",
-      accounttype: ["Bank", "Pulsa", "E-wallet"],
-      options: ["a", "b", "c"],
+      selkun: "",
+      selopt: "",
+      accounttype: [],
+      options: [],
+      formAdd : {
+        payment_type_id: 0,
+        bank_payment_id: 0,
+      }
     };
   },
   computed: {
@@ -209,7 +222,68 @@ export default {
     },
   },
   methods: {
-    submit() {
+    loadMember() {
+        const data = JSON.parse(getStore('member'));
+        this.fullname = data.fullname
+    },
+    async paymentType() {
+      await method.get('dataset/payment-type').then((res) => {
+        const data = res.data.data;
+        let arrData = [];
+        data.forEach(row => {
+          arrData.push(row)
+        });
+        this.accounttype = arrData;
+      });
+    },
+    async paymentTypeChange(event) {
+      this.disabledBankName = false;
+      await this.getBank(event.id)
+    },
+    async getBank(paymentType) {
+      await method.get(`dataset/bank?payment_type=${paymentType}`)
+      .then((res) => {
+        const data = res.data.data;
+        let arrData = [];
+        data.forEach(row => {
+          let item = {
+            value: row.id,
+            paymentType: row.payment_type_id,
+            label: row.name
+          }
+
+          arrData.push(item)
+        });
+        this.options = arrData;
+      })
+    },
+    selectOption(event) {
+      this.formAdd.payment_type_id = event.paymentType;
+      this.formAdd.bank_payment_id = event.value;
+    },
+    async confirmAdd() {
+      let formData = new FormData();
+      formData.append('payment_type_id', this.formAdd.payment_type_id)
+      formData.append('bank_payment_id', this.formAdd.bank_payment_id)
+      formData.append('account_number', this.handphone)
+      await method.post('bank', formData)
+      .then((res) => {
+        Swal.fire(
+          "Registrasi Berhasil!",
+          "Akun berhasil didaftarkan.",
+          "success"
+        ).then((confirmed) => {
+          window.location.reload();
+        });
+      }).catch((err) => {
+        Swal.fire(
+          "Gagal!",
+          "Harap Periksa Form!",
+          "error"
+        );
+      })
+    },
+    async submit() {
       this.$v.$touch();
       if (this.$v.$invalid) {
         this.submitStatus = "error";
@@ -221,20 +295,17 @@ export default {
           text: "Anda tidak dapat merubah detail Anda setelah berhasil melakukan transaksi. Harap dipastikan kembali bahwa semua detail yang diisi sudah benar.",
           showCancelButton: true,
           confirmButtonText: "Konfirmasi",
-        }).then((result) => {
+        }).then(async (result) => {
           if (result.isConfirmed) {
-            Swal.fire(
-              "Registrasi Berhasil!",
-              "Akun berhasil didaftarkan.",
-              "success"
-            ).then((confirmed) => {
-              window.location.reload();
-            });
+            await this.confirmAdd()
           }
         });
       }
     },
   },
-  mounted() {},
+  mounted() {
+    this.paymentType()
+    this.loadMember();
+  },
 };
 </script>

@@ -100,7 +100,7 @@
                     mode="out-in"
                     appear
                   >
-                    <BankComp :banks="banks" absolute />
+                    <BankComp :banks="banks" :page="pageBank" :length="lengthBank" :pageHandler="bankPageHandler" absolute />
                   </v-slide-x-transition>
                 </template>
               </v-tab-item>
@@ -116,6 +116,7 @@
 import ProfileComp from "@/components/User/Profile.vue";
 import ChangePasswordComp from "@/components/User/ChangePassword.vue";
 import BankComp from "@/components/User/Bank.vue";
+import method from '../../utilities/axios-setup';
 export default {
   name: "PersonalizationComp",
   components: {
@@ -127,31 +128,14 @@ export default {
     return {
       isLoading: true,
       tab: 0,
+      pageBank: 1,
+      lengthBank : 10,
       tabtitles: [
         { id: "1", name: "Profile", tag: "profile" },
         { id: "2", name: "Ganti Password", tag: "change_password" },
         { id: "3", name: "Akun Bank", tag: "bank_account" },
       ],
-      banks: [
-        {
-          id: "1",
-          account: "BCA",
-          account_name: "Your name",
-          account_number: "111222333",
-        },
-        {
-          id: "2",
-          account: "Mandiri",
-          account_name: "Your name",
-          account_number: "111222333",
-        },
-        {
-          id: "3",
-          account: "Gopay",
-          account_name: "Your name",
-          account_number: "111222333",
-        },
-      ],
+      banks: [],
       profile: [
         {
           id: "1",
@@ -164,6 +148,29 @@ export default {
     };
   },
   methods: {
+    async bankPageHandler(page) {
+      this.pageBank = page;
+      await this.getHistoryBet();
+    },
+    async loadBank() {
+      await method.get(`bank?page=${this.pageBank}`)
+      .then((res) => {
+        const data = res.data.data;
+        const pagination = data.pagination;
+        this.lengthBank = pagination.last_page;
+        let arrData = [];
+        data.data.forEach(row => {
+          let item = {
+            id: row.id,
+            account: row.bank_name,
+            account_name: row.account_name,
+            account_number: row.account_number,
+          }
+          arrData.push(item);
+        });
+        this.banks = arrData;
+      })
+    },
     loadData() {
       this.isLoading = true;
       setTimeout(() => {
@@ -177,6 +184,7 @@ export default {
     },
   },
   mounted() {
+    this.loadBank()
     setTimeout(() => {
       this.isLoading = false;
     }, 1500);
