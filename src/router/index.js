@@ -163,7 +163,7 @@ const routes = [
     component: LoginPage,
     meta: {
       requiresAuth: true,
-      isLogin: true,
+      isLogin: false,
     }
   },
 ];
