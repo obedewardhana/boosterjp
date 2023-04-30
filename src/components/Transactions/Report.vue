@@ -63,6 +63,7 @@
                   v-model="seltrans"
                   :items="selecttrans"
                   append-icon="mdi-chevron-down"
+                  @change="selectTrans"
                   label="Permainan"
                   item-text="option"
                   solo
@@ -162,7 +163,7 @@ export default {
         historybet: 10,
       },
       selbet: { option: "Semua" },
-      seltrans: { option: "Deposit" },
+      seltrans: { option: "Semua" },
       selectbet: [
         { option: "Semua" },
         { option: "Sport" },
@@ -287,8 +288,8 @@ export default {
         this.historybet = arrData;
       })
     },
-    async getHistoryTransaction () {
-      await method.get(`transaction?type=transaction&page=${this.page.historytrans}`)
+    async getHistoryTransaction (transactionType) {
+      await method.get(`transaction?type=transaction&transaction_type=${transactionType.toLowerCase()}&page=${this.page.historytrans}`)
       .then((res) => {
         const data = res.data.data;
         const pagination = data.pagination;
@@ -323,6 +324,9 @@ export default {
         this.historytrans = arrData;
       })
     },
+    async selectTrans(event) {
+      await this.getHistoryTransaction(event)
+    },
     loadData() {
       this.isLoading = true;
       setTimeout(() => {
@@ -337,7 +341,7 @@ export default {
   },
   mounted() {
     this.getHistoryBet()
-    this.getHistoryTransaction()
+    this.getHistoryTransaction('')
     setTimeout(() => {
       this.isLoading = false;
     }, 1500);

@@ -115,7 +115,7 @@
             {{ this.member.username }}
           </p>
           <p class="text-p green--text text-bold text-right text-capitalize mb-0">
-            {{ this.balance }}
+            {{ this.loadingMember ? '....' : this.balance }}
           </p>
         </div>
         <v-btn small color="black" width="35" height="35"
@@ -669,6 +669,7 @@ export default {
     drawer: null,
     isXs: false,
     isMd: false,
+    loadingMember: false,
     isLogin: getStore("token") ? true : false,
     member: null,
     links: [
@@ -734,9 +735,13 @@ export default {
       });
     },
     async getNewData() {
+      this.loadingMember = true;
       await method.get('member').then((res) => {
         const data = res.data.data;
-        setStore('member', JSON.stringify(data));
+        setStore('member', JSON.stringify(data));      
+        this.member = data;
+        console.log(this.member);
+        this.loadingMember = false;
       })
     },
     logout() {
@@ -791,6 +796,9 @@ export default {
   },
   mounted() {
     console.log(this.$route.meta.isLogin);
+    setInterval(async () => {
+      await this.getNewData();
+    }, 120000);
     this.checkRoute();
     this.onResize();
     this.checkLogin();

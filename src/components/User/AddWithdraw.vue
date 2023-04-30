@@ -45,20 +45,24 @@
                       </div>
                     </v-col>
                     <v-col cols="7" class="pa-0">
-                      <div class="form-group-single form-disabled">
+                      <div class="form-group-single mb-5"
+                      :class="{ 'form-disabled': isDisabledAccount }">
                         <p style="padding-top: 6px">Nomor Akun Anda</p>
-                        <v-text-field
-                          v-model="account"
-                          placeholder="Sesuai rekening bank anda"
+                        <v-select
+                          @change="memberBankChange"
+                          v-model="selopt"
+                          :items="options"
+                          label="Pilih Akun"
                           solo
                           light
                           flat
+                          return-object
+                          item-text="label"
                           class=""
-                          :class="{ 'form-group--error': $v.account.$error }"
-                          :error-messages="accountErrors"
-                          :disabled="options.length < 1"
-                        >
-                        </v-text-field>
+                          :class="{ 'form-group--error': $v.selopt.$error }"
+                          :disabled="isDisabledAccount"
+                          :error-messages="seloptErrors"
+                        ></v-select>
                       </div>
                     </v-col>
                   </v-row>
@@ -110,32 +114,22 @@
                       Rekening Bank
                     </th>
                     <td class="text-p">
-                      Muhammad Rizky Firdaus <br />
-                      GoPay - 5363
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class="text-left text-p" style="width: 150px">
-                      Rekening Tujuan
-                    </th>
-                    <td class="text-p">
-                      DWI NURHAYATI <br />
-                      DANA - 089519639517
+                      {{ this.selopt.accountName }} <br />
+                      {{this.selopt.label}}
                     </td>
                   </tr>
                   <tr>
                     <th class="text-left text-p" style="width: 150px">
                       Jumlah Ditransfer
                     </th>
-                    <td class="text-p text-bold">Rp 436.346</td>
+                    <td class="text-p text-bold">{{this.rupiahFormat}}</td>
                   </tr>
                   <tr>
                     <th class="text-left text-p" style="width: 150px">
                       Terbilang
                     </th>
                     <td class="text-p text-bold">
-                      EMPAT RATUS TIGA PULUH ENAM RIBU TIGA RATUS EMPAT PULUH
-                      ENAM RUPIAH
+                      {{this.stringFormat.toUpperCase()}}
                     </td>
                   </tr>
                 </table>
@@ -147,7 +141,7 @@
               color="orange"
               class="mt-4 pt-5 pb-5 mb-4 mx-auto text-small text-shadow hover-transparent"
               style="max-width: 550px; width: 100%; border-radius: 8px"
-              @click="e1 = 3"
+              @click="confirmWithdraw"
               ><p class="mb-0 white--text text-h6 text-uppercase">
                 KONFIRMASI
               </p></v-btn
@@ -180,8 +174,7 @@
                 TRANSAKSI BERHASIL
               </p>
               <p class="text-p text-center black--text">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
+                CUSTOMER SERVICE KAMI AKAN SEGERA MEMPROSES TRANSAKSI ANDA
               </p>
 
               <div class="confirm-box">
@@ -191,32 +184,22 @@
                       Rekening Bank
                     </th>
                     <td class="text-p">
-                      Muhammad Rizky Firdaus <br />
-                      GoPay - 5363
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class="text-left text-p" style="width: 150px">
-                      Rekening Tujuan
-                    </th>
-                    <td class="text-p">
-                      DWI NURHAYATI <br />
-                      DANA - 089519639517
+                      {{ this.selopt.accountName }} <br />
+                      {{this.selopt.label}}
                     </td>
                   </tr>
                   <tr>
                     <th class="text-left text-p" style="width: 150px">
                       Jumlah Ditransfer
                     </th>
-                    <td class="text-p text-bold">Rp 436.346</td>
+                    <td class="text-p text-bold">{{this.rupiahFormat}}</td>
                   </tr>
                   <tr>
                     <th class="text-left text-p" style="width: 150px">
                       Terbilang
                     </th>
                     <td class="text-p text-bold">
-                      EMPAT RATUS TIGA PULUH ENAM RIBU TIGA RATUS EMPAT PULUH
-                      ENAM RUPIAH
+                      {{this.stringFormat.toUpperCase()}}
                     </td>
                   </tr>
                 </table>
@@ -246,6 +229,8 @@ import { required, minValue } from "vuelidate/lib/validators";
 
 import swal from "sweetalert2";
 import method from '../../utilities/axios-setup';
+import { rupiah, terbilang } from '../../utilities';
+import Swal from 'sweetalert2';
 window.Swal = swal;
 
 export default {
@@ -258,17 +243,25 @@ export default {
     account: { required },
     selkun: { required },
     amount: { required, minValue: minValue(50000) },
+    selopt: { required },
   },
   data() {
     return {
       e1: 1,
       form_type: "",
       account: "Your account",
+      stringFormat: "",
+      rupiahFormat: "",
       amount: null,
       submitStatus: null,
+      isDisabledAccount: true,
       selkun: "",
+      selopt: "",
       accounttype: ["BCA", "BNI", "Mandiri"],
       options: [],
+      formWithdraw: {
+        member_bank_id: 0
+      }
     };
   },
   computed: {
@@ -282,6 +275,12 @@ export default {
       const errors = [];
       if (!this.$v.selkun.$dirty) return errors;
       !this.$v.selkun.required && errors.push("Pilih tipe akun.");
+      return errors;
+    },
+    seloptErrors() {
+      const errors = [];
+      if (!this.$v.selopt.$dirty) return errors;
+      !this.$v.selopt.required && errors.push("Pilih akun.");
       return errors;
     },
     amountErrors() {
@@ -326,13 +325,34 @@ export default {
     async paymentTypeChange(event) {
       await this.memberBank(event)
       this.selkun = event;
-      this.isDisabled = false;
+      this.isDisabledAccount = false;
     },
     async memberBankChange(event) {
-      const bankName = event.bankName;
-      await this.getAdminBank(bankName);
-      this.formDeposit.member_bank_id = event.value
-      this.showForm = false;
+      this.formWithdraw.member_bank_id = event.value
+    },
+    async getMemberUpdate() {
+      await method.get('member').then((res) => {
+        const data = res.data.data;
+        setStore('member', JSON.stringify(data));
+      })
+    },
+    async confirmWithdraw() {
+      let formData = new FormData();
+      formData.append('amount', this.amount)
+      formData.append('member_bank_id', this.formWithdraw.member_bank_id)
+      await method.post('transaction/withdraw', formData)
+      .then(async (res) => {
+        this.e1 = "3"
+        await this.getMemberUpdate();
+      }).catch((err) => {
+        const error = err.response.data;
+        const status = err.response.status;
+        if (status > 400) {
+          Swal.fire("Failed", error.data, 'error');
+        } else {
+          Swal.fire("Failed", "Terjadi Kesalahan. Mohon ulangi beberasapa saat lagi", 'error')
+        }
+      })
     },
     submit() {
       this.$v.$touch();
@@ -341,6 +361,8 @@ export default {
       } else {
         this.submitStatus = "success";
         this.e1 = "2";
+        this.rupiahFormat = rupiah(this.amount);
+        this.stringFormat = terbilang(parseInt(this.amount));
         this.$vuetify.goTo(0);
       }
     },

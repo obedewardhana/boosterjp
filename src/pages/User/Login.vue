@@ -8,6 +8,7 @@
 <script>
 import LoginComp from "@/components/User/Login.vue";
 import BottomSliderComp from "@/components/BottomSlider.vue";
+import { getStore } from '../../utilities';
 export default {
   name: "RegisterView",
   components: {
@@ -123,5 +124,15 @@ export default {
       },
     ],
   }),
+  methods: {
+    checkLogin() {
+      if (getStore('token')) {
+        this.$router.push('/dashboard');
+      }
+    }
+  },
+  mounted() {
+    this.checkLogin()
+  }
 };
 </script>

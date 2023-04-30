@@ -290,7 +290,7 @@
               <p class="mt-4 mb-2 text-h5 mb-0 black--text text-bold text-center text-uppercase">
                 TRANSAKSI BERHASIL
               </p>
-              <p class="text-p text-center black--text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+              <p class="text-p text-center black--text">CUSTOMER SERVICE KAMI AKAN SEGERA MEMPROSES TRANSAKSI ANDA</p>
 
               <div class="confirm-box">
                 <table style="width: 100%">
@@ -299,8 +299,8 @@
                       Rekening Bank
                     </th>
                     <td class="text-p">
-                      Muhammad Rizky Firdaus <br />
-                      GoPay - 5363
+                      {{ this.selopt.accountName }} <br />
+                      {{this.selopt.label}}
                     </td>
                   </tr>
                   <tr>
@@ -308,23 +308,22 @@
                       Rekening Tujuan
                     </th>
                     <td class="text-p">
-                      DWI NURHAYATI <br />
-                      DANA - 089519639517
+                      {{this.receiver.accountName}} <br />
+                      {{this.receiver.label}}
                     </td>
                   </tr>
                   <tr>
                     <th class="text-left text-p" style="width: 150px">
                       Jumlah Ditransfer
                     </th>
-                    <td class="text-p text-bold">Rp 436.346</td>
+                    <td class="text-p text-bold">{{ this.rupiahFormat }}</td>
                   </tr>
                   <tr>
                     <th class="text-left text-p" style="width: 150px">
                       Terbilang
                     </th>
                     <td class="text-p text-bold">
-                      EMPAT RATUS TIGA PULUH ENAM RIBU TIGA RATUS EMPAT PULUH
-                      ENAM RUPIAH
+                      {{ this.stringFormat.toUpperCase() }}
                     </td>
                   </tr>
                 </table>

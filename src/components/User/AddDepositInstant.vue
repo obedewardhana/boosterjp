@@ -34,6 +34,8 @@
                       label="Bank Tujuan Transfer"
                       solo
                       light
+                      return-object
+                      item-text="label"
                       flat
                       class=""
                       :class="{ 'form-group--error': $v.receiver.$error }"
@@ -92,8 +94,7 @@
             TRANSAKSI BERHASIL
           </p>
           <p class="text-p text-center black--text">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
+            CUSTOMER SERVICE KAMI AKAN SEGERA MEMPROSES TRANSAKSI ANDA
           </p>
         </v-card>
       </v-stepper-content>
@@ -107,6 +108,8 @@ import { required, minValue } from "vuelidate/lib/validators";
 
 import swal from "sweetalert2";
 import { getStore } from "../../utilities";
+import method from '../../utilities/axios-setup';
+import Swal from 'sweetalert2';
 window.Swal = swal;
 
 export default {
@@ -147,13 +150,52 @@ export default {
     },
   },
   methods: {
-    submit() {
+    async getAdminBank() {
+      await method.get(`dataset/admin-bank`)
+      .then((res) => {
+        const data = res.data.data;
+        let arrData = [];
+        data.forEach(row => {
+          let item = {
+            value: row.id,
+            bankName: row.bank_name,
+            accountName: row.account_name,
+            accountNumber: row.account_number,
+            label: row.bank_name +' - '+ row.account_name,
+            logo: row.logo,
+            status: row.status,
+          };
+          arrData.push(item);
+        });
+        this.accounts = arrData;
+      })
+    },
+    async confirmDeposit() {
+      let formData = new FormData();
+      formData.append('amount', this.amount)
+      formData.append('admin_bank_id', this.receiver.value)
+
+      await method.post('transaction/instant-deposit', formData)
+      .then((res) => {
+        this.e1 = "2";
+      }).catch((err) => {
+        const error = err.response.data;
+        const status = err.response.status;
+        if (status > 400) {
+          Swal.fire("Failed", error.data, 'error');
+        } else {
+          Swal.fire("Failed", "Terjadi Kesalahan. Mohon ulangi beberasapa saat lagi", 'error')
+        }
+      })
+    },
+    async submit() {
       this.$v.$touch();
       if (this.$v.$invalid) {
         this.submitStatus = "error";
       } else {
+        await this.confirmDeposit()
         this.submitStatus = "success";
-        this.e1 = "2";
+        
         // Swal.fire("Berhasil!", "Data anda telah berhasil disimpan.", "success");
 
         // Swal.fire(
@@ -165,6 +207,7 @@ export default {
     },
   },
   mounted() {
+    this.getAdminBank()
     setTimeout(() => {
       this.isLoading = false;
     }, 1500);

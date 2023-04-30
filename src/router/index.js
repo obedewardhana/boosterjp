@@ -162,7 +162,7 @@ const routes = [
     name: "Login",
     component: LoginPage,
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
       isLogin: false,
     }
   },
