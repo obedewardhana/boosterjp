@@ -50,7 +50,8 @@
                     <v-progress-circular indeterminate></v-progress-circular>
                   </div>
                   <v-slide-x-transition v-if="!isLoading" mode="out-in" appear>
-                    <HistoryComp absolute :history="history" />
+                    <HistoryComp absolute :history="history" :page="page.history" :length="length.history"
+                      :pageHandler="pageHistoryHandler" />
                   </v-slide-x-transition>
                 </template>
               </v-tab-item>
@@ -90,42 +91,8 @@ export default {
         history: 15,
       },
       deposit: [],
-      withdraw: [
-        {
-          id: "1",
-          date: "Senin,24 April 2023 Pukul 17.00 WIB",
-          sender: "tes",
-          amount: "Rp. 20000",
-          status: "success",
-        },
-        {
-          id: "2",
-          date: "Senin,24 April 2023 Pukul 17.30 WIB",
-          sender: "tes",
-          amount: "Rp. 30000",
-          status: "rejected",
-        },
-      ],
-      history: [
-        {
-          id: "1",
-          date: "Senin,24 April 2023 Pukul 17.30 WIB",
-          bet: "Rp. 12000",
-          result: "Rp. 1200",
-          amount: "Rp. 1200",
-          status: "win",
-          note: "-",
-        },
-        {
-          id: "2",
-          date: "Senin,24 April 2023 Pukul 18.30 WIB",
-          bet: "Rp. 12000",
-          result: "- Rp. 2400",
-          amount: "Rp. 2400",
-          status: "lose",
-          note: "-",
-        },
-      ],
+      withdraw: [],
+      history: [],
     };
   },
   props: {
@@ -141,6 +108,43 @@ export default {
       setTimeout(() => {
         this.isLoading = false;
       }, 400);
+    },
+    async getHistory() {
+      await method.get(`transaction?type=bet&page=${this.page.history}`)
+        .then((res) => {
+          const data = res.data.data;
+          const pagination = data.pagination;
+          this.length.history = pagination.last_page;
+          let arrData = [];
+          data.data.forEach((row) => {
+            let status = '';
+            if (row.status === 0) {
+              status = 'lose'
+            } else if (row.status === 1) {
+              status = 'win'
+            } else {
+              status = 'draw'
+            }
+
+            let item = {
+              id: row.id,
+              date: row.created_at,
+              games: row.game_type,
+              category: "slot",
+              bet: "Rp ." + row.bet,
+              result: row.status === 0 ? "-Rp. " + row.win : "Rp. " + row.win,
+              amount: "Rp. " + row.result,
+              status: status,
+              note: "-",
+            }
+            arrData.push(item);
+          });
+          this.history = arrData;
+        })
+    },
+    async pageHistoryHandler(page) {
+      this.page.history = page;
+      await this.getHistory()
     },
     async getWithdrawHistory() {
       await method.get(`transaction?type=transaction&transaction_type=withdraw&page=${this.page.withdraw}`)
@@ -228,6 +232,7 @@ export default {
     },
   },
   mounted() {
+    this.getHistory()
     this.getWithdrawHistory()
     this.getDepositHistory()
     setTimeout(() => {

@@ -34,6 +34,7 @@
                           v-model="selkun"
                           :items="accounttype"
                           label="Pilih Akun"
+                          @change="paymentTypeChange"
                           solo
                           light
                           flat
@@ -55,7 +56,7 @@
                           class=""
                           :class="{ 'form-group--error': $v.account.$error }"
                           :error-messages="accountErrors"
-                          disabled
+                          :disabled="options.length < 1"
                         >
                         </v-text-field>
                       </div>
@@ -244,6 +245,7 @@ import { validationMixin } from "vuelidate";
 import { required, minValue } from "vuelidate/lib/validators";
 
 import swal from "sweetalert2";
+import method from '../../utilities/axios-setup';
 window.Swal = swal;
 
 export default {
@@ -266,7 +268,7 @@ export default {
       submitStatus: null,
       selkun: "",
       accounttype: ["BCA", "BNI", "Mandiri"],
-      options: ["a", "b", "c"],
+      options: [],
     };
   },
   computed: {
@@ -292,6 +294,46 @@ export default {
     },
   },
   methods: {
+    async paymentType() {
+      console.log('jalan')
+      await method.get('dataset/payment-type').then((res) => {
+        const data = res.data.data;
+        let arrData = [];
+        data.forEach(row => {
+          arrData.push(row.name)
+        });
+        this.accounttype = arrData;
+      });
+    },
+    async memberBank(type) {
+      await method.get(`dataset/user-bank?payment_type=${type}`)
+      .then((res) => {
+        const data = res.data.data;
+        let arrData = [];
+        data.forEach(row => {
+          let item = {
+            value: row.id,
+            accountName: row.account_name,
+            bankName: row.bank_name,
+            label: row.bank_name +' - '+ row.account_number
+          }
+          arrData.push(item);
+        });
+        this.options = arrData;
+        console.log(this.options);
+      })
+    },
+    async paymentTypeChange(event) {
+      await this.memberBank(event)
+      this.selkun = event;
+      this.isDisabled = false;
+    },
+    async memberBankChange(event) {
+      const bankName = event.bankName;
+      await this.getAdminBank(bankName);
+      this.formDeposit.member_bank_id = event.value
+      this.showForm = false;
+    },
     submit() {
       this.$v.$touch();
       if (this.$v.$invalid) {
@@ -306,7 +348,9 @@ export default {
       this.selectedValue = event.target.selectedOptions[0].value;
     },
   },
-  mounted() {},
+  mounted() {
+    this.paymentType()
+  },
 };
 </script>
   

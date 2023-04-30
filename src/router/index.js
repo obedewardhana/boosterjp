@@ -13,6 +13,7 @@ import TransactionPage from "../pages/User/Transaction.vue";
 import ProfilePage from "../pages/User/Profile.vue";
 import ChangePasswordPage from "../pages/User/ChangePassword.vue";
 import DepositPage from "../pages/User/Deposit.vue";
+import LoginPage from "../pages/User/Login.vue";
 import { getStore } from "../utilities";
 
 
@@ -151,6 +152,15 @@ const routes = [
     path: "/deposit",
     name: "Deposit",
     component: DepositPage,
+    meta: {
+      requiresAuth: true,
+      isLogin: true,
+    }
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: LoginPage,
     meta: {
       requiresAuth: true,
       isLogin: true,
