@@ -2,103 +2,51 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <v-card
-          elevation="0"
-          class="mx-auto d-flex pb-3 pt-8 mb-3 flex-row justify-center align-center rounded-md no-bg"
-          style="max-width: 550px; width: 100%; border-radius: 8px"
-        >
-          <v-tabs
-            v-model="tab"
-            align-tabs="center"
-            height="35"
-            class="rounded tab-plain tab-center"
-          >
-            <v-tab
-              :ripple="false"
-              v-for="tabtitle in tabtitles"
-              :key="tabtitle.id"
-              class="no-hover justify-center"
-              @click.stop="loadData()"
-            >
+        <v-card elevation="0" class="mx-auto d-flex pb-3 pt-8 mb-3 flex-row justify-center align-center rounded-md no-bg"
+          style="max-width: 550px; width: 100%; border-radius: 8px">
+          <v-tabs v-model="tab" align-tabs="center" height="35" class="rounded tab-plain tab-center">
+            <v-tab :ripple="false" v-for="tabtitle in tabtitles" :key="tabtitle.id" class="no-hover justify-center"
+              @click.stop="loadData()">
               <p class="text-p mb-0 text-capitalize text-bold grey--text">
                 {{ tabtitle.name }}
               </p>
             </v-tab>
 
-            <v-tabs-items
-              v-model="tab"
-              style="background-color: transparent; min-height: 350px"
-              class="mt-4"
-            >
-              <v-tab-item
-                v-for="tabtitle in tabtitles"
-                :key="tabtitle.id"
-                :transition="false"
-                style="min-height: 150px; height: auto"
-              >
+            <v-tabs-items v-model="tab" style="background-color: transparent; min-height: 350px" class="mt-4">
+              <v-tab-item v-for="tabtitle in tabtitles" :key="tabtitle.id" :transition="false"
+                style="min-height: 150px; height: auto">
                 <template v-if="tab === 0">
-                  <div
-                    v-if="isLoading"
-                    class="d-flex flex-row justify-center align-center pb-8 loader"
-                  >
+                  <div v-if="isLoading" class="d-flex flex-row justify-center align-center pb-8 loader">
                     <v-progress-circular indeterminate></v-progress-circular>
                   </div>
-                  <v-slide-x-transition
-                    v-if="!isLoading"
-                    hide-on-leave
-                    mode="out-in"
-                    appear
-                  >
+                  <v-slide-x-transition v-if="!isLoading" hide-on-leave mode="out-in" appear>
                     <AddDepositComp />
                   </v-slide-x-transition>
                 </template>
 
                 <template v-if="tab === 1">
-                  <div
-                    v-if="isLoading"
-                    class="d-flex flex-row justify-center align-center pb-8 loader"
-                  >
+                  <div v-if="isLoading" class="d-flex flex-row justify-center align-center pb-8 loader">
                     <v-progress-circular indeterminate></v-progress-circular>
                   </div>
-                  <v-slide-x-transition
-                    v-if="!isLoading"
-                    hide-on-leave
-                    mode="out-in"
-                    appear
-                  ><AddWithdrawComp />
+                  <v-slide-x-transition v-if="!isLoading" hide-on-leave mode="out-in" appear>
+                    <AddWithdrawComp />
                   </v-slide-x-transition>
                 </template>
 
                 <template v-if="tab === 2">
-                  <div
-                    v-if="isLoading"
-                    class="d-flex flex-row justify-center align-center pb-8 loader"
-                  >
+                  <div v-if="isLoading" class="d-flex flex-row justify-center align-center pb-8 loader">
                     <v-progress-circular indeterminate></v-progress-circular>
                   </div>
-                  <v-slide-x-transition
-                    v-if="!isLoading"
-                    hide-on-leave
-                    mode="out-in"
-                    appear
-                  >
+                  <v-slide-x-transition v-if="!isLoading" hide-on-leave mode="out-in" appear>
                     <LastTransactionComp :lasttrans="lasttrans" />
                   </v-slide-x-transition>
                 </template>
 
                 <template v-if="tab === 3">
-                  <div
-                    v-if="isLoading"
-                    class="d-flex flex-row justify-center align-center pb-8 loader"
-                  >
+                  <div v-if="isLoading" class="d-flex flex-row justify-center align-center pb-8 loader">
                     <v-progress-circular indeterminate></v-progress-circular>
                   </div>
-                  <v-slide-x-transition
-                    v-if="!isLoading"
-                    hide-on-leave
-                    mode="out-in"
-                    appear
-                  >
+                  <v-slide-x-transition v-if="!isLoading" hide-on-leave mode="out-in" appear>
                     <BankComp :banks="banks" />
                   </v-slide-x-transition>
                 </template>
@@ -111,12 +59,14 @@
     </v-row>
   </v-container>
 </template>
-    <script>
+<script>
 import AddDepositComp from "@/components/User/AddDeposit.vue";
 import AddWithdrawComp from "@/components/User/AddWithdraw.vue";
 import LastTransactionComp from "@/components/Transactions/LastTransaction.vue";
 
 import BankComp from "@/components/User/Bank.vue";
+import method from '../../utilities/axios-setup';
+import { rupiah } from '../../utilities';
 export default {
   name: "DepositComp",
   components: {
@@ -214,6 +164,42 @@ export default {
     };
   },
   methods: {
+    async lastTransaction() {
+      method.get('transaction/last-transaction')
+        .then((res) => {
+          const data = res.data.data;
+          let arrData = [];
+          data.forEach(row => {
+            let status = '';
+            if (row.status === 0) {
+              status = 'pending'
+            } else if (row.status === 1) {
+              status = 'success'
+            } else {
+              status = 'rejected'
+            }
+            let remarks
+            if (row.remarks !== null) {
+              remarks = JSON.parse(row.remarks)
+            } else {
+              remarks = null
+            }
+            let item = {
+              id: row.id,
+              date: row.created_at,
+              account: row.account_name + ' / ' + row.account_number,
+              category: row.type,
+              amount: rupiah(row.amount.toString()),
+              status: status,
+              note: remarks !== null ? remarks.note : null,
+            }
+
+            arrData.push(item);
+          });
+
+          this.lasttrans = arrData;
+        })
+    },
     loadData() {
       this.isLoading = true;
       setTimeout(() => {
@@ -227,6 +213,7 @@ export default {
     },
   },
   mounted() {
+    this.lastTransaction();
     setTimeout(() => {
       this.isLoading = false;
     }, 1500);
