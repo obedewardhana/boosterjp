@@ -203,21 +203,11 @@ export default {
       required: true,
       default: () => [],
     },
-    page: {
-      type: Number,
-      required: true,
-      default: 1,
-    },
     pageHandler : {
       type: Function,
       required: false,
       default: () => null,
     },
-    length: {
-      type: Number,
-      required: true,
-      default: 15,
-    }
   },
   mounted() {
     setTimeout(() => {

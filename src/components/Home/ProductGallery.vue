@@ -96,8 +96,8 @@
             >
               <v-img
                 elevation="4"
-                src="https://dummyimage.com/1250x568/999999/fff.png"
-                lazy-src="https://dummyimage.com/1250x568/999999/fff.png"
+                :src="bannerOneSection"
+                :lazy-src="bannerOneSection"
                 style="cursor: pointer"
                 @click.stop="$router.push('/slot').catch(() => {})"
               >
@@ -150,6 +150,7 @@ export default {
   name: "ProductGalleryComp",
   data() {
     return {
+      bannerOneSection : `${process.env.VUE_APP_BE_URL}images/banner4.png`,
       quicklinks: [
         { id: "1", icon: "mdi mdi-star", text: "Slot", url: "slot" },
         { id: "2", icon: "mdi mdi-star", text: "Casino", url: "casino" },

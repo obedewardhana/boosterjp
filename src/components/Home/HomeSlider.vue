@@ -31,16 +31,16 @@ export default {
     return {
       images: [
         {
-          src: "../../src/img/banner1.png",
+          src: `${process.env.VUE_APP_BE_URL}images/banner1.png`,
         },
         {
-          src: "https://dummyimage.com/3198x1200/eb9150/ffffff.png",
+          src: `${process.env.VUE_APP_BE_URL}images/banner2.png`,
         },
         {
-          src: "https://dummyimage.com/3198x1200/eb9150/ffffff.png",
+          src: `${process.env.VUE_APP_BE_URL}images/banner3.png`,
         },
         {
-          src: "https://dummyimage.com/3198x1200/eb9150/ffffff.png",
+          src: `${process.env.VUE_APP_BE_URL}images/banner1.png`,
         },
       ],
       isLoading: true,

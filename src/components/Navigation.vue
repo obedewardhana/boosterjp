@@ -112,7 +112,7 @@
           <p
             class="text-p white--text text-bold text-right text-capitalize mb-0"
           >
-            {{ this.member.username }}
+            {{ this.member ? this.member.username : '' }}
           </p>
           <p class="text-p green--text text-bold text-right text-capitalize mb-0">
             {{ this.loadingMember ? '....' : this.balance }}

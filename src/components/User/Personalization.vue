@@ -153,7 +153,8 @@ export default {
       await this.getHistoryBet();
     },
     async loadBank() {
-      await method.get(`bank?page=${this.pageBank}`)
+      console.log('test'); 
+      await method.get(`bank?page=1`)
       .then((res) => {
         const data = res.data.data;
         const pagination = data.pagination;
@@ -184,6 +185,7 @@ export default {
     },
   },
   mounted() {
+    console.log('bankk')
     this.loadBank()
     setTimeout(() => {
       this.isLoading = false;

@@ -164,6 +164,25 @@ export default {
     };
   },
   methods: {
+    async loadBank() {
+      await method.get(`bank?page=1`)
+      .then((res) => {
+        const data = res.data.data;
+        const pagination = data.pagination;
+        this.lengthBank = pagination.last_page;
+        let arrData = [];
+        data.data.forEach(row => {
+          let item = {
+            id: row.id,
+            account: row.bank_name,
+            account_name: row.account_name,
+            account_number: row.account_number,
+          }
+          arrData.push(item);
+        });
+        this.banks = arrData;
+      })
+    },
     async lastTransaction() {
       method.get('transaction/last-transaction')
         .then((res) => {
@@ -213,6 +232,7 @@ export default {
     },
   },
   mounted() {
+    this.loadBank();
     this.lastTransaction();
     setTimeout(() => {
       this.isLoading = false;

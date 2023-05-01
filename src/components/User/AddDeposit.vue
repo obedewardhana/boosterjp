@@ -446,9 +446,6 @@ export default {
     },
   },
   methods: {
-    rupiahFormat(string) {
-      rupiah(string)
-    },
     async paymentType() {
       await method.get('dataset/payment-type').then((res) => {
         const data = res.data.data;
