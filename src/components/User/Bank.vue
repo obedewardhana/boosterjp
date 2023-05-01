@@ -36,6 +36,7 @@
                 color="gray"
               >
                 <v-list-item
+                  :disabled="banks.length > 5"
                   class="hover-orange"
                   role="button"
                   style="border-bottom: 1px solid var(--v-dark-base)"
@@ -46,7 +47,9 @@
                     text
                     depressed
                   >
-                    <span class="nav-menu black--text">Tambah Rekening</span>
+                    <span :class="bank.length > 5 ? 'nav-menu black--text not-allowed' : 'nav-menu black--text'">
+                      {{ bank.length > 5 ? "Rekening Penuh" : "Tambah Rekening"  }}
+                    </span>
                   </v-btn>
                 </v-list-item>
                 <!-- <v-list-item
@@ -98,7 +101,7 @@
             </tbody>
           </table>
 
-          <v-pagination @input="pageHandler" v-model="pages" :length="length" :total-visible="7"></v-pagination>
+          <!-- <v-pagination @input="pageHandler" v-model="pages" :length="length" :total-visible="7"></v-pagination> -->
         </v-card>
       </v-col>
     </v-row>
